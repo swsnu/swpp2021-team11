@@ -4,7 +4,7 @@ pipeline {
     stage('Test') {
       steps {
         echo 'Hello!'
-        sh 'docker run -it -v ${PWD}/frontend/soolae:/app --rm --name hw3 node:14.17.6 /bin/bash -c \'cd /app && yarn install && yarn test\''
+        sh 'docker run -v ${PWD}/frontend/soolae:/app --rm --name hw3 node:14.17.6 /bin/bash -c \'cd /app && yarn install && yarn test\''
         cobertura(classCoverageTargets: 'CoberturaPublisher', coberturaReportFile: 'coverage/cobertura-coverage.xml')
       }
     }
