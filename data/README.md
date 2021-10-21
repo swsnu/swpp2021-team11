@@ -1,2 +1,3 @@
-#실행 방법
-python fetch.py
+# 실행 방법
+python fetch_alcohols.py 후
+python fetch_detail_alcohols.py
