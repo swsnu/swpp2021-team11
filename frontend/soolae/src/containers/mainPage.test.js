@@ -1,9 +1,9 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import { Router } from 'react-router';
-import { createMemoryHistory } from "history";
+import { createMemoryHistory } from 'history';
 
-import MainPage from './mainPage'
+import MainPage from './mainPage';
 
 describe('<MainPage />', () => {
     let mainPage, history;

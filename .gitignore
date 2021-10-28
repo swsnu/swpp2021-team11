@@ -1,2 +1,6 @@
 backend/soolae/db.sqlite3
 backend/soolae/soolae/__pycache__
+backend/soolae/main/__pycache__
+backend/soolae/.coverage
+backend/soolae/coverage.xml
+backend/soolae/main/migrations/__pycache__

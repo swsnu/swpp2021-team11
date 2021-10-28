@@ -1,7 +1,7 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import { Router } from 'react-router';
-import { createMemoryHistory } from "history";
+import { createMemoryHistory } from 'history';
 
 import TitleBar from './title';
 
@@ -24,14 +24,14 @@ describe('<TitleBar />', () => {
     it('When click logo, redirect to main. ', () => {
         const component = mount(titleBar);
         const wrapper = component.find('.TitleBar');
-        wrapper.find(".TitleBar button").at(0).simulate('click');
-        expect(history.location.pathname).toBe('/')
+        wrapper.find('.TitleBar button').at(0).simulate('click');
+        expect(history.location.pathname).toBe('/');
     });
 
     it('When click profile, redirect to profile page. ', () => {
         const component = mount(titleBar);
         const wrapper = component.find('.TitleBar');
-        wrapper.find(".TitleBar button").at(1).simulate('click');
-        expect(history.location.pathname).toBe('/profile')
+        wrapper.find('.TitleBar button').at(1).simulate('click');
+        expect(history.location.pathname).toBe('/profile');
     });
 });
