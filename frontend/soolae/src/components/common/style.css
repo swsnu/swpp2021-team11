@@ -18,6 +18,6 @@
 .MenuBar {
     display: flex;
     justify-content: space-between;
-    background-color: rgba(0, 0, 0, 0.356);
+    background-color: rgb(190, 190, 190);
     padding: 10px;
 }
