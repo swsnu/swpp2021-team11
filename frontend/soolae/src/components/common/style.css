@@ -1,0 +1,23 @@
+.TitleBar {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(118, 145, 45);
+    padding: 10px;
+}
+
+.TitleBar button {
+    background-color: rgba(0,0,0,0);
+    border: 0px solid black;
+}
+
+.TitleBar img {
+    height:50px;
+    margin: 10px;
+}
+
+.MenuBar {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(0, 0, 0, 0.356);
+    padding: 10px;
+}
