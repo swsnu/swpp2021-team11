@@ -20,14 +20,14 @@ const rootReducer = combineReducers({
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(rootReducer,
-  composeEnhancers(
-    applyMiddleware(thunk, routerMiddleware(history))));
+    composeEnhancers(
+        applyMiddleware(thunk, routerMiddleware(history))));
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App history={history} />
-  </Provider>,
-  document.getElementById('root'));
+    <Provider store={store}>
+        <App history={history} />
+    </Provider>,
+    document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

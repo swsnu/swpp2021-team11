@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 import TitleBar from '../components/common/title';
 import MenuBar from '../components/common/menuBar';

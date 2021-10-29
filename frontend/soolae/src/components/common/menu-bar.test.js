@@ -1,7 +1,7 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import { Router } from 'react-router';
-import { createMemoryHistory } from "history";
+import { createMemoryHistory } from 'history';
 
 import MenuBar from './menuBar';
 
@@ -24,28 +24,28 @@ describe('<MenuBar />', () => {
     it('When click test, redirect to test. ', () => {
         const component = mount(menuBar);
         const wrapper = component.find('.MenuBar');
-        wrapper.find(".MenuBar button").at(0).simulate('click');
-        expect(history.location.pathname).toBe('/test')
+        wrapper.find('.MenuBar button').at(0).simulate('click');
+        expect(history.location.pathname).toBe('/test');
     });
 
     it('When click add review, redirect to add review. ', () => {
         const component = mount(menuBar);
         const wrapper = component.find('.MenuBar');
-        wrapper.find(".MenuBar button").at(1).simulate('click');
-        expect(history.location.pathname).toBe('/review/add')
+        wrapper.find('.MenuBar button').at(1).simulate('click');
+        expect(history.location.pathname).toBe('/review/add');
     });
 
     it('When click refresh, redirect to refresh. ', () => {
         const component = mount(menuBar);
         const wrapper = component.find('.MenuBar');
-        wrapper.find(".MenuBar button").at(2).simulate('click');
-        expect(history.location.pathname).toBe('/refresh')
+        wrapper.find('.MenuBar button').at(2).simulate('click');
+        expect(history.location.pathname).toBe('/refresh');
     });
 
     it('When click search, redirect to search. ', () => {
         const component = mount(menuBar);
         const wrapper = component.find('.MenuBar');
-        wrapper.find(".MenuBar button").at(3).simulate('click');
-        expect(history.location.pathname).toBe('/search')
+        wrapper.find('.MenuBar button').at(3).simulate('click');
+        expect(history.location.pathname).toBe('/search');
     });
 });
