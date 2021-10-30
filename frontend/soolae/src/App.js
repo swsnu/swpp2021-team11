@@ -6,6 +6,7 @@ import './App.css';
 
 import Login from './containers/login';
 import TasteTest from './components/taste-test';
+import Rec from './components/rec';
 import MainPage from './containers/mainPage';
 
 function App(props) {
@@ -15,6 +16,7 @@ function App(props) {
                 <div className="App" >
                     <Switch>
                         <Route path='/' exact render={() => <TasteTest />} />
+                        <Route path='/rec' exact render={() => <Rec />} />
                         <Route path='/login' exact render={() => <Login />} />
                         <Route path='/main' exact render={() => <MainPage />} />
                         <Redirect exact from='/' to='login' />
