@@ -4,3 +4,4 @@ backend/soolae/main/__pycache__
 backend/soolae/.coverage
 backend/soolae/coverage.xml
 backend/soolae/main/migrations/__pycache__
+.vscode
