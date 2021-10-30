@@ -5,7 +5,7 @@ import MenuBar from '../components/common/menuBar';
 import { withRouter } from 'react-router-dom';
 import './taste-test.css';
 
-function TasteTest() {
+function TasteTest(props) {
 
     //This part may get changed after we discuss more
     //Sample example
@@ -58,6 +58,7 @@ function TasteTest() {
             setCurrentQuestion(nextQuestion);
         } else {
             setShow(true);
+            props.history.push('/rec');
         }
     };
     return (
