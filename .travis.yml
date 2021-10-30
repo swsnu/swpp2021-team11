@@ -1,6 +1,10 @@
 #CI environment
 dist: bionic
 
+branches:
+  only:
+  - master
+
 jobs:
   include:
     - language: python

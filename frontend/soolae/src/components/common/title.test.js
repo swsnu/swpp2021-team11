@@ -1,7 +1,7 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import { Router } from 'react-router';
-import { createMemoryHistory } from 'history';
+import {mount} from 'enzyme';
+import {Router} from 'react-router';
+import {createMemoryHistory} from 'history';
 
 import TitleBar from './title';
 

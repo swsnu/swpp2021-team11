@@ -1,7 +1,7 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import { Router } from 'react-router';
-import { createMemoryHistory } from 'history';
+import {mount} from 'enzyme';
+import {Router} from 'react-router';
+import {createMemoryHistory} from 'history';
 
 import MainPage from './mainPage';
 
@@ -20,5 +20,4 @@ describe('<MainPage />', () => {
         const wrapper = component.find('.MainPage');
         expect(wrapper.length).toBe(1);
     });
-
 });
