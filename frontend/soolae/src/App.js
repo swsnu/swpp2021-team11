@@ -22,7 +22,7 @@ function App(props) {
                         <Route path='/login' exact render={() => <Login />} />
                         <Route path='/main' exact render={() => <MainPage />} />
                         <Route path='/search' exact render={() => <SearchPage />}/>
-                        <Route path='/search/:id' exact rener={() => <CategoryDetail />}/>
+                        <Route path='/search/:id' exact render={() => <CategoryDetail />}/>
                         <Redirect exact from='/' to='login' />
                         <Route render={() => <h1>Not Found</h1>} />
                     </Switch>
