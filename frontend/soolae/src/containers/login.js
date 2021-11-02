@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { connect } from 'react-redux';
 
 class Login extends Component {
     state={email:'', password:''}
@@ -26,4 +25,4 @@ class Login extends Component {
     }
 }
 
-  export default Login;
+export default Login;
