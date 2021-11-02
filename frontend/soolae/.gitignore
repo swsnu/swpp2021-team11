@@ -1,0 +1,5 @@
+#ignore below paths
+
+#dependencies
+/node_modules
+/coverage
