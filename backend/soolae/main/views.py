@@ -1,3 +1,18 @@
-from django.shortcuts import render
+from django.http import HttpResponse ,JsonResponse
 
-# Create your views here.
+def recommend(request):
+    result = [
+        {
+            'id': 1,
+            'name': 'makgeoli'
+        },
+        {
+            'id': 3,
+            'name': 'wine'
+        },
+        {
+            'id': 6,
+            'name': 'soju'
+        }
+    ]
+    return JsonResponse(result, status = 200, safe = False)

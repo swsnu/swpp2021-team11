@@ -37,20 +37,21 @@
     ]
   },
   "devDependencies": {
-    "axios": "^0.23.0",
+    "axios": "^0.24.0",
     "babel-eslint": "^10.1.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-17-updated": "^1.0.2",
     "enzyme-to-json": "^3.6.2",
     "eslint": "^7.32.0",
     "eslint-plugin-react": "^7.26.1",
-    "react-redux": "^7.2.5",
+    "react-redux": "^7.2.6",
     "react-router": "^5.2.1",
     "react-router-dom": "^5.3.0",
-    "redux": "^4.1.1",
+    "redux": "^4.1.2",
     "redux-thunk": "^2.3.0"
   },
   "jest": {
     "resetMocks": false
-  }
+  },
+  "proxy": "http://localhost:8000"
 }
