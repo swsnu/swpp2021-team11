@@ -1,3 +1,4 @@
+# pylint: disable=unused-argument
 from django.http import HttpResponse ,JsonResponse
 
 def recommend(request):
