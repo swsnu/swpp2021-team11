@@ -12,10 +12,12 @@ import thunk from 'redux-thunk';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 
+import alcoholReducer from './store/reducers/alcoholReducer';
 
 const history = createBrowserHistory();
 const rootReducer = combineReducers({
     router: connectRouter(history),
+    alcohol: alcoholReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
