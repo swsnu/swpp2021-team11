@@ -38,6 +38,7 @@
   },
   "devDependencies": {
     "axios": "^0.23.0",
+    "babel-eslint": "^10.1.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-17-updated": "^1.0.2",
     "enzyme-to-json": "^3.6.2",

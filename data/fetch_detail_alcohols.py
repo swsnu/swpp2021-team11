@@ -14,7 +14,6 @@ async def fetch_detail_alcohols(product_id):
             with open(pathname, "w", encoding='UTF-8') as f:
                 json.dump(await res.json(), f, ensure_ascii=False)
 
-
 tasks = [fetch_detail_alcohols(alcohol['id']) for alcohol in json_data["result"]["rows"]]
 
 loop = asyncio.get_event_loop()

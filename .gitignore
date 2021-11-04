@@ -3,4 +3,5 @@ backend/**/__pycache__
 backend/soolae/.coverage
 backend/soolae/coverage.xml
 backend/soolae/main/migrations/__pycache__
+frontend/soolae/node_modules/
 .vscode

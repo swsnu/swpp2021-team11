@@ -5,10 +5,14 @@ module.exports = {
         node: true,
         jest: true,
     },
-    extends: ['eslint:recommended', 'plugin:prettier/recommended', 'plugin:react/recommended'],
-    parserOptions: {
-        ecmaFeatures: {
-            jsx: true,
+    'extends': [
+        'eslint:recommended',
+        'plugin:react/recommended'
+    ],
+    'parser': 'babel-eslint',
+    'parserOptions': {
+        'ecmaFeatures': {
+            'jsx': true
         },
         ecmaVersion: 12,
         sourceType: 'module',
