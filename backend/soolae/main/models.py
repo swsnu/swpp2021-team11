@@ -8,6 +8,9 @@ class SoolMaterial(models.Model):
     material_image = models.CharField(max_length=100)
     name = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.name
+
 class SoolMaker(models.Model):
     name = models.CharField(max_length=100)
     official_name = models.CharField(max_length=120)
@@ -19,21 +22,40 @@ class SoolMaker(models.Model):
     report_number = models.CharField(max_length=50)
     maker_image = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.name
+    
+
 class SoolTag(models.Model):
     name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
 
 class SoolCategory(models.Model):
     name = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.name
+
 class SoolDistinction(models.Model):
     name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
 
 class TasteStandard(models.Model):
     name = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.name
+
 class Anju(models.Model):
     name = models.CharField(max_length=100)
     anju_image = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
 
 class Sool(models.Model):
     name = models.CharField(max_length=100)
@@ -70,3 +92,6 @@ class Sool(models.Model):
     sool_material = models.ManyToManyField(SoolMaterial, related_name='sool')
     sool_tag = models.ManyToManyField(SoolTag, related_name='sool')
     anju = models.ManyToManyField(Anju, related_name='sool')
+
+    def __str__(self):
+        return self.name

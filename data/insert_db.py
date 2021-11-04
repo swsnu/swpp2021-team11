@@ -30,7 +30,7 @@ for i in file_list:
         json_data = json.load(json_file)
         material_list = []
         try:
-            if json_data['result']['sool']['materials'] is not list:
+            if not isinstance(json_data['result']['sool']['materials'], list):
                 raise
             material_list = json_data['result']['sool']['materials']
         except:
@@ -69,8 +69,8 @@ for i in file_list:
         try:
             anju_list = json_data['result']['sool']['foods']
             for j in anju_list:
-                if not Anju.objects.filter(name=j).exists():
-                    Anju(name=j).save()
+                if not Anju.objects.filter(name=j['name']).exists():
+                    Anju(name=j['name']).save()
         except:
             pass
         try:
@@ -144,13 +144,13 @@ for i in file_list:
             try:
                 anju_list = json_data['result']['sool']['foods']
                 for j in anju_list:
-                    soolObj.anju.add(Anju.objects.get(name=j))
+                    soolObj.anju.add(Anju.objects.get(name=j['name']))
             except:
                 pass
             try:
                 material_list = json_data['result']['sool']['materials']
                 for j in material_list:
-                    soolObj.sool_material.add(SoolMaterial.objects.get(name=j))
+                    soolObj.sool_material.add(SoolMaterial.objects.get(name=j['name']))
             except:
                 pass
         except Exception as e:
