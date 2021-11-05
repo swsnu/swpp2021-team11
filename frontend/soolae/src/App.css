@@ -1,12 +1,10 @@
 .App {
-  background-color: rgb(44, 44, 44);
-  width: 100%;
+    background-color: rgb(44, 44, 44);
+    width: 100%;
 }
 
-@media (min-width: 1024px)
-{
-  .App{
-    width: 1024px
-  }
+@media (min-width: 1024px) {
+    .App {
+        width: 1024px;
+    }
 }
-

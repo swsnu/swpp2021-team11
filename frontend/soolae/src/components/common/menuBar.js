@@ -1,17 +1,41 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom'; 
+import {withRouter} from 'react-router-dom';
 
 import './style.css';
 
-const MenuBar = props => {
+const MenuBar = (props) => {
     return (
         <div className="MenuBar">
             <div>
-                <button onClick={() => {props.history.push('/test');}}>test</button>
-                <button onClick={() => {props.history.push('/review/add');}}>add</button>
-                <button onClick={() => {props.history.push('/refresh');}}>refresh</button>
+                <button
+                    onClick={() => {
+                        props.history.push('/test');
+                    }}
+                >
+                    test
+                </button>
+                <button
+                    onClick={() => {
+                        props.history.push('/review/add');
+                    }}
+                >
+                    add
+                </button>
+                <button
+                    onClick={() => {
+                        props.history.push('/refresh');
+                    }}
+                >
+                    refresh
+                </button>
             </div>
-            <button onClick={() => {props.history.push('/search');}}>Search</button>
+            <button
+                onClick={() => {
+                    props.history.push('/search');
+                }}
+            >
+                Search
+            </button>
         </div>
     );
 };
