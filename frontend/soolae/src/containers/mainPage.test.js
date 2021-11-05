@@ -29,5 +29,4 @@ describe('<MainPage />', () => {
         const wrapper = component.find('.MainPage');
         expect(wrapper.length).toBe(1);
     });
-
 });
