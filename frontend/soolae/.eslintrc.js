@@ -14,13 +14,12 @@ module.exports = {
         ecmaVersion: 12,
         sourceType: 'module',
     },
-    plugins: ['prettier', 'react'],
+    plugins: ['react'],
     rules: {
         indent: ['error', 4],
         'linebreak-style': ['error', 'unix'],
         quotes: ['error', 'single'],
         semi: ['error', 'always'],
-        'react/prop-types': [0],
-        'prettier/prettier': 'error',
+        'react/prop-types': [0]
     },
 };
