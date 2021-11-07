@@ -68,7 +68,7 @@ class Sool(models.Model):
     name = models.CharField(max_length=100)
     long_name = models.CharField(max_length=200)
     price = models.PositiveIntegerField()
-    sool_image = models.CharField(max_length=100)
+    sool_image = models.ImageField(upload_to="info_image", blank=True)
 
     alcohol_content = models.DecimalField(max_digits=3, decimal_places=1)
     expire_info = models.CharField(max_length=100)
@@ -122,7 +122,7 @@ class Sool(models.Model):
 class Review(models.Model):
     star_rating = models.IntegerField()
     sool = models.ForeignKey(Sool, on_delete=CASCADE, related_name="sool_review")
-    image = models.CharField(max_length=100)
+    image = models.ImageField(upload_to="review_image", blank=True)
     content = models.TextField()
 
     def __str__(self):
