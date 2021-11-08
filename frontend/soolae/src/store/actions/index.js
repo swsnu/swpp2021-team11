@@ -1,0 +1,1 @@
+export {getAlcoholInfo} from './actionCreators';
