@@ -4,7 +4,8 @@ import {ConnectedRouter} from 'connected-react-router';
 
 import './App.css';
 
-import Login from './containers/login';
+import SignIn from './containers/signIn';
+import SignUp from './containers/signUp';
 import TasteTest from './components/taste-test';
 import TestResult from './components/testResult';
 import MainPage from './containers/mainPage';
@@ -22,7 +23,8 @@ function App(props) {
                     <Switch>
                         <Route path='/test' exact render={() => <TasteTest />} />
                         <Route path='/rec' exact render={() => <TestResult />} />
-                        <Route path='/login' exact render={() => <Login />} />
+                        <Route path='/signin' exact render={() => <SignIn />} />
+                        <Route path='/signup' exact render={() => <SignUp />} />
                         <Route path='/main' exact render={() => <MainPage />} />
                         <Route path='/search' exact render={() => <SearchPage />}/>
                         <Route path='/search/:id' exact render={() => <CategoryDetail />}/>

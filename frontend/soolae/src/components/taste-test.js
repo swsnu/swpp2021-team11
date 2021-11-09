@@ -6,6 +6,7 @@ import TitleBar from '../components/common/title';
 import MenuBar from '../components/common/menuBar';
 import {withRouter} from 'react-router-dom';
 import './taste-test.css';
+import SignOut from './common/signOut';
 
 function TasteTest(props) {
     //This part may get changed after we discuss more
@@ -55,6 +56,7 @@ function TasteTest(props) {
     return (
         <div className="taste-test" id="padding">
             <div className="MainPage">
+                <SignOut />
                 <TitleBar />
                 <MenuBar />
             </div>

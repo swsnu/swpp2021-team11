@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import TitleBar from '../components/common/title';
 import MenuBar from '../components/common/menuBar';
 import Recommendation from './Recommend/recommendation';
+import SignOut from '../components/common/signOut';
 
 class MainPage extends React.Component {
 
@@ -17,6 +18,7 @@ class MainPage extends React.Component {
         let list = this.props.storedRecommendations;
         return (
             <div className="MainPage">
+                <SignOut />
                 <TitleBar />
                 <MenuBar />
                 {(list[0] != null) && (
