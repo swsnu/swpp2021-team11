@@ -8,6 +8,16 @@ export const getRecommendationList = () => {
     };
 };
 
+export const getAlcoholInfo_ = (data) => {
+    return { type: actionTypes.GET_ALCOHOL_INFO, alcohol_info:data};
+};
+
+export const getAlcoholInfo = (id) => {
+    return dispatch => {
+        return axios.get('/api/alcohol/' + id).then(res=> dispatch(getAlcoholInfo_(res.data)));
+    };
+};
+
 export const getTestResult = () => {
     return dispatch => {
         return axios.get('/api/test/')
