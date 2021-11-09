@@ -15,6 +15,9 @@ export const getAlcoholInfo_ = (data) => {
 export const getAlcoholInfo = (id) => {
     return dispatch => {
         return axios.get('/api/alcohol/' + id).then(res=> dispatch(getAlcoholInfo_(res.data)));
+    };
+};
+
 export const getTestResult = () => {
     return dispatch => {
         return axios.get('/api/test/')
