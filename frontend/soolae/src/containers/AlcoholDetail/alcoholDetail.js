@@ -1,8 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router';
+import TitleBar from '../../components/common/title';
+import MenuBar from '../../components/common/menuBar';
 
 import * as actionCreators from '../../store/actions/index';
+import AlcoholDetailInfo from '../../components/alcohol_info';
 
 const mapStateToProps = state => {
     return {
@@ -31,15 +34,16 @@ class AlcoholDetail extends React.Component{
     render() {
         if(!this.state.loaded)
         {
-            return (<div>Loading...</div>);
+            return (<><TitleBar/><MenuBar/>Loading...
+            </>);
         }
         else
         {
-            return(
-                <div className="alcohol_detail_page">
-                    {this.props.alcohol_infos[0].name}
-                </div>
-            );
+            return(<>
+                <TitleBar/>
+                <MenuBar/>
+                <AlcoholDetailInfo alcohol_info={this.props.alcohol_infos[0]}/>
+            </>);
         }
     }
 }

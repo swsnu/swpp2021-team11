@@ -1,12 +1,17 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
 
-const TitleBar = (props) => {
+const AlcoholDetailInfo = (props) => {
     return (
         <div>
-            <span>{props.name}</span>
+            <span>Name: {props.alcohol_info.name}</span>
+            <img 
+                src={props.alcohol_info.alcohol_image}
+                alt="Grapefruit slice atop a pile of other slices"/>
+            <span>Alcohol Content: {props.alcohol_info.alcohol_content}</span>
+            <span>Price: KRW{props.alcohol_info.price}</span>
         </div>
     );
 };
 
-export default withRouter(TitleBar);
+export default withRouter(AlcoholDetailInfo);
