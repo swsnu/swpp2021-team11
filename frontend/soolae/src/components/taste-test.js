@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
-import {Redirect} from 'react-router';
+import * as actionCreators from '../store/actions/actionCreators';
+import {connect} from 'react-redux';
+
 import TitleBar from '../components/common/title';
 import MenuBar from '../components/common/menuBar';
 import {withRouter} from 'react-router-dom';
@@ -38,14 +40,15 @@ function TasteTest(props) {
     ];
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
-    const [result, setShow] = useState(false);
+    const [answers, setAnswers] = useState([]);     //saved and sent to backend server
 
-    const handleAnswerOptionClick = () => {
+    const handleAnswerOptionClick = (answer) => {
+        setAnswers(answers.concat(answer));
         const nextQuestion = currentQuestion + 1;
         if (nextQuestion < questions.length) {
             setCurrentQuestion(nextQuestion);
         } else {
-            setShow(true);
+            props.getTestResult(answers);
             props.history.push('/rec');
         }
     };
@@ -55,11 +58,7 @@ function TasteTest(props) {
                 <TitleBar />
                 <MenuBar />
             </div>
-            {result ? (
-                <div className="rec">
-                    <Redirect exact from="/" to="rec" />
-                </div>
-            ) : (
+            {(
                 <>
                     <div className="question-section">
                         <div className="question-title">
@@ -70,11 +69,11 @@ function TasteTest(props) {
                         </div>
                     </div>
                     <div className="answer-section">
-                        {questions[currentQuestion].answerOptions.map((answerOption) => (
+                        {questions[currentQuestion].answerOptions.map((answerOption, index) => (
                             <button
                                 id="button"
                                 key={questions.findIndex.toString()}
-                                onClick={() => handleAnswerOptionClick()}
+                                onClick={() => handleAnswerOptionClick(index)}
                             >
                                 {answerOption.answerText}
                             </button>
@@ -86,4 +85,11 @@ function TasteTest(props) {
     );
 }
 
-export default withRouter(TasteTest);
+const mapDispatchToProps = dispatch => {
+    return {
+        getTestResult: () => dispatch(actionCreators.getTestResult()),
+    };
+};
+
+export default withRouter(connect(null, mapDispatchToProps)(TasteTest));
+

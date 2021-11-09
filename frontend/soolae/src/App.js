@@ -6,6 +6,7 @@ import './App.css';
 
 import Login from './containers/login';
 import TasteTest from './components/taste-test';
+import TestResult from './components/testResult';
 import MainPage from './containers/mainPage';
 import SearchPage from './containers/searchPage/searchPage';
 import CategoryDetail from './containers/CategoryDetail/categoryDetail';
@@ -19,7 +20,8 @@ function App(props) {
             <div style={{display: 'flex', justifyContent: 'center'}}>
                 <div className="App">
                     <Switch>
-                        <Route path='/' exact render={() => <TasteTest />} />
+                        <Route path='/test' exact render={() => <TasteTest />} />
+                        <Route path='/rec' exact render={() => <TestResult />} />
                         <Route path='/login' exact render={() => <Login />} />
                         <Route path='/main' exact render={() => <MainPage />} />
                         <Route path='/search' exact render={() => <SearchPage />}/>
@@ -27,7 +29,7 @@ function App(props) {
                         <Route path='/alcohol/:id' exact render={() => <AlcoholDetail />}/>
                         <Route path='/write-review/:id' exact render={() => <WriteReview />}/>
                         <Route path='/reivew/:id' exact render={() => <ReviewDetail />}/>
-                        <Redirect exact from='/' to='login' />
+                        <Redirect exact from='/' to='test' />
                         <Route render={() => <h1>Not Found</h1>} />
                     </Switch>
                 </div>

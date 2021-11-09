@@ -11,6 +11,8 @@ const reducer = (state = initialState, action) => {
         return {...state, recommended: action.recommended};
     case actionTypes.GET_ALCOHOL_INFO:
         return {...state, alcohol_info: [...state.alcohol_info, action.alcohol_info]};
+    case actionTypes.GET_TEST_RESULT:
+        return {...state, recommended: action.recommended};
     default:
         return state;
     }
