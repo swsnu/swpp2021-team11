@@ -1,10 +1,10 @@
 import json
-from django.http import HttpResponse ,JsonResponse, HttpResponseNotAllowed
+from django.http import HttpResponse ,JsonResponse, HttpResponseNotAllowed, response
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import get_user_model
-from .models import Sool
+from .models import Sool, SoolCategory
 
 User = get_user_model()
 
@@ -64,10 +64,41 @@ def user_profile(request, user_id = 0):
         return JsonResponse(result, status = 201, safe = False)
     return HttpResponseNotAllowed(['GET', 'PUT'])
 
-def alcohol_info(request, alcohol_id = 0):
+def alcohol_info(request, alcohol_id):
     if request.method == 'GET':
         result = Sool.objects.filter(id = alcohol_id).values()
-        return JsonResponse(result, status = 200)
+        return JsonResponse(result[0], status = 200, safe=False, json_dumps_params={'ensure_ascii': False})
+    return HttpResponseNotAllowed(['GET'])
+
+def alcohol(request):
+    if request.method == 'GET':
+        alcohol_list = [alcohol for alcohol in Sool.objects.all().values()]
+        return JsonResponse(alcohol_list, safe=False, json_dumps_params={'ensure_ascii': False})
+    else:
+        return HttpResponseNotAllowed(['GET'])
+
+def category_list(request):
+    if request.method == 'GET':
+        category_list = [category for category in SoolCategory.objects.all().values()]
+        response_list = []
+        for category in category_list:
+            response_list.append({'id': category['id'], 'name': category['name']})
+        return JsonResponse(response_list, safe=False, json_dumps_params={'ensure_ascii': False})
+    else:
+        return HttpResponseNotAllowed(['GET'])
+
+def category(request, category_id):
+    if request.method == 'GET':
+        category = SoolCategory.objects.get(id = category_id)
+        response = {'id': category.id, 'name': category.name}
+        return JsonResponse(response, safe=False, json_dumps_params={'ensure_ascii': False})
+    else:
+        return HttpResponseNotAllowed(['GET'])
+
+def category_alcohol(request, category_id):
+    if request.method == 'GET':
+        response_list = [s for s in SoolCategory.objects.get(id = category_id).sool.values()]
+        return JsonResponse(response_list, status = 200, safe = False, json_dumps_params={'ensure_ascii': False})
     return HttpResponseNotAllowed(['GET'])
 
 def test(request):
