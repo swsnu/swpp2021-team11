@@ -8,6 +8,13 @@ export const getRecommendationList = () => {
     };
 };
 
+export const getReviewList = () => {
+    return dispatch => {
+        return axios.get('/api/review/')
+            .then(res => {dispatch({type: actionTypes.GET_REVIEW_LIST, reviews: res.data});});
+    };
+};
+
 export const getTestResult = () => {
     return dispatch => {
         return axios.get('/api/test/')

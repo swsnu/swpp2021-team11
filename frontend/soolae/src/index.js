@@ -13,11 +13,13 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 
 import alcoholReducer from './store/reducers/alcoholReducer';
+import reviewReducer from './store/reducers/reviewReducer';
 
 const history = createBrowserHistory();
 const rootReducer = combineReducers({
     router: connectRouter(history),
     alcohol: alcoholReducer,
+    review: reviewReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

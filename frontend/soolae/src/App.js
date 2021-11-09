@@ -12,6 +12,7 @@ import SearchPage from './containers/searchPage/searchPage';
 import CategoryDetail from './containers/CategoryDetail/categoryDetail';
 import AlcoholDetail from './containers/AlcoholDetail/alcoholDetail';
 import WriteReview from './containers/Review/WriteReview/writeReview';
+import ReviewList from './containers/Review/reviewList';
 import ReviewDetail from './containers/Review/ReviewDetail/reviewDetail';
 
 function App(props) {
@@ -28,7 +29,8 @@ function App(props) {
                         <Route path='/search/:id' exact render={() => <CategoryDetail />}/>
                         <Route path='/alcohol/:id' exact render={() => <AlcoholDetail />}/>
                         <Route path='/write-review/:id' exact render={() => <WriteReview />}/>
-                        <Route path='/reivew/:id' exact render={() => <ReviewDetail />}/>
+                        <Route path='/review/' exact render={() => <ReviewList />}/>
+                        <Route path='/review/:id' exact render={() => <ReviewDetail />}/>
                         <Redirect exact from='/' to='test' />
                         <Route render={() => <h1>Not Found</h1>} />
                     </Switch>

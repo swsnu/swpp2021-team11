@@ -4,7 +4,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import get_user_model
-from .models import Sool
+from .models import Sool, Review
 
 User = get_user_model()
 
@@ -112,4 +112,38 @@ def recommend(request):
             }
         ]
         return JsonResponse(result, status = 200, safe = False)
+    return HttpResponseNotAllowed(['GET'])
+
+def review_list(request):
+    if request.method == 'GET':
+        result = [
+            {
+                'id': 1,
+                'title': 'good sool',
+                'content': 'very nice',
+                'author_id': 1,
+            },
+            {
+                'id': 2,
+                'title': 'good sool2',
+                'content': 'very nice2',
+                'author_id': 2,
+            },
+        ]
+        return JsonResponse(result, status = 200, safe = False)
+    return HttpResponseNotAllowed(['GET'])
+
+def review_detail(request, review_id):
+    if request.method == 'GET':
+        try:
+            review = Review.objects.get(id = review_id)
+        except Review.DoesNotExist:
+            return HttpResponse(status = 404)
+        result = {
+                'id': review_id,
+                'title': 'good sool',
+                'content': 'very nice',
+                'author_id': review.author,
+            }
+        return JsonResponse(result, status = 200)
     return HttpResponseNotAllowed(['GET'])

@@ -9,4 +9,6 @@ urlpatterns = (
     path('alcohol/<int:alcohol_id>/', views.alcohol_info, name = 'alcohol_info'),
     path('test/', views.test, name = 'test'),
     path('recommend/', views.recommend, name = 'recommend'),
+    path('review/', views.review_list, name = 'review_list'),
+    path('review/<int:review_id>/', views.review_detail, name = 'review_detail')
 )

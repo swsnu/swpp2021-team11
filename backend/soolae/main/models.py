@@ -1,6 +1,8 @@
 from django.db import models
 from django.db.models.deletion import CASCADE
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 
 class SoolMaterial(models.Model):
     material_image = models.CharField(max_length=100)
@@ -121,6 +123,7 @@ class Review(models.Model):
     sool = models.ForeignKey(Sool, on_delete=CASCADE, related_name="sool_review")
     image = models.CharField(max_length=100)
     content = models.TextField()
+    author = models.ForeignKey(User, on_delete=CASCADE, related_name="review", default = 1)
 
     def __str__(self):
         return f"Review of {self.sool}, id:{self.id}"
