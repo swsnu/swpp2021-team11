@@ -1,33 +1,51 @@
 import React from 'react';
-
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import TitleBar from '../../components/common/title';
+import MenuBar from '../../components/common/menuBar';
 import CategorySearchForm from '../../components/searchPage/categorySearchForm';
 import WordSearchForm from '../../components/searchPage/wordSearchForm';
 
+import * as actionCreators from '../../store/actions/index';
+
+const mapStateToProps = state => {
+    return {
+        category_list: state.category.category
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onGetAll: () => {return dispatch(actionCreators.getCategories());}
+    };
+};
+
 class SearchPage extends React.Component{
-    state = {
-        category_list : [
-            {id: 1, category:'Category 1', info: 'Category 1 info'},
-            {id: 2, category:'Category 2', info: 'Category 2 info'},
-            {id: 3, category:'Category 3', info: 'Category 3 info'},
-            {id: 4, category:'Category 4', info: 'Category 4 info'},
-            {id: 5, category:'Category 5', info: 'Category 5 info'},
-        ]
-    }; // category example
+    
+    constructor(props){
+        super(props);
+        this.state = {loaded:false};
+    }
+
+    componentDidMount(){
+        this.props.onGetAll().then(()=>{this.setState({loaded:true});});
+    }
 
     render() {
-        return (
-            <div className="search_page">
-                <div className="word_search_form">
-                    <WordSearchForm/>
-                </div>
-                <div className="category_search_form">
-                    <CategorySearchForm
-                        categorylist = {this.state.category_list}
-                    />
-                </div>
-            </div>
-        );
+        if(!this.state.loaded)
+        {
+            return (<><TitleBar/><MenuBar/>Loading...
+            </>);
+        }
+        else
+        {
+            return(<div>
+                <TitleBar/>
+                <WordSearchForm/>
+                <CategorySearchForm categorylist={this.props.category_list}/>
+            </div>);
+        }
     }
 }
 
-export default SearchPage;
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SearchPage));

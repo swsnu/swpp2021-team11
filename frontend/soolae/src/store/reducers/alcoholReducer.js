@@ -2,7 +2,8 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
     recommended:[],
-    alcohol_info:[]
+    alcohol_info:[],
+    category_alcohols:[],
 };
 
 const reducer = (state = initialState, action) => {
@@ -13,6 +14,8 @@ const reducer = (state = initialState, action) => {
         return {...state, alcohol_info: [...state.alcohol_info, action.alcohol_info]};
     case actionTypes.GET_TEST_RESULT:
         return {...state, recommended: action.recommended};
+    case actionTypes.GET_CATEGORY_ALCOHOLS:
+        return {...state, category_alcohols: action.category_alcohols};
     default:
         return state;
     }

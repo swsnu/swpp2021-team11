@@ -4,10 +4,12 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 
 import alcoholReducer from './reducers/alcoholReducer';
+import categoryReducer from './reducers/categoryReducer';
 
 export const history = createBrowserHistory();
 const rootReducer = combineReducers({
     alcohol: alcoholReducer,
+    category: categoryReducer,
     router: connectRouter(history),
 });
 export const middlewares = [thunk, routerMiddleware(history)];
