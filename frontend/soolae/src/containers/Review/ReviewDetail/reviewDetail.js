@@ -13,17 +13,21 @@ class ReviewDetail extends React.Component{
         if(this.props.storedReview == null || this.props.storedReview.id != this.props.match.params.id){
             return <h1>Loading...</h1>;
         }
+        console.log(this.props.storedReview);
         return (
             <div className="review_detail_page">
-                <div className="review_detail_title">
+                <h2 className="review_detail_title">
                     {this.props.storedReview.title}
+                </h2>
+                <div className="review_detail_sool">
+                    Sool: {this.props.storedReview.sool_id}
                 </div>
-                <div className="review_detail_image">
-                    {this.props.storedReview.image}
+                <div className="review_detail_rating">
+                    Rating: {this.props.storedReview.star_rating}
                 </div>
-                <div className="review_detail_content">
+                <p className="review_detail_content">
                     {this.props.storedReview.content}
-                </div>
+                </p>
             </div>
         );
     }

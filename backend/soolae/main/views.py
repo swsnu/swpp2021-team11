@@ -136,8 +136,6 @@ def test(request):
             'image': str(sool.sool_image),
             'rating': sool.get_star_rating(),
         }
-        print(sool.sool_image)
-        print(str(sool.sool_image))
         return JsonResponse(result, status=200)
     return HttpResponseNotAllowed(["GET"])
 
@@ -192,8 +190,9 @@ def review_detail(request, review_id):
                 'title': review.title,
                 'content': review.content,
                 'author_id': review.author.id,
+                'star_rating': review.star_rating,
+                'sool_id': review.sool.id,
             }
-        print(result)
         return JsonResponse(result, status = 200)
     if request.method == 'DELETE':
         Review.objects.filter(id = review_id).delete()

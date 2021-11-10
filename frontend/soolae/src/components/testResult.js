@@ -15,14 +15,13 @@ class TestResult extends React.Component {
                 </div>
             );
         }
-        console.log(this.props.storedResult);
         return (
             <div className='result'>
                 <h2>Test Result</h2>
                 <h3>{this.props.storedResult.name}</h3>
-                <h3>{this.props.storedResult.price}</h3>
+                <h3>{this.props.storedResult.price}원</h3>
                 <h3>{this.props.storedResult.image}</h3>
-                <h3>{this.props.storedResult.rating}</h3>
+                <h3>{this.props.storedResult.rating}점</h3>
             </div>
         );
     }

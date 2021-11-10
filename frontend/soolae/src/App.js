@@ -6,7 +6,9 @@ import './App.css';
 
 import TitleBar from './components/common/title';
 import MenuBar from './components/common/menuBar';
-import Login from './containers/login';
+import SignUp from './containers/signUp.js';
+import SignIn from './containers/signIn';
+import SignOut from './components/common/signOut';
 import TasteTest from './components/taste-test';
 import TestResult from './components/testResult';
 import MainPage from './containers/mainPage';
@@ -22,12 +24,14 @@ function App(props) {
         <ConnectedRouter history={props.history}>
             <div style={{display: 'flex', justifyContent: 'center'}}>
                 <div className="App">
+                    <SignOut />
                     <TitleBar />
                     <MenuBar />
                     <Switch>
                         <Route path='/test' exact render={() => <TasteTest />} />
                         <Route path='/rec' exact render={() => <TestResult />} />
-                        <Route path='/login' exact render={() => <Login />} />
+                        <Route path='/signUp' exact render={() => <SignUp />} />
+                        <Route path='/signIn' exact render={() => <SignIn />} />
                         <Route path='/main' exact render={() => <MainPage />} />
                         <Route path='/search' exact render={() => <SearchPage />}/>
                         <Route path='/search/:id' exact render={() => <CategoryDetail />}/>

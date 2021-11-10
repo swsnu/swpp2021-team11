@@ -16,9 +16,19 @@ class ReviewList extends React.Component{
                     {this.props.storedReviews.map((review) => {
                         return (
                             <div key = {review.id} onClick = {() => this.props.history.push('/review/' + review.id)}>
+                                <hr  style={{
+                                    color: '#000000',
+                                    backgroundColor: '#000000',
+                                    borderColor : '#000000'
+                                }}/>
                                 <h1>{review.title}</h1>
-                                <h2>{review.author_id}</h2>
-                                <h3>{review.content}</h3>
+                                <h2>Author: {review.author_id}</h2>
+                                <h3>Rating: {review.star_rating}</h3>
+                                <hr  style={{
+                                    color: '#000000',
+                                    backgroundColor: '#000000',
+                                    borderColor : '#000000'
+                                }}/>
                             </div>
                         );
                     })}
