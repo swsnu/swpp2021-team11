@@ -1,0 +1,15 @@
+.AlcoholDetailInfo img {
+    width: 100%;
+}
+
+.AlcoholDetailInfo {
+    margin: 30px;
+    background-color: cornflowerblue;
+    border-radius: 5%;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.AlcoholDetailInfo div {
+    font-size: 30px;
+}

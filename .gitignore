@@ -3,5 +3,6 @@ backend/**/__pycache__
 backend/soolae/.coverage
 backend/soolae/coverage.xml
 backend/soolae/main/migrations/__pycache__
+backend/soolae/main/db.sqlite3
 frontend/soolae/node_modules/
 .vscode
