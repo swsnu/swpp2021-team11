@@ -4,6 +4,8 @@ import {ConnectedRouter} from 'connected-react-router';
 
 import './App.css';
 
+import TitleBar from './components/common/title';
+import MenuBar from './components/common/menuBar';
 import Login from './containers/login';
 import TasteTest from './components/taste-test';
 import TestResult from './components/testResult';
@@ -20,6 +22,8 @@ function App(props) {
         <ConnectedRouter history={props.history}>
             <div style={{display: 'flex', justifyContent: 'center'}}>
                 <div className="App">
+                    <TitleBar />
+                    <MenuBar />
                     <Switch>
                         <Route path='/test' exact render={() => <TasteTest />} />
                         <Route path='/rec' exact render={() => <TestResult />} />
@@ -28,8 +32,9 @@ function App(props) {
                         <Route path='/search' exact render={() => <SearchPage />}/>
                         <Route path='/search/:id' exact render={() => <CategoryDetail />}/>
                         <Route path='/alcohol/:id' exact render={() => <AlcoholDetail />}/>
+                        <Route path='/write-review' exact render={() => <WriteReview />}/>
                         <Route path='/write-review/:id' exact render={() => <WriteReview />}/>
-                        <Route path='/review/' exact render={() => <ReviewList />}/>
+                        <Route path='/review' exact render={() => <ReviewList />}/>
                         <Route path='/review/:id' exact render={() => <ReviewDetail />}/>
                         <Redirect exact from='/' to='test' />
                         <Route render={() => <h1>Not Found</h1>} />

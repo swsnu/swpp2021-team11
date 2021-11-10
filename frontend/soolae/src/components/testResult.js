@@ -9,7 +9,11 @@ class TestResult extends React.Component {
     }
     render(){
         if(this.props.storedResult == null){
-            return <h1>Loading...</h1>;
+            return (
+                <div>
+                    <h1>Loading...</h1>;
+                </div>
+            );
         }
         console.log(this.props.storedResult);
         return (

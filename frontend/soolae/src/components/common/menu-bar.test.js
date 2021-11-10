@@ -28,18 +28,18 @@ describe('<MenuBar />', () => {
         expect(history.location.pathname).toBe('/test');
     });
 
-    it('When click add review, redirect to add review. ', () => {
+    it('When click review, redirect to review list. ', () => {
         const component = mount(menuBar);
         const wrapper = component.find('.MenuBar');
         wrapper.find('.MenuBar button').at(1).simulate('click');
-        expect(history.location.pathname).toBe('/review/add');
+        expect(history.location.pathname).toBe('/review');
     });
 
-    it('When click refresh, redirect to refresh. ', () => {
+    it('When click main, redirect to main. ', () => {
         const component = mount(menuBar);
         const wrapper = component.find('.MenuBar');
         wrapper.find('.MenuBar button').at(2).simulate('click');
-        expect(history.location.pathname).toBe('/refresh');
+        expect(history.location.pathname).toBe('/main');
     });
 
     it('When click search, redirect to search. ', () => {

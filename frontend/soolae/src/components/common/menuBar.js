@@ -23,10 +23,10 @@ const MenuBar = (props) => {
                 </button>
                 <button
                     onClick={() => {
-                        props.history.push('/refresh');
+                        props.history.push('/main');
                     }}
                 >
-                    refresh
+                    main
                 </button>
             </div>
             <button
