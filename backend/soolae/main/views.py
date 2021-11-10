@@ -131,7 +131,27 @@ def review_list(request):
             },
         ]
         return JsonResponse(result, status = 200, safe = False)
-    return HttpResponseNotAllowed(['GET'])
+    if request.method == 'POST':
+        req_data = json.loads(request.body.decode())
+        new_review = Review(
+            title = req_data['title'],
+            content = req_data['content'],
+            author = request.user,
+            star_rating = req_data['rating'],
+            sool = Sool.objects.get(id = req_data['id']),
+            image = "image1"
+        )
+        new_review.save()
+        result = {
+            'id': new_review.id,
+            'title': new_review.title,
+            'content': new_review.content,
+            'author_id': new_review.author.id,
+            'star_rating': new_review.star_rating,
+            'sool_id': new_review.sool.id,
+        }
+        return JsonResponse(result, status = 201)
+    return HttpResponseNotAllowed(['GET', 'POST'])
 
 def review_detail(request, review_id):
     if request.method == 'GET':
@@ -143,7 +163,10 @@ def review_detail(request, review_id):
                 'id': review_id,
                 'title': 'good sool',
                 'content': 'very nice',
-                'author_id': review.author,
+                'author_id': review.author.id,
             }
         return JsonResponse(result, status = 200)
-    return HttpResponseNotAllowed(['GET'])
+    if request.method == 'DELETE':
+        Review.objects.filter(id = review_id).delete()
+        return HttpResponse(status = 200)
+    return HttpResponseNotAllowed(['GET', 'PUT', 'DELETE'])

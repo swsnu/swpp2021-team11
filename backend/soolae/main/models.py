@@ -122,6 +122,7 @@ class Review(models.Model):
     star_rating = models.IntegerField()
     sool = models.ForeignKey(Sool, on_delete=CASCADE, related_name="sool_review")
     image = models.CharField(max_length=100)
+    title = models.CharField(max_length=50, default = "title")
     content = models.TextField()
     author = models.ForeignKey(User, on_delete=CASCADE, related_name="review", default = 1)
 
