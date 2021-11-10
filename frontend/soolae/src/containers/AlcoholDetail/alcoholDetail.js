@@ -42,7 +42,7 @@ class AlcoholDetail extends React.Component{
             return(<>
                 <TitleBar/>
                 <MenuBar/>
-                <AlcoholDetailInfo alcohol_info={this.props.alcohol_infos[0]}/>
+                <AlcoholDetailInfo alcohol_info={this.props.alcohol_infos[this.props.alcohol_infos.length-1]}/>
             </>);
         }
     }

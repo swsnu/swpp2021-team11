@@ -28,6 +28,13 @@ const MenuBar = (props) => {
                 >
                     refresh
                 </button>
+                <button
+                    onClick={() => {
+                        props.history.goBack();
+                    }}
+                >
+                    Back
+                </button>
             </div>
             <button
                 onClick={() => {

@@ -1,34 +1,51 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import { withRouter } from 'react-router';
+import TitleBar from '../../components/common/title';
+import MenuBar from '../../components/common/menuBar';
 
+import * as actionCreators from '../../store/actions/index';
 import AlcoholListForm from '../../components/categoryDetail/alcoholListForm';
 
+const mapStateToProps = state => {
+    return {
+        category_alcohols: state.alcohol.category_alcohols,
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onGetCategoryAlcohols: (id) => {return dispatch(actionCreators.getCategoryAlcohols(id));},
+    };
+};
+
 class CategoryDetail extends React.Component{
-    state = {
-        selected_category : {id: 1, category:'Category 1', info: 'Category 1 info'},
-        alcohols : [
-            {id: 1, category_id: 1, name: 'alcohol 1 name', info: 'alcohol 1 info'},
-            {id: 2, category_id: 1, name: 'alcohol 2 name', info: 'alcohol 2 info'},
-            {id: 3, category_id: 1, name: 'alcohol 3 name', info: 'alcohol 3 info'},
-            {id: 4, category_id: 1, name: 'alcohol 4 name', info: 'alcohol 4 info'},
-            {id: 5, category_id: 1, name: 'alcohol 5 name', info: 'alcohol 5 info'},
-        ]
-    }; // category example
-    // url에서 id받아와서 selected_category, alcohols 찾기
+
+    constructor(props) {
+        super(props);
+        this.state = {loaded:false};
+    }
+
+    componentDidMount()
+    {
+        this.props.onGetCategoryAlcohols(this.props.match.params.id).then(()=>{this.setState({loaded: true});});
+    }
 
     render() {
-        return(
-            <div className="category_detail">
-                <div className="category_name">
-                    {this.state.selected_category.category}
-                </div>
-                <div className="alcohol_list">
-                    <AlcoholListForm
-                        alcohols = {this.state.alcohols}
-                    />
-                </div>
-            </div>
-        );
+        if(!this.state.loaded)
+        {
+            return (<><TitleBar/><MenuBar/>Loading...
+            </>);
+        }
+        else
+        {
+            return(<>
+                <TitleBar/>
+                <MenuBar/>
+                <AlcoholListForm alcohols={this.props.category_alcohols}/>
+            </>);
+        }
     }
 }
 
-export default CategoryDetail;
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CategoryDetail));
