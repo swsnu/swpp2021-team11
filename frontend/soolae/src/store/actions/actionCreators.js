@@ -15,6 +15,13 @@ export const getReviewList = () => {
     };
 };
 
+export const getReview = (review_id) => {
+    return dispatch => {
+        return axios.get('/api/review/' + review_id + '/')
+            .then(res => {dispatch({type: actionTypes.GET_REVIEW, review: res.data});});
+    };
+};
+
 export const getAlcoholInfo_ = (data) => {
     return { type: actionTypes.GET_ALCOHOL_INFO, alcohol_info:data};
 };

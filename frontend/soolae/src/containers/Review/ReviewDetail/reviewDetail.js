@@ -1,22 +1,28 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import * as actionCreators from '../../../store/actions/actionCreators';
+import { withRouter } from 'react-router';
 
 class ReviewDetail extends React.Component{
-    state = {
-        selected_review : {id: 1, writer_id: 1, alcohol_id: 1, title: 'review 1 title', content: 'review 1 content', image: 'review 1 image'},
-    }; 
-    // id로 selected_review 찾기
-    
+
+    componentDidMount(){
+        this.props.getReview(this.props.match.params.id);
+    }
+
     render() {
+        if(this.props.storedReview == null || this.props.storedReview.id != this.props.match.params.id){
+            return <h1>Loading...</h1>;
+        }
         return (
             <div className="review_detail_page">
                 <div className="review_detail_title">
-                    {this.state.selected_review.title}
+                    {this.props.storedReview.title}
                 </div>
                 <div className="review_detail_image">
-                    {this.state.selected_review.image}
+                    {this.props.storedReview.image}
                 </div>
                 <div className="review_detail_content">
-                    {this.state.selected_review.content}
+                    {this.props.storedReview.content}
                 </div>
             </div>
         );
@@ -24,4 +30,17 @@ class ReviewDetail extends React.Component{
     // 추천, comment, writer 추가하기
 }
 
-export default ReviewDetail;
+const mapStateToProps = state => {
+    return {
+        storedReview: state.review.selected,
+    };
+};
+
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getReview: (review_id) => dispatch(actionCreators.getReview(review_id)),
+    };
+};
+  
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ReviewDetail));

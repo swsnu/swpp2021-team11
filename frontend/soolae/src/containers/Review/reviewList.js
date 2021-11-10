@@ -7,11 +7,12 @@ class ReviewList extends React.Component{
     componentDidMount(){
         this.props.getReviewList();
     }
+    
     render() {
         return (
             <div className="review_list">
                 <h1> Review List </h1>
-                {this.props.storedReview.map((review) => {
+                {this.props.storedReviews.map((review) => {
                     return (
                         <div key = {review.id} onClick = {() => this.props.history.push('/review/' + review.id)}>
                             <h1>{review.title}</h1>
@@ -27,7 +28,7 @@ class ReviewList extends React.Component{
 
 const mapStateToProps = state => {
     return {
-        storedReview: state.review.reviews,
+        storedReviews: state.review.reviews,
     };
 };
 

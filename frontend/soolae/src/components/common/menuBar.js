@@ -16,10 +16,10 @@ const MenuBar = (props) => {
                 </button>
                 <button
                     onClick={() => {
-                        props.history.push('/review/add');
+                        props.history.push('/review');
                     }}
                 >
-                    add
+                    reviews
                 </button>
                 <button
                     onClick={() => {

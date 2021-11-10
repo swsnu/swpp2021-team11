@@ -1,18 +1,25 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
+import * as actionCreators from '../store/actions/actionCreators';
 
 class TestResult extends React.Component {
+    componentDidMount(){
+        this.props.getTestResult();
+    }
     render(){
-        const title = 'Test Result';
+        if(this.props.storedResult == null){
+            return <h1>Loading...</h1>;
+        }
         console.log(this.props.storedResult);
-        return (this.props.storedResult.length != 0) ? (
+        return (
             <div className='result'>
-                <h2>{title}</h2>
-                <h3>{this.props.storedResult[1].name}</h3>
+                <h2>Test Result</h2>
+                <h3>{this.props.storedResult.name}</h3>
+                <h3>{this.props.storedResult.price}</h3>
+                <h3>{this.props.storedResult.image}</h3>
+                <h3>{this.props.storedResult.rating}</h3>
             </div>
-        ) : (
-            <h1>No result</h1>
         );
     }
 }
@@ -23,4 +30,10 @@ const mapStateToProps = state => {
     };
 };
 
-export default withRouter(connect(mapStateToProps, null)(TestResult));
+const mapDispatchToProps = dispatch => {
+    return {
+        getTestResult: () => {return dispatch(actionCreators.getTestResult());}
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(TestResult));
