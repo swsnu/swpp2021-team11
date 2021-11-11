@@ -3,11 +3,11 @@ import { withRouter } from 'react-router-dom';
 
 const CategorySearchForm = props => {
     return (
-        <div className="category_search">
+        <ul className="category_search">
             {props.categorylist.map((category) => {
-                return <button key = {category.id} onClick={() => {props.history.push('/search/'+category.id);}}>{category.name}</button>;
-            })};
-        </div>
+                return <li key = {category.id}><button onClick={() => {props.history.push('/search/'+category.id);}}>{category.name}</button></li>;
+            })}
+        </ul>
     );
 };
 

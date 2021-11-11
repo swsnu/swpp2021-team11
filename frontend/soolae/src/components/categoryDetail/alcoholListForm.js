@@ -3,11 +3,11 @@ import { withRouter } from 'react-router-dom';
 
 const AlcoholListForm = props => {
     return (
-        <div className="alcohol_list">
+        <ul className="alcohol_list">
             {props.alcohols.map((alcohol) => {
-                return <button key = {alcohol.id} onClick={() => {props.history.push('/alcohol/'+alcohol.id);}}>{alcohol.name}</button>;
-            })};
-        </div>
+                return <li key = {alcohol.id}><button onClick={() => {props.history.push('/alcohol/'+alcohol.id);}}>{alcohol.name}</button></li>;
+            })}
+        </ul>
     );
 };
 

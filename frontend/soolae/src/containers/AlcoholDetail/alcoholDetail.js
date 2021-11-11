@@ -26,7 +26,8 @@ class AlcoholDetail extends React.Component{
 
     componentDidMount()
     {
-        this.props.onGetAll(this.props.id).then(()=>{this.setState({loaded: true});});
+        let x = this.props.id === undefined ? this.props.match.params.id : this.props.id;
+        this.props.onGetAll(x).then(()=>{this.setState({loaded: true});});
     }
 
     render() {
