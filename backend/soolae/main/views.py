@@ -83,6 +83,8 @@ def alcohol_info(request, alcohol_id):
 def alcohol(request):
     if request.method == "GET":
         alcohol_list = list(Sool.objects.all().values())
+        for x in alcohol_list:
+            x['rating'] = Sool.objects.get(id=x['id']).get_star_rating()
         return JsonResponse(
             alcohol_list, safe=False, json_dumps_params={"ensure_ascii": False}
         )
