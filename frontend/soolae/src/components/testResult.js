@@ -2,25 +2,51 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
 
+import TitleBar from '../components/common/title';
+import MenuBar from '../components/common/menuBar';
+import * as actionCreators from '../store/actions/index';
+import AlcoholDetailInfo from '../components/alcohol_info';
+
 class TestResult extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {loaded:false};
+    }
+
+    componentDidMount()
+    {
+        this.props.onGetAll(212).then(()=>{this.setState({loaded: true});});
+    }
+
     render(){
-        const title = 'Test Result';
         console.log(this.props.storedResult);
-        return (this.props.storedResult.length != 0) ? (
+        return (this.state.loaded) ? (
             <div className='result'>
-                <h2>{title}</h2>
-                <h3>{this.props.storedResult[1].name}</h3>
+                <TitleBar/>
+                <MenuBar/>
+                <AlcoholDetailInfo alcohol_info={this.props.alcohol_infos[0]}/>
             </div>
         ) : (
-            <h1>No result</h1>
+            <>
+                <TitleBar/>
+                <MenuBar/>
+                <h1>Loading...</h1>
+            </>
         );
     }
 }
 
 const mapStateToProps = state => {
     return {
-        storedResult: state.alcohol.recommended,
+        alcohol_infos: state.alcohol.alcohol_info
     };
 };
 
-export default withRouter(connect(mapStateToProps, null)(TestResult));
+const mapDispatchToProps = dispatch => {
+    return {
+        onGetAll: (id) => {return dispatch(actionCreators.getAlcoholInfo(id));}
+    };
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TestResult));
