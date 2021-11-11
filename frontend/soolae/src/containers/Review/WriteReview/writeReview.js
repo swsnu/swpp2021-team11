@@ -21,6 +21,7 @@ class WriteReview extends React.Component{
             'title': this.state.title,
             'content': this.state.content,
             'rating': this.state.rating,
+            'image': this.state.image,
             'id': this.state.alcohol_id
         });
         this.setState({submitted: false});
@@ -34,7 +35,7 @@ class WriteReview extends React.Component{
                 Title<input type="text" value={this.state.title} onChange={(event) => this.setState({title: event.target.value})}/>
                 Sool<input type="number" value={this.state.alcohol_id} onChange={(event) => this.setState({alcohol_id: event.target.value})}/>
                 Rating<input type="number" value={this.state.rating} onChange={(event) => this.setState({rating: event.target.value})}/>
-                Image<input type="file" value={this.state.image} onChange={(event) => this.setState({image: event.target.value})}/>
+                Image<input type="text" value={this.state.image} onChange={(event) => this.setState({image: event.target.value})}/>
                 Content<input type="text" value={this.state.content} onChange={(event) => this.setState({content: event.target.value})}/>
                 <button disabled = {this.state.submitted} onClick = {() => this.submitReview()}>Submit</button>
             </div>

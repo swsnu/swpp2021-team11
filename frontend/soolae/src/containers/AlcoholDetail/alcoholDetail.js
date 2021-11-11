@@ -1,8 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router';
-import TitleBar from '../../components/common/title';
-import MenuBar from '../../components/common/menuBar';
 
 import * as actionCreators from '../../store/actions/index';
 import AlcoholDetailInfo from '../../components/alcohol_info';
@@ -34,14 +32,12 @@ class AlcoholDetail extends React.Component{
     render() {
         if(!this.state.loaded)
         {
-            return (<><TitleBar/><MenuBar/>Loading...
+            return (<>Loading...
             </>);
         }
         else
         {
             return(<>
-                <TitleBar/>
-                <MenuBar/>
                 <AlcoholDetailInfo alcohol_info={this.props.alcohol_infos[this.props.alcohol_infos.length-1]}/>
             </>);
         }

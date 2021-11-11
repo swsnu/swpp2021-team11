@@ -25,6 +25,7 @@ class ReviewDetail extends React.Component{
                 <div className="review_detail_rating">
                     Rating: {this.props.storedReview.star_rating}
                 </div>
+                <img src = {'/media/' + this.props.storedReview.image}></img>
                 <p className="review_detail_content">
                     {this.props.storedReview.content}
                 </p>

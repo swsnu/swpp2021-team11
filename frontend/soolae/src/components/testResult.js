@@ -20,7 +20,7 @@ class TestResult extends React.Component {
                 <h2>Test Result</h2>
                 <h3>{this.props.storedResult.name}</h3>
                 <h3>{this.props.storedResult.price}원</h3>
-                <h3>{this.props.storedResult.image}</h3>
+                <img src = {'/media/' + this.props.storedResult.image}></img>
                 <h3>{this.props.storedResult.rating}점</h3>
             </div>
         );

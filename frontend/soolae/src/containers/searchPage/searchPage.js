@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import TitleBar from '../../components/common/title';
-import MenuBar from '../../components/common/menuBar';
 import CategorySearchForm from '../../components/searchPage/categorySearchForm';
 import WordSearchForm from '../../components/searchPage/wordSearchForm';
 
@@ -34,13 +32,12 @@ class SearchPage extends React.Component{
     render() {
         if(!this.state.loaded)
         {
-            return (<><TitleBar/><MenuBar/>Loading...
+            return (<>Loading...
             </>);
         }
         else
         {
             return(<div>
-                <TitleBar/>
                 <WordSearchForm/>
                 <CategorySearchForm categorylist={this.props.category_list}/>
             </div>);

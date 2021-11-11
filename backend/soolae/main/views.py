@@ -165,8 +165,9 @@ def review_list(request):
             author = request.user,
             star_rating = req_data['rating'],
             sool = Sool.objects.get(id = req_data['id']),
-            image = "image1"
+            image = req_data['image']
         )
+        print(req_data['image'])
         new_review.save()
         result = {
             'id': new_review.id,
@@ -189,6 +190,7 @@ def review_detail(request, review_id):
                 'id': review_id,
                 'title': review.title,
                 'content': review.content,
+                'image': str(review.image),
                 'author_id': review.author.id,
                 'star_rating': review.star_rating,
                 'sool_id': review.sool.id,
