@@ -111,7 +111,7 @@ class Sool(models.Model):
             )
         )
         if len(rating_list) == 0:
-            return 0
+            return random.randrange(1, 6)
         return sum(rating_list) / len(rating_list)
 
     def __str__(self):
