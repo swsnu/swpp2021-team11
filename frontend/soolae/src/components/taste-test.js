@@ -2,8 +2,6 @@ import React, {useState} from 'react';
 import * as actionCreators from '../store/actions/actionCreators';
 import {connect} from 'react-redux';
 
-import TitleBar from '../components/common/title';
-import MenuBar from '../components/common/menuBar';
 import {withRouter} from 'react-router-dom';
 import './taste-test.css';
 
@@ -54,10 +52,6 @@ function TasteTest(props) {
     };
     return (
         <div className="taste-test" id="padding">
-            <div className="MainPage">
-                <TitleBar />
-                <MenuBar />
-            </div>
             {(
                 <>
                     <div className="question-section">

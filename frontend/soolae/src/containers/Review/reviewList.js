@@ -7,19 +7,33 @@ class ReviewList extends React.Component{
     componentDidMount(){
         this.props.getReviewList();
     }
+    
     render() {
         return (
-            <div className="review_list">
-                <h1> Review List </h1>
-                {this.props.storedReview.map((review) => {
-                    return (
-                        <div key = {review.id} onClick = {() => this.props.history.push('/review/' + review.id)}>
-                            <h1>{review.title}</h1>
-                            <h2>{review.author_id}</h2>
-                            <h3>{review.content}</h3>
-                        </div>
-                    );
-                })}
+            <div>
+                <div className="review_list">
+                    <h1> Review List </h1>
+                    {this.props.storedReviews.map((review) => {
+                        return (
+                            <div key = {review.id} onClick = {() => this.props.history.push('/review/' + review.id)}>
+                                <hr  style={{
+                                    color: '#000000',
+                                    backgroundColor: '#000000',
+                                    borderColor : '#000000'
+                                }}/>
+                                <h1>{review.title}</h1>
+                                <h2>Author: {review.author_id}</h2>
+                                <h3>Rating: {review.star_rating}</h3>
+                                <hr  style={{
+                                    color: '#000000',
+                                    backgroundColor: '#000000',
+                                    borderColor : '#000000'
+                                }}/>
+                            </div>
+                        );
+                    })}
+                </div>
+                <button onClick = {() => this.props.history.push('/write-review/')}>post review</button>
             </div>
         );
     }
@@ -27,7 +41,7 @@ class ReviewList extends React.Component{
 
 const mapStateToProps = state => {
     return {
-        storedReview: state.review.reviews,
+        storedReviews: state.review.reviews,
     };
 };
 

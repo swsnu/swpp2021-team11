@@ -1,10 +1,12 @@
 import json
+import random   #Temporary
 from django.http import HttpResponse, JsonResponse, HttpResponseNotAllowed, response
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import get_user_model
 from .models import Sool, SoolCategory, Review
+
 
 User = get_user_model()
 
@@ -126,12 +128,15 @@ def test(request):
         ######
         # Generate some recommendations
         ######
-        result = [
-            {"id": 1, "name": "makgeoli1"},
-            {"id": 3, "name": "wine1"},
-            {"id": 6, "name": "soju1"},
-        ]
-        return JsonResponse(result, status=200, safe=False)
+        sool = Sool.objects.get(id = random.randrange(128, 254))
+        result = {
+            'id': sool.id,
+            'name': sool.name,
+            'price': sool.price,
+            'image': str(sool.sool_image),
+            'rating': sool.get_star_rating(),
+        }
+        return JsonResponse(result, status=200)
     return HttpResponseNotAllowed(["GET"])
 
 
@@ -150,20 +155,7 @@ def recommend(request):
 
 def review_list(request):
     if request.method == 'GET':
-        result = [
-            {
-                'id': 1,
-                'title': 'good sool',
-                'content': 'very nice',
-                'author_id': 1,
-            },
-            {
-                'id': 2,
-                'title': 'good sool2',
-                'content': 'very nice2',
-                'author_id': 2,
-            },
-        ]
+        result = list(Review.objects.all().values())
         return JsonResponse(result, status = 200, safe = False)
     if request.method == 'POST':
         req_data = json.loads(request.body.decode())
@@ -195,9 +187,11 @@ def review_detail(request, review_id):
             return HttpResponse(status = 404)
         result = {
                 'id': review_id,
-                'title': 'good sool',
-                'content': 'very nice',
+                'title': review.title,
+                'content': review.content,
                 'author_id': review.author.id,
+                'star_rating': review.star_rating,
+                'sool_id': review.sool.id,
             }
         return JsonResponse(result, status = 200)
     if request.method == 'DELETE':
