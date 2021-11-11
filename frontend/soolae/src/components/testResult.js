@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
+import AlcoholDetailInfo from '../components/alcohol_info';
 import * as actionCreators from '../store/actions/actionCreators';
 
 class TestResult extends React.Component {
@@ -16,13 +17,7 @@ class TestResult extends React.Component {
             );
         }
         return (
-            <div className='result'>
-                <h2>Test Result</h2>
-                <h3>{this.props.storedResult.name}</h3>
-                <h3>{this.props.storedResult.price}원</h3>
-                <img src = {'/media/' + this.props.storedResult.image}></img>
-                <h3>{this.props.storedResult.rating}점</h3>
-            </div>
+            <AlcoholDetailInfo alcohol_info={this.props.storedResult}/>
         );
     }
 }

@@ -21,3 +21,7 @@
     background-color: rgb(190, 190, 190);
     padding: 10px;
 }
+.MenuBar button {
+    height: 40px;
+    font-size: larger;
+}

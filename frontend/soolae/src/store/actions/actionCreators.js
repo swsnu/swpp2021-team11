@@ -79,3 +79,13 @@ export const getCategoryAlcohols = (id) => {
         return axios.get('/api/category/alcohol/' + id).then(res => dispatch(getCategoryAlcohols_(res.data)));
     };
 };
+
+export const getAlcoholList_ = (data) => {
+    return { type: actionTypes.GET_ALCOHOL_LIST, alcohol_list:data};
+};
+
+export const getAlcoholList = () => {
+    return dispatch => {
+        return axios.get('/api/alcohol/').then(res=> dispatch(getAlcoholList_(res.data)));
+    };
+};

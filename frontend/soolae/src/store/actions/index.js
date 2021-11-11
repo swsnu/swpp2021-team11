@@ -1,1 +1,1 @@
-export {getAlcoholInfo, getCategory, getCategories, getCategoryAlcohols} from './actionCreators';
+export {getAlcoholList, getAlcoholInfo, getCategory, getCategories, getCategoryAlcohols} from './actionCreators';

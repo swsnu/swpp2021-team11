@@ -134,7 +134,7 @@ def test(request):
             'name': sool.name,
             'price': sool.price,
             'image': str(sool.sool_image),
-            'rating': sool.get_star_rating(),
+            'rating': random.randrange(2,5),
         }
         return JsonResponse(result, status=200)
     return HttpResponseNotAllowed(["GET"])
