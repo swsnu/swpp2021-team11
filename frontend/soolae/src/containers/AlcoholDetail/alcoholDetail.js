@@ -26,7 +26,7 @@ class AlcoholDetail extends React.Component{
 
     componentDidMount()
     {
-        this.props.onGetAll(this.props.match.params.id).then(()=>{this.setState({loaded: true});});
+        this.props.onGetAll(this.props.id).then(()=>{this.setState({loaded: true});});
     }
 
     render() {
@@ -38,7 +38,7 @@ class AlcoholDetail extends React.Component{
         else
         {
             return(<>
-                <AlcoholDetailInfo alcohol_info={this.props.alcohol_infos[this.props.alcohol_infos.length-1]}/>
+                <AlcoholDetailInfo alcohol_info={this.props.alcohol_infos[0]}/>
             </>);
         }
     }

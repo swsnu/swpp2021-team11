@@ -6,7 +6,7 @@ import axios from 'axios';
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 import AlcoholSelect from '../../../components/common/alcoholSelect';
-
+import StarRateSelect from '../../../components/common/starSelect';
 
 class WriteReview extends React.Component{
     constructor(props)
@@ -17,7 +17,7 @@ class WriteReview extends React.Component{
             title: '',
             alcohol_id: null,
             content: '',
-            rating: '',
+            rating: 1,
             image: '',
             alcohol_name:null,
             alcohol_select: false
@@ -56,7 +56,7 @@ class WriteReview extends React.Component{
                 <div>Title<input type="text" value={this.state.title} onChange={(event) => this.setState({title: event.target.value})}/></div>
                 <div>Sool<button onClick={this.selectAlcohol}>{this.state.alcohol_name == null ? 'Select Alcohol' : this.state.alcohol_name}</button></div>
                 {this.state.alcohol_select ? <AlcoholSelect select={this.selectAlcoholEnd}/> : null}
-                <div>Rating<input type="number" value={this.state.rating} onChange={(event) => this.setState({rating: event.target.value})}/></div>
+                <div>Rating: <StarRateSelect setRate={(rate) => {this.setState({rating: rate});}} rate={this.state.rating}/></div>
                 <div>Image<input type="text" value={this.state.image} onChange={(event) => this.setState({image: event.target.value})}/></div>
                 <div>Content<input type="text" value={this.state.content} onChange={(event) => this.setState({content: event.target.value})}/></div>
                 <button disabled = {this.state.submitted} onClick = {() => this.submitReview()}>Submit</button>
