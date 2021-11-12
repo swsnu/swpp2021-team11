@@ -1,5 +1,6 @@
 import json
 import random  # Temporary
+from functools import wraps
 from django.http import (
     HttpResponse,
     JsonResponse,
@@ -11,23 +12,23 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import get_user_model
 from .models import Sool, SoolCategory, Review
-from functools import wraps
+
 
 User = get_user_model()
 
 
-def method_check(x):
+def method_check(methods):
     """
     It checks request.method.
     Usage : @method_check(["GET", "POST"])
     """
 
-    def return_check_method(f):
-        @wraps(f)
+    def return_check_method(func):
+        @wraps(func)
         def inner(*args, **kwargs):
-            if args[0].method not in x:
-                return HttpResponseNotAllowed(x)
-            return f(*args, **kwargs)
+            if args[0].method not in methods:
+                return HttpResponseNotAllowed(methods)
+            return func(*args, **kwargs)
 
         return inner
 
@@ -169,12 +170,14 @@ def review_list(request):
     if request.method == "POST":
         try:
             req_data = json.loads(request.body.decode())
+            alcohol_review = Sool.objects.get(id=req_data["id"])
+            alcohol_review.update_star_rating()
             new_review = Review(
                 title=req_data["title"],
                 content=req_data["content"],
                 author=request.user,
                 star_rating=req_data["rating"],
-                sool=Sool.objects.get(id=req_data["id"]),
+                sool=alcohol_review,
                 image=req_data["image"],
             )
         except (Sool.DoesNotExist, KeyError, json.JSONDecodeError):
@@ -182,7 +185,7 @@ def review_list(request):
 
         new_review.save()
         result = Review.objects.filter(id=new_review).values()[0]
-        return JsonResponse(result, status=201)
+    return JsonResponse(result, status=201)
 
 
 @method_check(["GET", "DELETE"])
@@ -197,4 +200,4 @@ def review_detail(request, review_id):
 
     if request.method == "DELETE":
         Review.objects.filter(id=review_id).delete()
-        return HttpResponse(status=200)
+    return HttpResponse(status=200)
