@@ -1,9 +1,10 @@
 from django.db import models
 from django.db.models.deletion import CASCADE
 from django.contrib.auth import get_user_model
-import random
+
 
 User = get_user_model()
+
 
 class SoolMaterial(models.Model):
     material_image = models.CharField(max_length=100)
@@ -69,6 +70,7 @@ class Sool(models.Model):
     long_name = models.CharField(max_length=200)
     price = models.PositiveIntegerField()
     sool_image = models.ImageField(upload_to="info_image", blank=True)
+    rating = models.IntegerField(default=0)
 
     alcohol_content = models.DecimalField(max_digits=3, decimal_places=1)
     expire_info = models.CharField(max_length=100)
@@ -105,15 +107,15 @@ class Sool(models.Model):
     sool_tag = models.ManyToManyField(SoolTag, related_name="sool")
     anju = models.ManyToManyField(Anju, related_name="sool")
 
-    def get_star_rating(self):
+    def update_star_rating(self):
         rating_list = list(
             map(
                 lambda x: x["star_rating"], self.sool_review.values("star_rating").all()
             )
         )
         if len(rating_list) == 0:
-            return random.randrange(1, 6)
-        return sum(rating_list) / len(rating_list)
+            self.rating = 0
+        self.rating = sum(rating_list) / len(rating_list)
 
     def __str__(self):
         return self.name
@@ -122,10 +124,12 @@ class Sool(models.Model):
 class Review(models.Model):
     star_rating = models.IntegerField()
     sool = models.ForeignKey(Sool, on_delete=CASCADE, related_name="sool_review")
-    title = models.CharField(max_length=50, default = "title")
+    title = models.CharField(max_length=50, default="title")
     image = models.ImageField(upload_to="review_image", blank=True)
     content = models.TextField()
-    author = models.ForeignKey(User, on_delete=CASCADE, related_name="review", default = 1)
+    author = models.ForeignKey(
+        User, on_delete=CASCADE, related_name="review", default=1
+    )
 
     def __str__(self):
         return f"Review of {self.sool}, id:{self.id}"
