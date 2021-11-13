@@ -99,7 +99,7 @@ def user_profile(request, user_id=0):
 
 @method_check(["GET"])
 def alcohol(request):
-    alcohol_list = Sool.objects.all().values("id", "name", "rating")
+    alcohol_list = list(Sool.objects.all().values("id", "name", "rating"))
     return JsonResponse(
         alcohol_list, safe=False, json_dumps_params={"ensure_ascii": False}
     )
@@ -131,7 +131,7 @@ def category(request, category_id):
     responses = {
         "id": finded_category.id,
         "name": finded_category.name,
-        "alcohol_list": finded_category.sool.values("id"),
+        "alcohol_list": list(finded_category.sool.values("id", "name")),
     }
     return JsonResponse(
         responses, safe=False, json_dumps_params={"ensure_ascii": False}
@@ -164,14 +164,15 @@ def recommend(request):
 @method_check(["GET", "POST"])
 def review_list(request):
     if request.method == "GET":
-        result = list(Review.objects.all().values("id"))
+        result = list(
+            Review.objects.all().values("id", "title", "star_rating", "author_id")
+        )
         return JsonResponse(result, status=200, safe=False)
 
     if request.method == "POST":
         try:
             req_data = json.loads(request.body.decode())
             alcohol_review = Sool.objects.get(id=req_data["id"])
-            alcohol_review.update_star_rating()
             new_review = Review(
                 title=req_data["title"],
                 content=req_data["content"],
@@ -184,7 +185,8 @@ def review_list(request):
             return HttpResponseBadRequest()
 
         new_review.save()
-        result = Review.objects.filter(id=new_review).values()[0]
+        alcohol_review.update_star_rating()
+        result = Review.objects.filter(id=new_review.id).values()[0]
     return JsonResponse(result, status=201)
 
 

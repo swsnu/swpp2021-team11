@@ -1,39 +1,39 @@
 import React from 'react';
-import * as actionCreators from '../store/actions/actionCreators';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
-import Recommendation from './Recommend/recommendation';
+import * as actionCreators from '../store/actions/actionCreators';
+import AlcoholDetailInfo from '../components/alcohol/alcohol_detail_info';
+
+const RecommendationItem = (id) => {
+    return (
+        <li key={id}>
+            <AlcoholDetailInfo id={id} />
+        </li>
+    );
+};
 
 class MainPage extends React.Component {
-
-    componentDidMount(){
+    componentDidMount() {
         this.props.getRecommendationList();
     }
 
-    render()
-    {
+    render() {
         let list = this.props.storedRecommendations;
         return (
             <div className="MainPage">
-                {(list[0] != null) && (
-                    <div>
-                        <Recommendation alcohol = {list[0]}/>
-                        <Recommendation alcohol = {list[1]}/>
-                        <Recommendation alcohol = {list[2]}/>
-                    </div>
-                )}
-            </ div>
+                <ul>{list.map((item) => RecommendationItem(item.id))}</ul>
+            </div>
         );
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
     return {
         storedRecommendations: state.alcohol.recommended,
     };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
     return {
         getRecommendationList: () => dispatch(actionCreators.getRecommendationList()),
     };

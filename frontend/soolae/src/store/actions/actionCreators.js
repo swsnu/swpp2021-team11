@@ -76,7 +76,7 @@ export const getCategoryAlcohols_ = (data) => {
 
 export const getCategoryAlcohols = (id) => {
     return dispatch => {
-        return axios.get('/api/category/alcohol/' + id).then(res => dispatch(getCategoryAlcohols_(res.data)));
+        return axios.get('/api/category/' + id).then(res => dispatch(getCategoryAlcohols_(res.data)));
     };
 };
 
@@ -87,5 +87,15 @@ export const getAlcoholList_ = (data) => {
 export const getAlcoholList = () => {
     return dispatch => {
         return axios.get('/api/alcohol/').then(res=> dispatch(getAlcoholList_(res.data)));
+    };
+};
+
+export const getUserInfo_ = (data) => {
+    return { type: actionTypes.GET_USER_INFO, user:data};
+};
+
+export const getUserInfo = (id) => {
+    return dispatch => {
+        return axios.get('/api/user/' + id).then(res=> dispatch(getUserInfo_(res.data)));
     };
 };

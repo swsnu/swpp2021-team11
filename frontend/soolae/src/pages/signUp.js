@@ -5,34 +5,33 @@ import React from 'react';
 // axios.defaults.xsrfCookieName = 'csrftoken';
 // axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
-class SignUp extends React.Component {
-
+class SignUpPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             username: '',
             email: '',
-            password: ''
+            password: '',
         };
     }
     register() {
-        const data = {'username': this.state.username, 'email': this.state.email, 'password': this.state.password};
+        const data = {username: this.state.username, email: this.state.email, password: this.state.password};
         fetch('/api/signup/', {
             credentials: 'include',
             method: 'POST',
             mode: 'same-origin',
             headers: {
-                'Accept': 'application/json',
+                Accept: 'application/json',
                 'Content-Type': 'application/json',
-            // 'X-CSRFToken': csrftoken
+                // 'X-CSRFToken': csrftoken
             },
             body: JSON.stringify(data),
         })
             .then((response) => response.json())
-            .then((data)=>{
+            .then((data) => {
                 console.log('Success:', data);
             })
-            .catch((error)=> {
+            .catch((error) => {
                 console.error('Error:', error);
             });
 
@@ -56,29 +55,49 @@ class SignUp extends React.Component {
         // // console.log('result',result);
 
         // //var querystring = require('querystring');
-        
     }
 
     render() {
         return (
-            <div className='signup'>
+            <div className="signup">
                 <h1>Sign Up</h1>
-                <dir className='form'>
-                    <dir className='form-group'>
+                <dir className="form">
+                    <dir className="form-group">
                         <label>Username</label>
-                        <input type='text' value={this.state.username} placeholder='username' onChange={(e) => this.setState({ username: e.target.value })} />
+                        <input
+                            type="text"
+                            value={this.state.username}
+                            placeholder="username"
+                            onChange={(e) => this.setState({username: e.target.value})}
+                        />
                     </dir>
-                    <dir className='form-group'>
+                    <dir className="form-group">
                         <label>Email</label>
-                        <input type='text' value={this.state.email} placeholder='email' onChange={(e) => this.setState({ email: e.target.value })} />
+                        <input
+                            type="text"
+                            value={this.state.email}
+                            placeholder="email"
+                            onChange={(e) => this.setState({email: e.target.value})}
+                        />
                     </dir>
-                    <dir className='form-group'>
+                    <dir className="form-group">
                         <label>Password</label>
-                        <input type='password' value={this.state.password} placeholder='password' onChange={(e) => this.setState({ password: e.target.value })} />
+                        <input
+                            type="password"
+                            value={this.state.password}
+                            placeholder="password"
+                            onChange={(e) => this.setState({password: e.target.value})}
+                        />
                     </dir>
                 </dir>
-                <dir className='footer'>
-                    <button onClick= {() => {this.register();}}>Sign Up</button>
+                <dir className="footer">
+                    <button
+                        onClick={() => {
+                            this.register();
+                        }}
+                    >
+                        Sign Up
+                    </button>
                 </dir>
                 <dir>
                     <p>
@@ -90,4 +109,4 @@ class SignUp extends React.Component {
         );
     }
 }
-export default SignUp;
+export default SignUpPage;
