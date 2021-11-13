@@ -1,13 +1,11 @@
 import React, {useState} from 'react';
-import * as actionCreators from '../store/actions/actionCreators';
 import {connect} from 'react-redux';
-
-import TitleBar from '../components/common/title';
-import MenuBar from '../components/common/menuBar';
 import {withRouter} from 'react-router-dom';
+
+import * as actionCreators from '../store/actions/actionCreators';
 import './taste-test.css';
 
-function TasteTest(props) {
+function TestPage(props) {
     //This part may get changed after we discuss more
     //Sample example
     const questions = [
@@ -40,7 +38,7 @@ function TasteTest(props) {
     ];
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
-    const [answers, setAnswers] = useState([]);     //saved and sent to backend server
+    const [answers, setAnswers] = useState([]); //saved and sent to backend server
 
     const handleAnswerOptionClick = (answer) => {
         setAnswers(answers.concat(answer));
@@ -54,11 +52,7 @@ function TasteTest(props) {
     };
     return (
         <div className="taste-test" id="padding">
-            <div className="MainPage">
-                <TitleBar />
-                <MenuBar />
-            </div>
-            {(
+            {
                 <>
                     <div className="question-section">
                         <div className="question-title">
@@ -80,16 +74,15 @@ function TasteTest(props) {
                         ))}
                     </div>
                 </>
-            )}
+            }
         </div>
     );
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
     return {
         getTestResult: () => dispatch(actionCreators.getTestResult()),
     };
 };
 
-export default withRouter(connect(null, mapDispatchToProps)(TasteTest));
-
+export default withRouter(connect(null, mapDispatchToProps)(TestPage));

@@ -1,16 +1,16 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-    selected:null,
-    category:[]
+    selected: null,
+    category: [],
 };
 
 const reducer = (state = initialState, action) => {
-    switch(action.type){
+    switch (action.type) {
     case actionTypes.GET_CATEGORY:
         return {...state, selected: action.selected};
     case actionTypes.GET_CATEGORIES:
-        return {...state, category: action.category};
+        return {...state, category_list: action.category};
     default:
         return state;
     }

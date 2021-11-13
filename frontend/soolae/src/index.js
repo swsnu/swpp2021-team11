@@ -15,6 +15,7 @@ import { createBrowserHistory } from 'history';
 import alcoholReducer from './store/reducers/alcoholReducer';
 import reviewReducer from './store/reducers/reviewReducer';
 import categoryReducer from './store/reducers/categoryReducer';
+import userReducer from './store/reducers/userReducer';
 
 const history = createBrowserHistory();
 const rootReducer = combineReducers({
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
     alcohol: alcoholReducer,
     review: reviewReducer,
     category: categoryReducer,
+    user: userReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

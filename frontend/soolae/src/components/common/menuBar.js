@@ -16,17 +16,17 @@ const MenuBar = (props) => {
                 </button>
                 <button
                     onClick={() => {
-                        props.history.push('/review/add');
+                        props.history.push('/review');
                     }}
                 >
-                    add
+                    reviews
                 </button>
                 <button
                     onClick={() => {
-                        props.history.push('/refresh');
+                        props.history.push('/main');
                     }}
                 >
-                    refresh
+                    main
                 </button>
                 <button
                     onClick={() => {
