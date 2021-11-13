@@ -1,18 +1,14 @@
 import React, {Component} from 'react';
-//import { useHistory } from 'react-router-dom';
-//import { Redirect } from 'react-router-dom';
-import { withRouter } from 'react-router';
-//import MainPage from './mainPage';
-// import axios from 'axios';
+import * as actionCreators from '../store/actions/actionCreators';
+import { connect } from 'react-redux';
+import axios from 'axios';
 
-// axios.defaults.xsrfCookieName = 'csrftoken';
-// axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 
 
 class SignIn extends Component {
-
-    //history = useHistory;
     
     constructor(props) {
         super(props);
@@ -22,35 +18,11 @@ class SignIn extends Component {
         };
     }
 
-    login(props) {
-        //let history = useHistory();
+    login() {
+
         const data = {'username': this.state.username,'password': this.state.password};
-        if (!this.state.username || !this.state.password) { alert('Enter email and password'); 
-        }else{
-            fetch('/api/signin/', {
-                credentials: 'include',
-                method: 'POST',
-                mode: 'same-origin',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                // 'X-CSRFToken': csrftoken
-                },
-                body: JSON.stringify(data),
-            }).then(function(response) {
-                if (response.status == 401){
-                    alert('Email or Password is wrong');
-                }else if (response.status == 204){
-                    props.history.push('/main');
-                }else 
-                    alert('try again');
-            });
-            
-            //console.log(props.history.push('/main'));
-            // return(
-            //     <Redirect exact from='/signin' to='/main' />
-            // );
-        }
+        this.props.signIn(data);
+
     }
 
     render() {
@@ -58,7 +30,7 @@ class SignIn extends Component {
             <div className="Login">
                 <h1>Sign in</h1>
                 <dir>
-                    <label>Email</label>
+                    <label>Username</label>
                     <input id="email-input" type="email" value={this.state.username}
                         onChange={(event) => this.setState({ username: event.target.value })}>
                     </input>
@@ -81,4 +53,10 @@ class SignIn extends Component {
     }
 }
 
-export default withRouter(SignIn);
+const mapDispatchToProps = dispatch => {
+    return {
+        signIn: (data) => dispatch(actionCreators.signIn(data)),
+    };
+};
+
+export default connect(null, mapDispatchToProps)(SignIn);

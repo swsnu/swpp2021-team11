@@ -7,3 +7,6 @@ export const GET_ALCOHOL_INFO = 'GET_ALCOHOL_INFO';
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const GET_CATEGORY = 'GET_CATEGORY';
 export const GET_CATEGORY_ALCOHOLS = 'GET_CATEGORY_ALCOHOLS';
+export const SIGNUP = 'SIGNUP';
+export const SIGNIN = 'SIGNIN';
+export const SIGNOUT = 'SIGNOUT';

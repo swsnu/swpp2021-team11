@@ -1,9 +1,11 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
-// import axios from 'axios';
+import * as actionCreators from '../store/actions/actionCreators';
+import { connect } from 'react-redux';
+import axios from 'axios';
 
-// axios.defaults.xsrfCookieName = 'csrftoken';
-// axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+
 
 class SignUp extends React.Component {
 
@@ -16,47 +18,10 @@ class SignUp extends React.Component {
         };
     }
     register() {
-        const data = {'username': this.state.username, 'email': this.state.email, 'password': this.state.password};
-        fetch('/api/signup/', {
-            credentials: 'include',
-            method: 'POST',
-            mode: 'same-origin',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            // 'X-CSRFToken': csrftoken
-            },
-            body: JSON.stringify(data),
-        })
-            .then((response) => response.json())
-            .then((data)=>{
-                console.log('Success:', data);
-            })
-            .catch((error)=> {
-                console.error('Error:', error);
-            });
-
-        alert('Account made successfuly!');
-        // result = await result.json();
-        // console.log('result',result);
-
-        // let item = {username: this.state.username, password: this.state.password};
-        // axios.post('http://localhost:8000/api/signup/', item);
-        // // console.log(item);
-
-        // // let result = await fetch('http://locallhost:8000/api/signup',{
-        // //     method: 'POST',
-        // //     body: JSON.stringify(item),
-        // //     headers:{
-        // //         'Content-Type':'application/json',
-        // //         'Accept':'application/json'
-        // //     }
-        // // });
-        // // result = await result.json();
-        // // console.log('result',result);
-
-        // //var querystring = require('querystring');
         
+        const data = {'username': this.state.username, 'email': this.state.email, 'password': this.state.password};
+        this.props.signUp(data);
+
     }
 
     render() {
@@ -90,4 +55,11 @@ class SignUp extends React.Component {
         );
     }
 }
-export default SignUp;
+
+const mapDispatchToProps = dispatch => {
+    return {
+        signUp: (data) => dispatch(actionCreators.signUp(data)),
+    };
+};
+
+export default connect(null, mapDispatchToProps)(SignUp);
