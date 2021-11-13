@@ -45,7 +45,7 @@ describe('<MenuBar />', () => {
     it('When click search, redirect to search. ', () => {
         const component = mount(menuBar);
         const wrapper = component.find('.MenuBar');
-        wrapper.find('.MenuBar button').at(3).simulate('click');
+        wrapper.find('.MenuBar button').at(4).simulate('click');
         expect(history.location.pathname).toBe('/search');
     });
 });
