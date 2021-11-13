@@ -1,20 +1,12 @@
 import React, {Component} from 'react';
 import {withRouter} from 'react-router';
-import {Link} from 'react-router-dom';
 
 class SignOut extends Component {
     constructor(props) {
         super(props);
-        // this.state = {
-        //     isLoggedIn: false
-        // };
     }
 
     logout(props) {
-        //let history = useHistory();
-        // const data = {'username': this.state.username,'password': this.state.password};
-        // if (!this.state.username || !this.state.password) { alert('Enter email and password');
-        // }else{
         fetch('/api/signout/', {
             credentials: 'include',
             method: 'GET',
@@ -28,22 +20,23 @@ class SignOut extends Component {
             if (response.status == 401) {
                 alert('User is not logged in!');
             } else if (response.status == 204) {
-                //this.state.isLoggedIn = true;
                 props.history.push('/test');
-                //alert('logged out');
             } else alert('try again');
         });
     }
 
     render() {
-        //const isLoggedIn = this.props.isLoggedIn;
-
         return (
-            <div>
+            <div className="SignOut">
                 {
-                    <Link to="/signin">
-                        <button style={{position: 'relative', right: '-880px'}}>Sign in</button>
-                    </Link>
+                    <button
+                        onClick={() => {
+                            this.props.history.push('/signin');
+                        }}
+                        style={{position: 'relative', right: '-880px'}}
+                    >
+                        Sign in
+                    </button>
                 }
                 <button
                     style={{position: 'relative', right: '-900px'}}
