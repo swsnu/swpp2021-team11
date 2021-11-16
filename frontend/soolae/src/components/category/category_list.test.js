@@ -6,7 +6,7 @@ import * as actionCreators from '../../store/actions/actionCreators';
 import CategoryList from './category_list';
 import {Provider} from 'react-redux';
 
-describe('<UserName />', () => {
+describe('<CategoryList />', () => {
     const getCategoriesSpy = jest.spyOn(actionCreators, 'getCategories').mockReturnValue({type: 'mockup'});
     let mockStore = getMockStore({category: {category_list: []}});
     let mockOnClick = jest.fn();
