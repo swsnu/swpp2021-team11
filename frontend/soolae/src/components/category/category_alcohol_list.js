@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router';
 
 import * as actionCreators from '../../store/actions/index';
 
@@ -18,6 +17,7 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
+// props.id : category.id is required
 const CategoryAlcoholList = (props) => {
     let [category] = props.category_alcohols.filter((item) => item.id === props.id);
     if (category === undefined) {
@@ -43,4 +43,4 @@ const CategoryAlcoholList = (props) => {
     );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CategoryAlcoholList));
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryAlcoholList);
