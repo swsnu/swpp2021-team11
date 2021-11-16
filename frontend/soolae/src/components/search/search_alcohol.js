@@ -1,20 +1,17 @@
 import React from 'react';
-// import {connect} from 'react-redux';
-import {withRouter} from 'react-router';
-
-// import * as actionCreators from '../../store/actions/index';
 
 import CategoryList from '../category/category_list';
 import CategoryAlcoholList from '../category/category_alcohol_list';
 
-const WordSearchForm = withRouter(() => {
+const WordSearchForm = () => {
     return (
         <div className="word_search">
             <input type="text" />
             <button onClick={() => {}}>Search</button>
         </div>
     );
-});
+};
+
 
 const VIEW_STATE = {CATEGORY: 'CATEGORY', ALCOHOL: 'ALCOHOL'};
 
@@ -37,17 +34,17 @@ class SearchAlcohol extends React.Component {
     render() {
         if (this.state.viewState === VIEW_STATE.CATEGORY) {
             return (
-                <>
+                <div className='SearchAlcohol'>
                     <WordSearchForm />
                     <CategoryList onClick={this.select_category_callback} />
-                </>
+                </div>
             );
         } else if (this.state.viewState === VIEW_STATE.ALCOHOL) {
             return (
-                <>
+                <div className='SearchAlcohol'>
                     <WordSearchForm />
                     <CategoryAlcoholList id={this.state.categoryId} onClick={this.select_alcohol_callback} />
-                </>
+                </div>
             );
         }
         return <WordSearchForm />;
