@@ -17,9 +17,10 @@ class SignInPage extends Component {
             username: '',
             password: '',
         };
+        this.login = this.login.bind(this);
     }
 
-    login(props) {
+    login() {
         //let history = useHistory();
         const data = {username: this.state.username, password: this.state.password};
         if (!this.state.username || !this.state.password) {
@@ -35,11 +36,11 @@ class SignInPage extends Component {
                     // 'X-CSRFToken': csrftoken
                 },
                 body: JSON.stringify(data),
-            }).then(function (response) {
+            }).then((response) => {
                 if (response.status == 401) {
                     alert('Email or Password is wrong');
                 } else if (response.status == 204) {
-                    props.history.push('/main');
+                    this.props.history.push('/main');
                 } else alert('try again');
             });
 
@@ -76,7 +77,7 @@ class SignInPage extends Component {
                     <button
                         id="login-button"
                         onClick={() => {
-                            this.login(this.props);
+                            this.login();
                         }}
                     >
                         Sign in
