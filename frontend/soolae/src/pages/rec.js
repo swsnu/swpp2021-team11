@@ -8,7 +8,7 @@ import AlcoholDetailInfo from '../components/alcohol/alcohol_detail_info';
 class TestResultPage extends React.Component {
     render() {
         let recommendation = this.props.recommended;
-        if (recommendation === undefined) {
+        if (recommendation === undefined || recommendation.length === 0) {
             this.props.getTestResult();
             return (
                 <div>
