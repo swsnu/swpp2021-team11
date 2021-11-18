@@ -35,7 +35,7 @@ class SignUpPage extends React.Component {
                 console.error('Error:', error);
             });
 
-        alert('Account made successfuly!');
+        alert('Account made successfully!');
         // result = await result.json();
         // console.log('result',result);
 
@@ -61,8 +61,8 @@ class SignUpPage extends React.Component {
         return (
             <div className="signup">
                 <h1>Sign Up</h1>
-                <dir className="form">
-                    <dir className="form-group">
+                <div className="form">
+                    <div className="form-group">
                         <label>Username</label>
                         <input
                             type="text"
@@ -70,8 +70,8 @@ class SignUpPage extends React.Component {
                             placeholder="username"
                             onChange={(e) => this.setState({username: e.target.value})}
                         />
-                    </dir>
-                    <dir className="form-group">
+                    </div>
+                    <div className="form-group">
                         <label>Email</label>
                         <input
                             type="text"
@@ -79,8 +79,8 @@ class SignUpPage extends React.Component {
                             placeholder="email"
                             onChange={(e) => this.setState({email: e.target.value})}
                         />
-                    </dir>
-                    <dir className="form-group">
+                    </div>
+                    <div className="form-group">
                         <label>Password</label>
                         <input
                             type="password"
@@ -88,9 +88,9 @@ class SignUpPage extends React.Component {
                             placeholder="password"
                             onChange={(e) => this.setState({password: e.target.value})}
                         />
-                    </dir>
-                </dir>
-                <dir className="footer">
+                    </div>
+                </div>
+                <div className="footer">
                     <button
                         onClick={() => {
                             this.register();
@@ -98,13 +98,13 @@ class SignUpPage extends React.Component {
                     >
                         Sign Up
                     </button>
-                </dir>
-                <dir>
+                </div>
+                <div>
                     <p>
                         Aleady have an account? <br />
                         <a href="/signin">Sign in here</a>
                     </p>
-                </dir>
+                </div>
             </div>
         );
     }
