@@ -1,0 +1,24 @@
+.review_list li {
+    list-style: none;
+    margin: 30px;
+    background-color: cornflowerblue;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.review_list ul {
+    padding: 0px;
+}
+
+.review_list button {
+    padding: 5px;
+    font-size: larger;
+}
+
+.review_detail_page {
+    list-style: none;
+    margin: 30px;
+    background-color: cornflowerblue;
+    border-radius: 10px;
+    padding: 20px;
+}

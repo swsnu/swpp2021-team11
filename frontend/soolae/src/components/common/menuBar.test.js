@@ -42,10 +42,17 @@ describe('<MenuBar />', () => {
         expect(history.location.pathname).toBe('/main');
     });
 
-    it('When click search, redirect to search. ', () => {
+    it('When click back, it should go backpage. ', () => {
         const component = mount(menuBar);
         const wrapper = component.find('.MenuBar');
         wrapper.find('.MenuBar button').at(3).simulate('click');
+        expect(history.location.pathname).toBe('/');
+    });
+
+    it('When click search, redirect to search. ', () => {
+        const component = mount(menuBar);
+        const wrapper = component.find('.MenuBar');
+        wrapper.find('.MenuBar button').at(4).simulate('click');
         expect(history.location.pathname).toBe('/search');
     });
 });

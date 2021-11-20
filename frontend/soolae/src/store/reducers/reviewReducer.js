@@ -2,7 +2,7 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
     reviews: [],
-    selected: null,
+    review_list: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -10,7 +10,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.GET_REVIEW_LIST:
         return {...state, reviews: action.reviews};
     case actionTypes.GET_REVIEW:
-        return {...state, selected: action.review};
+        return {...state, review_list: [...state.review_list, action.review]};
     default:
         return state;
     }

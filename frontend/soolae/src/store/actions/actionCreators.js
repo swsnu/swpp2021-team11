@@ -49,3 +49,53 @@ export const getTestResult = () => {
             .then(res => {dispatch({type: actionTypes.GET_TEST_RESULT, recommended: res.data});});
     };
 };
+
+export const getCategories_ = (data) => {
+    return {type: actionTypes.GET_CATEGORIES, category:data};
+};
+
+export const getCategories = () => {
+    return dispatch => {
+        return axios.get('/api/category/').then(res=> dispatch(getCategories_(res.data)));
+    };
+};
+
+export const getCategory_ = (data) => {
+    return {type: actionTypes.GET_CATEGORY, selected:data};
+};
+
+export const getCategory = (id) => {
+    return dispatch => {
+        return axios.get('/api/category/' + id).then(res=> dispatch(getCategory_(res.data)));
+    };
+};
+
+export const getCategoryAlcohols_ = (data) => {
+    return {type: actionTypes.GET_CATEGORY_ALCOHOLS, category_alcohols:data};
+};
+
+export const getCategoryAlcohols = (id) => {
+    return dispatch => {
+        return axios.get('/api/category/' + id).then(res => dispatch(getCategoryAlcohols_(res.data)));
+    };
+};
+
+export const getAlcoholList_ = (data) => {
+    return { type: actionTypes.GET_ALCOHOL_LIST, alcohol_list:data};
+};
+
+export const getAlcoholList = () => {
+    return dispatch => {
+        return axios.get('/api/alcohol/').then(res=> dispatch(getAlcoholList_(res.data)));
+    };
+};
+
+export const getUserInfo_ = (data) => {
+    return { type: actionTypes.GET_USER_INFO, user:data};
+};
+
+export const getUserInfo = (id) => {
+    return dispatch => {
+        return axios.get('/api/user/' + id).then(res=> dispatch(getUserInfo_(res.data)));
+    };
+};

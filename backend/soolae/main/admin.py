@@ -7,9 +7,10 @@ from .models import (
     TasteStandard,
     Anju,
     Sool,
+    Review
 )
 
-modelList = [SoolMaterial, SoolMaker, SoolTag, SoolCategory, TasteStandard, Anju, Sool]
+modelList = [SoolMaterial, SoolMaker, SoolTag, SoolCategory, TasteStandard, Anju, Sool, Review]
 for i in modelList:
     admin.site.register(i)
 
