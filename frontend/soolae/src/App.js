@@ -12,10 +12,11 @@ import TestResultPage from './pages/rec';
 
 import SignInPage from './pages/signIn';
 import SignUpPage from './pages/signUp';
-import SignOut from './components/common/signOut';
+import SignInOut from './components/common/signInOut';
 
 import MainPage from './pages/main';
 import SearchPage from './pages/search';
+import ProfilePage from './pages/profile.js';
 import AlcoholDetailPage from './pages/alcohol/:id';
 import WriteReviewPage from './pages/write-review';
 import ReviewListPage from './pages/review/reviewList';
@@ -26,7 +27,7 @@ function App(props) {
         <ConnectedRouter history={props.history}>
             <div style={{display: 'flex', justifyContent: 'center'}}>
                 <div className="App">
-                    <SignOut />
+                    <SignInOut />
                     <TitleBar />
                     <MenuBar />
                     <Switch>
@@ -36,6 +37,7 @@ function App(props) {
                         <Route path="/signIn" exact render={() => <SignInPage />} />
                         <Route path="/main" exact render={() => <MainPage />} />
                         <Route path="/search" exact render={() => <SearchPage />} />
+                        <Route path="/profile" exact render={() => <ProfilePage />} />
                         <Route path="/alcohol/:id" exact render={() => <AlcoholDetailPage />} />
                         <Route path="/write-review" exact render={() => <WriteReviewPage />} />
                         <Route path="/review" exact render={() => <ReviewListPage />} />

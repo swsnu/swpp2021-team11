@@ -43,7 +43,7 @@ def signup(request):
         password = req_data["password"]
         user = User.objects.create_user(username, password=password)
         login(request, user)
-        return HttpResponse(status=201)
+        return JsonResponse({id: user.id}, status=201)
     return HttpResponseNotAllowed(["POST"])
 
 
@@ -56,7 +56,7 @@ def signin(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return HttpResponse(status=204)
+            return JsonResponse({"id": user.id}, status=200)
         return HttpResponse(status=401)
     return HttpResponseNotAllowed(["POST"])
 
