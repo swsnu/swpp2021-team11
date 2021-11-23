@@ -36,29 +36,27 @@ def method_check(methods):
 
 
 @csrf_exempt
+@method_check(["POST"])
 def signup(request):
-    if request.method == "POST":
-        req_data = json.loads(request.body.decode())
-        username = req_data["username"]
-        password = req_data["password"]
-        user = User.objects.create_user(username, password=password)
-        login(request, user)
-        return JsonResponse({id: user.id}, status=201)
-    return HttpResponseNotAllowed(["POST"])
+    req_data = json.loads(request.body.decode())
+    username = req_data["username"]
+    password = req_data["password"]
+    user = User.objects.create_user(username, password=password)
+    login(request, user)
+    return HttpResponse(status=201)
 
 
 @csrf_exempt
+@method_check(["POST"])
 def signin(request):
-    if request.method == "POST":
-        req_data = json.loads(request.body.decode())
-        username = req_data["username"]
-        password = req_data["password"]
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return JsonResponse({"id": user.id}, status=200)
-        return HttpResponse(status=401)
-    return HttpResponseNotAllowed(["POST"])
+    req_data = json.loads(request.body.decode())
+    username = req_data["username"]
+    password = req_data["password"]
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return HttpResponse(status=204)
+    return HttpResponse(status=401)
 
 
 @method_check(["GET"])
