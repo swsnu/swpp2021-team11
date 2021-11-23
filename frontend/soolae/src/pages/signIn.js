@@ -12,7 +12,7 @@ class SignInPage extends Component {
     login() {
         const data = {username: this.state.username, password: this.state.password};
         if (!this.state.username || !this.state.password) {
-            alert('Enter email and password');
+            alert('Enter username and password');
         } else {
             this.props.signin(data);
         }
@@ -20,13 +20,13 @@ class SignInPage extends Component {
 
     render() {
         return (
-            <div className="Login">
+            <div className="SignIn">
                 <h1>Sign in</h1>
                 <dir>
                     <label>Username</label>
                     <input
-                        id="email-input"
-                        type="email"
+                        id="username-input"
+                        type="string"
                         value={this.state.username}
                         onChange={(event) => this.setState({username: event.target.value})}
                     ></input>

@@ -21,13 +21,13 @@ class ProfilePage extends React.Component {
             return <h1>Loading...</h1>;
         }
         const infoTab = (
-            <div>
+            <div className='infoTab'>
                 <h2>Username: {this.props.userInfo.username}</h2>
                 <h2>Email: {this.props.userInfo.email}</h2>
             </div>
         );
         const myReviewsTab = (
-            <div className = "profile">
+            <div className = 'reviewsTab'>
                 <h2>Reviews</h2>
                 {this.props.userInfo.reviews.map((review) => {
                     return (
@@ -45,12 +45,12 @@ class ProfilePage extends React.Component {
             </div>
         );
         const friendsTab = (
-            <div>
+            <div className='friendsTab'>
                 <h2>Friends</h2>
             </div>
         );
         return (
-            <div>
+            <div className='profile'>
                 <button onClick = {() => this.setState({tabState: 0})}>Profile Info</button>
                 <button onClick = {() => this.setState({tabState: 1})}>My Reviews</button>
                 <button onClick = {() => this.setState({tabState: 2})}>Friends</button>
