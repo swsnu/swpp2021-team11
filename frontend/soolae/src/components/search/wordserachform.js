@@ -4,10 +4,8 @@ class WordSearchForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {word: ''};
-        //this.word_search_button_callback = this.word_search_button_callback.bind(this);
     }
 
-    
     render(){
         return (
             <div className="word_search">
