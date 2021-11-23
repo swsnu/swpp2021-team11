@@ -90,6 +90,7 @@ def user_profile(request, user_id=0):
         "id": user.id,
         "username": user.username,
         "email": user.email,
+        "reviews": list(Review.objects.filter(author=user.id).values()),
     }
 
     if request.method == "GET":
