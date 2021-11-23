@@ -6,7 +6,7 @@ import React from 'react';
 
 import CategoryList from '../category/category_list';
 import CategoryAlcoholList from '../category/category_alcohol_list';
-import WordSearchForm from './wordserachform';
+import WordSearchForm from './wordsearchform';
 import WordSearch from './wordsearch';
 
 const VIEW_STATE = {CATEGORY: 'CATEGORY', ALCOHOL: 'ALCOHOL', WORD: 'WORD'};
