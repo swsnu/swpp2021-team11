@@ -54,7 +54,14 @@
     "redux-thunk": "^2.3.0"
   },
   "jest": {
-    "resetMocks": false
+    "resetMocks": false, 
+    "collectCoverageFrom" : [
+      "src/**/*.{js, jsx}",
+      "!src/index.js",
+      "!src/serviceWorker.js", 
+      "!src/store/actions/index.js",
+      "!src/reportWebVitals.js"
+    ]
   },
   "proxy": "http://localhost:8000"
 }
