@@ -18,6 +18,7 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
+// props.id : need alcohol.id
 const AlcoholDetailInfo = (props) => {
     let alcohol = props.alcohol_info.filter((item) => item.id === props.id);
     if (alcohol.length === 0) {

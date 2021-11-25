@@ -1,15 +1,17 @@
 import React from 'react';
 // import {connect} from 'react-redux';
 //import {withRouter} from 'react-router';
-
 // import * as actionCreators from '../../store/actions/index';
+
 
 import CategoryList from '../category/category_list';
 import CategoryAlcoholList from '../category/category_alcohol_list';
 import WordSearchForm from './wordsearchform';
 import WordSearch from './wordsearch';
 
+
 const VIEW_STATE = {CATEGORY: 'CATEGORY', ALCOHOL: 'ALCOHOL', WORD: 'WORD'};
+
 
 class SearchAlcohol extends React.Component {
     constructor(props) {
@@ -38,14 +40,14 @@ class SearchAlcohol extends React.Component {
                 <>
                     <WordSearchForm onClick={this.word_search_callback}/>
                     <CategoryList onClick={this.select_category_callback} />
-                </>
+                </div>
             );
         } else if (this.state.viewState === VIEW_STATE.ALCOHOL) {
             return (
                 <>
                     <WordSearchForm onClick={this.word_search_callback}/>
                     <CategoryAlcoholList id={this.state.categoryId} onClick={this.select_alcohol_callback} />
-                </>
+                </div>
             );
         } else if (this.state.viewState === VIEW_STATE.WORD) {
             return(

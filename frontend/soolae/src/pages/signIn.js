@@ -16,13 +16,12 @@ class SignIn extends Component {
             username: '',
             password: ''
         };
+        this.login = this.login.bind(this);
     }
 
     login() {
-
         const data = {'username': this.state.username,'password': this.state.password};
         this.props.signIn(data);
-
     }
 
     render() {

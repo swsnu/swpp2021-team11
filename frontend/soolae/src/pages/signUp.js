@@ -18,10 +18,8 @@ class SignUp extends React.Component {
         };
     }
     register() {
-        
         const data = {'username': this.state.username, 'email': this.state.email, 'password': this.state.password};
         this.props.signUp(data);
-
     }
 
     render() {
@@ -50,7 +48,7 @@ class SignUp extends React.Component {
                         Aleady have an account? <br />
                         <a href="/signin">Sign in here</a>
                     </p>
-                </dir>
+                </div>
             </div>
         );
     }
