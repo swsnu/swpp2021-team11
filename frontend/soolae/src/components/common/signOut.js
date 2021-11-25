@@ -1,53 +1,42 @@
-import React, {Component} from 'react';
-import {withRouter} from 'react-router';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actionCreators from '../../store/actions/actionCreators';
+
+import axios from 'axios';
+
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 class SignOut extends Component {
+    
     constructor(props) {
         super(props);
+        console.log(this.props);
     }
+    
+    logout() {
 
-    logout(props) {
-        fetch('/api/signout/', {
-            credentials: 'include',
-            method: 'GET',
-            mode: 'same-origin',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                // 'X-CSRFToken': csrftoken
-            },
-        }).then(function (response) {
-            if (response.status == 401) {
-                alert('User is not logged in!');
-            } else if (response.status == 204) {
-                props.history.push('/test');
-            } else alert('try again');
-        });
+        this.props.signOut();
+
     }
-
+    
     render() {
+        
         return (
-            <div className="SignOut">
-                {
-                    <button
-                        onClick={() => {
-                            this.props.history.push('/signin');
-                        }}
-                        style={{position: 'relative', right: '-880px'}}
-                    >
-                        Sign in
-                    </button>
-                }
-                <button
-                    style={{position: 'relative', right: '-900px'}}
-                    onClick={() => {
-                        this.logout(this.props);
-                    }}
-                >
-                    Sign Out
-                </button>
+            <div>
+                { <Link to= '/signin'><button style={{position:'relative', right:'-880px'}}>Sign in</button></Link> }
+                <button style={{position:'relative', right:'-900px'}} onClick= {() => {this.logout();}}>Sign Out</button>
             </div>
         );
     }
 }
-export default withRouter(SignOut);
+
+
+const mapDispatchToProps = dispatch => {
+    return {
+        signOut: () => dispatch(actionCreators.signOut()),
+    };
+};
+
+export default connect(null, mapDispatchToProps)(SignOut);

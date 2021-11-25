@@ -2,6 +2,35 @@ import * as actionTypes from './actionTypes';
 import axios from 'axios';
 import {push} from 'connected-react-router';
 
+export const signUp = (data) => {
+    return dispatch => {
+        return axios.post('/api/signup/', data)
+            .then(() => {
+                dispatch({type: actionTypes.SIGNUP});
+                dispatch(push('/main/'));
+            });
+    };
+};
+export const signIn = (data) => {
+    return dispatch => {
+        return axios.post('/api/signin/', data)
+            .then(() => {
+                dispatch({type: actionTypes.SIGNIN});
+                dispatch(push('/main/'));
+            });
+    };
+};
+
+export const signOut = () => {
+    return dispatch => {
+        return axios.get('/api/signout/')
+            .then(() => {
+                dispatch({type: actionTypes.SIGNOUT});
+                dispatch(push('/test/'));
+            });
+    };
+};
+
 export const getRecommendationList = () => {
     return dispatch => {
         return axios.get('/api/recommend/')
