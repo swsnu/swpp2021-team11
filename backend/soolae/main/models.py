@@ -82,7 +82,7 @@ class Sool(models.Model):
     subtext = models.CharField(max_length=300)
     sweet = models.SmallIntegerField()
     weight = models.SmallIntegerField()
-    carbonic = models.SmallIntegerField()
+    carbonic = models.SmallIntegerField(null=True)
     plain = models.SmallIntegerField()
     acidity = models.SmallIntegerField()
     body = models.SmallIntegerField()
@@ -103,6 +103,7 @@ class Sool(models.Model):
         SoolDistinction, on_delete=CASCADE, related_name="sool"
     )
     sool_maker = models.ForeignKey(SoolMaker, on_delete=CASCADE, related_name="sool")
+    link = models.TextField(default="")
     sool_material = models.ManyToManyField(SoolMaterial, related_name="sool")
     sool_tag = models.ManyToManyField(SoolTag, related_name="sool")
     anju = models.ManyToManyField(Anju, related_name="sool")

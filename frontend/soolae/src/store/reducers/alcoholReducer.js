@@ -4,6 +4,7 @@ const initialState = {
     recommended: [],
     alcohol_info: [],
     category_alcohols: [],
+    alcohol_list: [],
 };
 
 const reducer = (state = initialState, action) => {
