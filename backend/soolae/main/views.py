@@ -77,8 +77,11 @@ def user_profile(request, user_id=0):
 
     # Modify user object.
     if request.method == "PUT":
+        if not request.user.is_authenticated or user.id != user_id:
+            return HttpResponse(status=401)
         try:
             req_data = json.loads(request.body.decode())
+            user.username = req_data["username"]
             user.email = req_data["email"]
             user.save()
         except (KeyError, json.JSONDecodeError):
@@ -142,7 +145,7 @@ def test(request):
     ######
     # Generate some recommendations
     ######
-    sool = Sool.objects.get(id=random.randrange(128, 254))
+    sool = Sool.objects.first()
     result = {"id": sool.id}
     return JsonResponse(result, status=200)
 
@@ -162,16 +165,18 @@ def recommend(request):
 
 @method_check(["GET", "POST"])
 def review_list(request):
+    if not request.user.is_authenticated:
+        return HttpResponse(status=401)
     if request.method == "GET":
         result = list(
-            Review.objects.all().values("id", "title", "star_rating", "author_id")
+            Review.objects.all().values("id", "title", "content", "star_rating", "author_id")
         )
         return JsonResponse(result, status=200, safe=False)
 
     if request.method == "POST":
         try:
             req_data = json.loads(request.body.decode())
-            alcohol_review = Sool.objects.get(id=req_data["id"])
+            alcohol_review = Sool.objects.get(id=req_data["sool_id"])
             new_review = Review(
                 title=req_data["title"],
                 content=req_data["content"],
