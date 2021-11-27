@@ -1,3 +1,4 @@
+# pylint: disable=line-too-long
 import json
 from django.test import TestCase, Client
 from django.contrib.auth import get_user_model
@@ -128,13 +129,13 @@ class MainTestCase(TestCase):
             json.dumps({'username': 'test_user2', 'email': 'test_email2'}),
             content_type = 'application/json')
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(json.loads(response.content.decode()), 
+        self.assertEqual(json.loads(response.content.decode()),
             {'id': 1, 'username': 'test_user2', 'email': 'test_email2', 'reviews': []})
 
     def test_alcohol(self):
         client = Client()
         response = client.get('/api/alcohol/')
-        self.assertEqual(json.loads(response.content.decode()), 
+        self.assertEqual(json.loads(response.content.decode()),
             [{'id': 1, 'name': 'test_sool', 'rating': 3}])
 
     def test_test(self):
@@ -160,7 +161,7 @@ class MainTestCase(TestCase):
         self.assertEqual(response.status_code, 201)
         self.assertEqual(json.loads(response.content.decode()),
             {'id': 1, 'sool_id': 1, 'title': 'test_title', 'content': 'test_content', 'image': '', 'star_rating': 3, 'author_id': 1})
-    
+
     def test_get_review_list(self):
         client = Client()
         client.post('/api/signin/',
@@ -184,5 +185,3 @@ class MainTestCase(TestCase):
         response = client.get('/api/review/1/')
         self.assertEqual(json.loads(response.content.decode()),
             {'id': 1, 'sool_id': 1, 'title': 'test_title', 'content': 'test_content', 'image': '','star_rating': 3, 'author_id': 1})
-
-
