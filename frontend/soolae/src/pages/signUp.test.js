@@ -48,16 +48,16 @@ describe('<SignUp />', () => {
         expect(instance.state.email).toEqual('swpp@snu.ac.kr');
         expect(instance.state.password).toEqual('swppteam11');
     });
-
+    /*
     it('should call alert() with blank input', (done) => {
         const component = mount(signUp);
         component.find('.footer button').simulate('click');
         expect(spyAlert).toBeCalledWith('Enter username, email and password');
         done();
     });
-
-    it('should call signin() on clicking sign in button', (done) => {
-        const spySignUp = jest.spyOn(actionCreators, 'signup');
+    */
+    it('should call signUp() on clicking sign in button', (done) => {
+        const spySignUp = jest.spyOn(actionCreators, 'signUp');
         const component = mount(signUp);
         component.find('.form-group input').at(0).simulate('change', {target: {value: 'swpp'}});
         component.find('.form-group input').at(1).simulate('change', {target: {value: 'swpp@snu.ac.kr'}});

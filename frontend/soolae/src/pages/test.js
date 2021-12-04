@@ -64,11 +64,7 @@ function TestPage(props) {
                     </div>
                     <div className="answer-section">
                         {questions[currentQuestion].answerOptions.map((answerOption, index) => (
-                            <button
-                                id="button"
-                                key={questions.findIndex.toString()}
-                                onClick={() => handleAnswerOptionClick(index)}
-                            >
+                            <button id="button" key={index} onClick={() => handleAnswerOptionClick(index)}>
                                 {answerOption.answerText}
                             </button>
                         ))}

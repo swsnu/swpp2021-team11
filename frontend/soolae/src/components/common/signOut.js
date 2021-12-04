@@ -1,47 +1,41 @@
-import React, {Component} from 'react';
-import {withRouter} from 'react-router';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import * as actionCreators from '../../store/actions/actionCreators';
 
-class SignOut extends Component {
+import axios from 'axios';
 
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+
+class SignOut extends Component {
+    
+    constructor(props) {
+        super(props);
+    }
+    
+    logout() {
+
+        this.props.signOut();
+
+    }
+    
     render() {
+        
         return (
-            <div className="SignOut">
-                <button
-                    onClick={() => {
-                        this.props.history.push('/signin');
-                    }}
-                    style={{position: 'relative', right: '-950px'}}
-                >
-                            Sign in
-                </button>
-                <button
-                    style={{position: 'relative', right: '-950px'}}
-                    onClick={() => {
-                        this.props.signout();
-                    }}
-                >
-                        Sign Out
-                </button>
+            <div>
+                { <Link to= '/signin'><button style={{position:'relative', right:'-880px'}}>Sign in</button></Link> }
+                <button id='signout-button' style={{position:'relative', right:'-900px'}} onClick= {() => {this.logout();}}>Sign Out</button>
             </div>
         );
     }
 }
 
-const mapStateToProps = (state) => {
+
+const mapDispatchToProps = dispatch => {
     return {
-        myId: state.user.myId,
+        signOut: () => dispatch(actionCreators.signOut()),
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        signout: () => {
-            return dispatch(actionCreators.signout());
-        },
-    };
-};
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SignOut));
+export default connect(null, mapDispatchToProps)(SignOut);

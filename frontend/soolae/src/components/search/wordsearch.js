@@ -1,32 +1,34 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import { withRouter } from 'react-router';
 
 import * as actionCreators from '../../store/actions/index';
 
 const mapStateToProps = (state) => {
     return {
-        category_alcohols: state.alcohol.category_alcohols,
+        alcohol_list: state.alcohol.alcohol_list,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getCategoryAlcohols: (id) => {
-            return dispatch(actionCreators.getCategoryAlcohols(id));
+        getAlcoholList: () => {
+            return dispatch(actionCreators.getAlcoholList());
         },
     };
 };
 
-// props.id : category.id is required
-const CategoryAlcoholList = (props) => {
-    let [category] = props.category_alcohols.filter((item) => item.id === props.id);
-    if (category === undefined) {
-        props.getCategoryAlcohols(props.id);
+const WordSearch = (props) => {
+    if (props.alcohol_list.length === 0) {
+        props.getAlcoholList();
         return <div className="alcohol_list">Loading...</div>;
     }
+    const word_search_list = props.alcohol_list.filter((alcohol) => {
+        return (alcohol.name.includes(props.word));
+    });
     return (
         <ul className="alcohol_list">
-            {category.alcohol_list.map((alcohol) => {
+            {word_search_list.map((alcohol) => {
                 return (
                     <li key={alcohol.id}>
                         <button
@@ -43,4 +45,4 @@ const CategoryAlcoholList = (props) => {
     );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CategoryAlcoholList);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(WordSearch));

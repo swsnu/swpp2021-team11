@@ -2,45 +2,31 @@ import * as actionTypes from './actionTypes';
 import axios from 'axios';
 import {push} from 'connected-react-router';
 
-export const signin = (data) => {
-    return dispatch => {
-        return axios.post('/api/signin/', data)
-            .then(res => {
-                dispatch({type: actionTypes.SIGNIN, id: res.data});
-                if(res.status == 200){
-                    dispatch(push('/main/'));
-                }
-            });
-    };
-};
-
-export const signup = (data) => {
+export const signUp = (data) => {
     return dispatch => {
         return axios.post('/api/signup/', data)
-            .then(res => {
-                dispatch({type: actionTypes.SIGNUP, user: res.data});
-                if(res.status == 201){
-                    alert('Created a new account successfully!');
-                    dispatch(push('/main/'));
-                }
+            .then(() => {
+                dispatch({type: actionTypes.SIGNUP});
+                dispatch(push('/main/'));
+            });
+    };
+};
+export const signIn = (data) => {
+    return dispatch => {
+        return axios.post('/api/signin/', data)
+            .then(() => {
+                dispatch({type: actionTypes.SIGNIN});
+                dispatch(push('/main/'));
             });
     };
 };
 
-export const signout = () => {
+export const signOut = () => {
     return dispatch => {
         return axios.get('/api/signout/')
-            .then(res => {
+            .then(() => {
                 dispatch({type: actionTypes.SIGNOUT});
-                if(res.status == 204){
-                    dispatch(push('/test/'));
-                }
-                else if(res.status == 401){
-                    alert('User is not logged in!');
-                }
-                else{
-                    alert('try again');
-                }
+                dispatch(push('/test/'));
             });
     };
 };
