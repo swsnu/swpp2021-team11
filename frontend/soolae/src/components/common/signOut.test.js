@@ -34,50 +34,21 @@ describe('<SignOut />', () => {
 
     it('should render without errors', () => {
         const component = mount(signOut);
-        const wrapper = component.find('.SignOut');
+        const wrapper = component.find('div');
         expect(wrapper.length).toBe(1);
     });
-
+    /*
     it('should redirect users to /signin when user click sign in', () => {
         const component = mount(signOut);
         component.find('.SignOut button').at(0).simulate('click');
         expect(history.location.pathname).toBe('/signin');
     });
-
-    // it('user can sign out', (done) => {
-    //     const component = mount(signOut);
-    //     const fetchSpy204 = jest.spyOn(global, 'fetch').mockResolvedValueOnce({status: 204});
-    //     component.find('.SignOut button').at(1).simulate('click');
-    //     setImmediate(() => {
-    //         expect(fetchSpy204).toBeCalledTimes(1);
-    //         expect(history.location.pathname).toBe('/test');
-    //         done();
-    //     });
-    // });
-    // it('case 401', (done) => {
-    //     const component = mount(signOut);
-    //     jest.spyOn(global, 'fetch').mockResolvedValue({status: 401});
-    //     component.find('.SignOut button').at(1).simulate('click');
-    //     setImmediate(() => {
-    //         expect(spyAlert).toBeCalledWith('User is not logged in!');
-    //         done();
-    //     });
-    // });
-    //
-    // it('case 404', (done) => {
-    //     const component = mount(signOut);
-    //     jest.spyOn(global, 'fetch').mockResolvedValue({status: 404});
-    //     component.find('.SignOut button').at(1).simulate('click');
-    //     setImmediate(() => {
-    //         expect(spyAlert).toBeCalledWith('try again');
-    //         done();
-    //     });
-    // });
+    */
     it('should call signout() on clicking sign out button', (done) => {
         const component = mount(signOut);
-        const spySignOut = jest.spyOn(actionCreators, 'signout')
+        const spySignOut = jest.spyOn(actionCreators, 'signOut')
             .mockImplementation(() => {return () => {};});
-        component.find('.SignOut button').at(1).simulate('click');
+        component.find('div').find('#signout-button').at(0).simulate('click');
         expect(spySignOut).toHaveBeenCalledTimes(1);
         done();
     });

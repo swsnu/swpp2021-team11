@@ -37,14 +37,14 @@ class SearchAlcohol extends React.Component {
     render() {
         if (this.state.viewState === VIEW_STATE.CATEGORY) {
             return (
-                <>
+                <div>
                     <WordSearchForm onClick={this.word_search_callback}/>
                     <CategoryList onClick={this.select_category_callback} />
                 </div>
             );
         } else if (this.state.viewState === VIEW_STATE.ALCOHOL) {
             return (
-                <>
+                <div>
                     <WordSearchForm onClick={this.word_search_callback}/>
                     <CategoryAlcoholList id={this.state.categoryId} onClick={this.select_alcohol_callback} />
                 </div>

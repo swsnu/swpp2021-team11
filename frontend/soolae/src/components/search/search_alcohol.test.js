@@ -7,7 +7,7 @@ describe('<SearchAlcohol />', () => {
     const mockOnClick = jest.fn();
     it('should request infomation', () => {
         const component = shallow(<SearchAlcohol onClick={mockOnClick}/>);
-        expect(component.find('.SearchAlcohol').length).toBe(1);
+        expect(component.find('WordSearchForm').length).toBe(1);
         expect(component.state().viewState).toBe('CATEGORY');
         component.instance().select_category_callback(1);
         expect(component.state().viewState).toBe('ALCOHOL');

@@ -1,23 +1,4 @@
 import React from 'react';
-<<<<<<< HEAD
-import {connect} from 'react-redux';
-import {withRouter} from 'react-router';
-import * as actionCreators from '../store/actions/actionCreators';
-
-class SignUpPage extends React.Component {
-    state = {
-        username: '',
-        email: '',
-        password: '',
-    };
-    register() {
-        const data = {username: this.state.username, email: this.state.email, password: this.state.password};
-        if (!this.state.username || !this.state.email || !this.state.password) {
-            alert('Enter username, email and password');
-        } else {
-            this.props.signup(data);
-        }
-=======
 import * as actionCreators from '../store/actions/actionCreators';
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -39,7 +20,6 @@ class SignUp extends React.Component {
     register() {
         const data = {'username': this.state.username, 'email': this.state.email, 'password': this.state.password};
         this.props.signUp(data);
->>>>>>> c0a19a75e272841a8eac064429e640f4d52d5d4b
     }
     render() {
         return (
@@ -67,21 +47,12 @@ class SignUp extends React.Component {
                         Aleady have an account? <br />
                         <a href="/signin">Sign in here</a>
                     </p>
-                </div>
+                </dir>
             </div>
         );
     }
 }
 
-<<<<<<< HEAD
-const mapDispatchToProps = (dispatch) => {
-    return {
-        signup: (data) => dispatch(actionCreators.signup(data))
-    };
-};
-
-export default connect(null, mapDispatchToProps)(withRouter(SignUpPage));
-=======
 const mapDispatchToProps = dispatch => {
     return {
         signUp: (data) => dispatch(actionCreators.signUp(data)),
@@ -89,4 +60,3 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(null, mapDispatchToProps)(SignUp);
->>>>>>> c0a19a75e272841a8eac064429e640f4d52d5d4b
