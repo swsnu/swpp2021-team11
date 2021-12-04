@@ -1,3 +1,6 @@
+export const SIGNIN = 'SIGNIN';
+export const SIGNUP = 'SIGNUP';
+export const SIGNOUT = 'SIGNOUT';
 export const GET_RECOMMENDATION_LIST = 'GET_RECOMMENDATION_LIST';
 export const GET_REVIEW_LIST = 'GET_REVIEW_LIST';
 export const GET_REVIEW = 'GET_REVIEW';

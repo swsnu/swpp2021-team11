@@ -1,8 +1,20 @@
 import React from 'react';
 import {mount} from 'enzyme';
-import {Router} from 'react-router';
+import {Provider} from 'react-redux';
+import {ConnectedRouter} from 'connected-react-router';
 import {createMemoryHistory} from 'history';
+import {getMockStore} from '../../test-utils/mocks';
+import * as actionCreators from '../../store/actions/actionCreators';
 import SignOut from './signOut';
+
+const stubInitialState = {
+    alcohol: {},
+    review: {},
+    category: {},
+    user: {}
+};
+
+const mockStore = getMockStore(stubInitialState);
 
 describe('<SignOut />', () => {
     const spyAlert = jest.spyOn(window, 'alert').mockImplementation(() => {});
@@ -12,9 +24,11 @@ describe('<SignOut />', () => {
         spyAlert.mockClear();
         history = createMemoryHistory();
         signOut = (
-            <Router history={history}>
-                <SignOut />
-            </Router>
+            <Provider store={mockStore}>
+                <ConnectedRouter history={history}>
+                    <SignOut />
+                </ConnectedRouter>
+            </Provider>
         );
     });
 
@@ -30,34 +44,41 @@ describe('<SignOut />', () => {
         expect(history.location.pathname).toBe('/signin');
     });
 
-    it('user can sign out', (done) => {
+    // it('user can sign out', (done) => {
+    //     const component = mount(signOut);
+    //     const fetchSpy204 = jest.spyOn(global, 'fetch').mockResolvedValueOnce({status: 204});
+    //     component.find('.SignOut button').at(1).simulate('click');
+    //     setImmediate(() => {
+    //         expect(fetchSpy204).toBeCalledTimes(1);
+    //         expect(history.location.pathname).toBe('/test');
+    //         done();
+    //     });
+    // });
+    // it('case 401', (done) => {
+    //     const component = mount(signOut);
+    //     jest.spyOn(global, 'fetch').mockResolvedValue({status: 401});
+    //     component.find('.SignOut button').at(1).simulate('click');
+    //     setImmediate(() => {
+    //         expect(spyAlert).toBeCalledWith('User is not logged in!');
+    //         done();
+    //     });
+    // });
+    //
+    // it('case 404', (done) => {
+    //     const component = mount(signOut);
+    //     jest.spyOn(global, 'fetch').mockResolvedValue({status: 404});
+    //     component.find('.SignOut button').at(1).simulate('click');
+    //     setImmediate(() => {
+    //         expect(spyAlert).toBeCalledWith('try again');
+    //         done();
+    //     });
+    // });
+    it('should call signout() on clicking sign out button', (done) => {
         const component = mount(signOut);
-        const fetchSpy204 = jest.spyOn(global, 'fetch').mockResolvedValueOnce({status: 204});
+        const spySignOut = jest.spyOn(actionCreators, 'signout')
+            .mockImplementation(() => {return () => {};});
         component.find('.SignOut button').at(1).simulate('click');
-        setImmediate(() => {
-            expect(fetchSpy204).toBeCalledTimes(1);
-            expect(history.location.pathname).toBe('/test');
-            done();
-        });
-    });
-
-    it('case 401', (done) => {
-        const component = mount(signOut);
-        jest.spyOn(global, 'fetch').mockResolvedValue({status: 401});
-        component.find('.SignOut button').at(1).simulate('click');
-        setImmediate(() => {
-            expect(spyAlert).toBeCalledWith('User is not logged in!');
-            done();
-        });
-    });
-
-    it('case 401', (done) => {
-        const component = mount(signOut);
-        jest.spyOn(global, 'fetch').mockResolvedValue({status: 404});
-        component.find('.SignOut button').at(1).simulate('click');
-        setImmediate(() => {
-            expect(spyAlert).toBeCalledWith('try again');
-            done();
-        });
+        expect(spySignOut).toHaveBeenCalledTimes(1);
+        done();
     });
 });
