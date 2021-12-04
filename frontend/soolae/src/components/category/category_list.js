@@ -17,7 +17,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const CategoryList = (props) => {
-    if (props.category_list === undefined) {
+    if (props.category_list === undefined || props.category_list.length === 0) {
         props.getCategory();
         return <div className="category_list">Loading...</div>;
     }

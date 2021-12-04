@@ -2,6 +2,7 @@ import * as actionTypes from './actionTypes';
 import axios from 'axios';
 import {push} from 'connected-react-router';
 
+<<<<<<< HEAD
 export const signin = (data) => {
     return dispatch => {
         return axios.post('/api/signin/', data)
@@ -23,10 +24,28 @@ export const signup = (data) => {
                     alert('Created a new account successfully!');
                     dispatch(push('/main/'));
                 }
+=======
+export const signUp = (data) => {
+    return dispatch => {
+        return axios.post('/api/signup/', data)
+            .then(() => {
+                dispatch({type: actionTypes.SIGNUP});
+                dispatch(push('/main/'));
+            });
+    };
+};
+export const signIn = (data) => {
+    return dispatch => {
+        return axios.post('/api/signin/', data)
+            .then(() => {
+                dispatch({type: actionTypes.SIGNIN});
+                dispatch(push('/main/'));
+>>>>>>> c0a19a75e272841a8eac064429e640f4d52d5d4b
             });
     };
 };
 
+<<<<<<< HEAD
 export const signout = () => {
     return dispatch => {
         return axios.get('/api/signout/')
@@ -41,6 +60,14 @@ export const signout = () => {
                 else{
                     alert('try again');
                 }
+=======
+export const signOut = () => {
+    return dispatch => {
+        return axios.get('/api/signout/')
+            .then(() => {
+                dispatch({type: actionTypes.SIGNOUT});
+                dispatch(push('/test/'));
+>>>>>>> c0a19a75e272841a8eac064429e640f4d52d5d4b
             });
     };
 };

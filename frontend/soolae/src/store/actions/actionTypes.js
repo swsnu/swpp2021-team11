@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 export const SIGNIN = 'SIGNIN';
 export const SIGNUP = 'SIGNUP';
+=======
+export const SIGNUP = 'SIGNUP';
+export const SIGNIN = 'SIGNIN';
+>>>>>>> c0a19a75e272841a8eac064429e640f4d52d5d4b
 export const SIGNOUT = 'SIGNOUT';
 export const GET_RECOMMENDATION_LIST = 'GET_RECOMMENDATION_LIST';
 export const GET_REVIEW_LIST = 'GET_REVIEW_LIST';

@@ -9,13 +9,21 @@ import {getMockStore} from '../test-utils/mocks';
 
 const stubInitialState = {
     alcohol: {
-        recommended: [],
+        recommended: [{id: 1}], alcohol_info: []
     },
 };
 const mockStore = getMockStore(stubInitialState);
 
+jest.mock('../components/alcohol/alcohol_detail_info', () => {
+    return {
+        __esModule: true,
+        default: (props) => {return (<div>{props.id}</div>);}
+    };
+});
+
 describe('<MainPage />', () => {
     let mainPage, history;
+    
     beforeEach(() => {
         history = createMemoryHistory();
         mainPage = (
@@ -26,6 +34,7 @@ describe('<MainPage />', () => {
             </Provider>
         );
     });
+    
     it('should render without errors', () => {
         const component = mount(mainPage);
         const wrapper = component.find('.MainPage');
