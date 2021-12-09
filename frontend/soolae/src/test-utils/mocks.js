@@ -9,10 +9,12 @@ const getMockReducer = jest.fn((initialState) => (state = initialState, action) 
 
 export const getMockStore = (initialState) => {
     const mockAlcoholReducer = getMockReducer(initialState.alcohol);
+    const mockReviewReducer = getMockReducer(initialState.review);
     const mockCategoryReducer = getMockReducer(initialState.category);
     const mockUserReducer = getMockReducer(initialState.user);
     const rootReducer = combineReducers({
         alcohol: mockAlcoholReducer,
+        review: mockReviewReducer,
         user: mockUserReducer,
         category: mockCategoryReducer,
         router: connectRouter(history),

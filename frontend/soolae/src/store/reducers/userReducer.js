@@ -12,7 +12,6 @@ const reducer = (state = initialState, action) => {
         return {...state, users: [...state.users, action.user], selected: action.user};
     case actionTypes.SIGNIN:
     case actionTypes.SIGNUP:
-        console.log(action.id);
         return {...state, myId: action.id};
     case actionTypes.SIGNOUT:
         return {...state, myId: null};
