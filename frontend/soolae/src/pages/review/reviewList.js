@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import * as actionCreators from '../../store/actions/actionCreators';
 import StarRate from '../../components/common/star';
@@ -28,9 +29,10 @@ class ReviewList extends React.Component {
             );
         };
         return (
-            <div className="review_list">
+            <div className="review_list" style={{padding:'30px'}}>
+                <hr/>
                 <h1> Review List </h1>
-                <button onClick={() => this.props.history.push('/write-review/')}>post review</button>
+                <button type="button" className="btn btn-primary btn-lg" onClick={() => this.props.history.push('/write-review/')}>post review</button>
                 <ul>{this.props.storedReviews.map(review_list_item)}</ul>
             </div>
         );

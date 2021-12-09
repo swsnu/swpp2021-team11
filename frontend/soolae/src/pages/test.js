@@ -54,17 +54,20 @@ function TestPage(props) {
         <div className="taste-test" id="padding">
             {
                 <>
-                    <div className="question-section">
-                        <div className="question-title">
-                            <h2 id="h2"> Please answer these questions to get our recommendation!</h2>
+                    <div className="question-section" style={{padding:'15px'}}>
+                        <hr/>
+                        <div className="alert alert-dark" role="alert" >
+                            
+                            <h3 id="h2"> Please answer these questions to get our recommendation!</h3><br/>
                         </div>
-                        <div className="question-text">
+                        <div className="question-text" style={{paddingLeft:'30px'}}>
                             <h2 id="h2">{questions[currentQuestion].questionText}</h2>
                         </div>
+                        <br/>
                     </div>
-                    <div className="answer-section">
+                    <div className="row justify-content-center">
                         {questions[currentQuestion].answerOptions.map((answerOption, index) => (
-                            <button id="button" key={index} onClick={() => handleAnswerOptionClick(index)}>
+                            <button className='d-flex justify-content-center' id="button" key={index} onClick={() => handleAnswerOptionClick(index)}>
                                 {answerOption.answerText}
                             </button>
                         ))}

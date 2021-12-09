@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../store/actions/actionCreators';
+import {Button} from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import axios from 'axios';
 
@@ -24,8 +26,8 @@ class SignOut extends Component {
         
         return (
             <div>
-                { <Link to= '/signin'><button style={{position:'relative', right:'-880px'}}>Sign in</button></Link> }
-                <button id='signout-button' style={{position:'relative', right:'-900px'}} onClick= {() => {this.logout();}}>Sign Out</button>
+                { <Link to= '/signin'><Button variant='secondary' style={{position:'relative', float:'right', margin:'3px'}}>Sign in</Button></Link> }
+                <Button variant='secondary' id='signout-button' style={{position:'relative', float:'right', margin:'3px'}} onClick= {() => {this.logout();}}>Sign Out</Button>
             </div>
         );
     }

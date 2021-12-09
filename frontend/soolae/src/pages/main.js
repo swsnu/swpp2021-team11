@@ -21,7 +21,7 @@ class MainPage extends React.Component {
         let list = this.props.storedRecommendations;
         return (
             <div className="MainPage">
-                <ul>{list.map((item) => RecommendationItem(item.id))}</ul>
+                <ul style={{listStyleType:'none'}}>{list.map((item) => RecommendationItem(item.id))}</ul>
             </div>
         );
     }
