@@ -23,7 +23,7 @@ class SignUp extends React.Component {
     }
     render() {
         return (            
-            <div className='App' style={{padding:'30px'}}>
+            <div className='signup' style={{padding:'30px'}}>
                 <hr/>
                 <div className='row d-flex justify-content-center'>
                     <div className="col-md-4">

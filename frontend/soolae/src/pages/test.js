@@ -65,7 +65,7 @@ function TestPage(props) {
                         </div>
                         <br/>
                     </div>
-                    <div className="row justify-content-center">
+                    <div className="row justify-content-center" id='answer-section'>
                         {questions[currentQuestion].answerOptions.map((answerOption, index) => (
                             <button className='d-flex justify-content-center' id="button" key={index} onClick={() => handleAnswerOptionClick(index)}>
                                 {answerOption.answerText}
