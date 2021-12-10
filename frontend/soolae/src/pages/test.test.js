@@ -39,10 +39,10 @@ describe('<TestPage />', () => {
 
     it('should handle click', () => {
         const component = mount(testPage);
-        component.find('.answer-section button').at(0).simulate('click');
-        component.find('.answer-section button').at(0).simulate('click');
-        component.find('.answer-section button').at(0).simulate('click');
-        component.find('.answer-section button').at(0).simulate('click');
+        component.find('#answer-section button').at(0).simulate('click');
+        component.find('#answer-section button').at(0).simulate('click');
+        component.find('#answer-section button').at(0).simulate('click');
+        component.find('#answer-section button').at(0).simulate('click');
         expect(history.location.pathname).toBe('/rec');
     });
 

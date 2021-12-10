@@ -3,7 +3,7 @@ import React from 'react';
 const StarRateSelect = (props) => {
     let x = [1, 2, 3, 4, 5];
     const mapping = (i) => {
-        return (<button onClick={() => {props.setRate(i);}} key={i}>{i <= props.rate ? '★' : '☆'}</button>);
+        return (<button className='btn btn-warning' onClick={() => {props.setRate(i);}} key={i}>{i <= props.rate ? '★' : '☆'}</button>);
     };
     x = x.map(mapping);
     
