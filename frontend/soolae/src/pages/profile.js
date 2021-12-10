@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import * as actionCreators from '../store/actions/actionCreators';
 import StarRate from '../components/common/star';
 import UserName from '../components/common/user_name';
-
+import {Col, Row} from 'react-bootstrap';
 import './profile.css';
 
 class ProfilePage extends React.Component {
@@ -50,13 +50,23 @@ class ProfilePage extends React.Component {
             </div>
         );
         return (
-            <div className='profile'>
-                <button onClick = {() => this.setState({tabState: 0})}>Profile Info</button>
-                <button onClick = {() => this.setState({tabState: 1})}>My Reviews</button>
-                <button onClick = {() => this.setState({tabState: 2})}>Friends</button>
-                {this.state.tabState == 0 && infoTab}
-                {this.state.tabState == 1 && myReviewsTab}
-                {this.state.tabState == 2 && friendsTab}
+            <div className='profile' style={{padding:'30px'}}>
+                <hr/>
+                <Row className='col'>
+                    <Col>
+                        <img src="/img/profileButton.svg" alt="Profile" style={{height: '100px'}} /><br/>
+                        <button className='btn btn-info' style={{margin:'10px'}} onClick = {() => this.setState({tabState: 0})}>Profile Info</button><br/>
+                        <button className='btn btn-info' style={{margin:'10px'}} onClick = {() => this.setState({tabState: 1})}>My Reviews</button><br/>
+                        <button className='btn btn-info' style={{margin:'10px'}} onClick = {() => this.setState({tabState: 2})}>Friends</button>
+                        
+                    </Col>
+                    <Col xs={10}>
+                        {this.state.tabState == 0 && infoTab}
+                        {this.state.tabState == 1 && myReviewsTab}
+                        {this.state.tabState == 2 && friendsTab}
+                
+                    </Col>
+                </Row>
             </div>
         );
     }
