@@ -64,7 +64,7 @@ describe('<WriteReviewPage />', () => {
         const component = mount(writeReview);
         const wrapper = component.find('.write_review_page');
         const instance = component.find(WriteReviewPage.WrappedComponent).instance();
-        wrapper.find('#select-alcohol-button').simulate('click');
+        wrapper.find('.form-group').at(1).find('button').simulate('click');
         component.setProps({});
         expect(spyGetCategories).toHaveBeenCalledTimes(1);
         expect(instance.state.alcohol_select).toBe(true);
