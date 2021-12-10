@@ -3,10 +3,10 @@ import {connect} from 'react-redux';
 import * as actionCreators from '../store/actions/actionCreators';
 import {withRouter} from 'react-router';
 import axios from 'axios';
-axios.defaults.xsrfCookieName = 'csrftoken';
-axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 import SearchAlcohol from '../components/search/search_alcohol';
 import StarRateSelect from '../components/common/starSelect';
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 class WriteReviewPage extends React.Component {
     constructor(props) {
@@ -47,7 +47,7 @@ class WriteReviewPage extends React.Component {
             content: this.state.content,
             rating: this.state.rating,
             image: this.state.image,
-            id: this.state.alcohol_id,
+            sool_id: this.state.alcohol_id,
         });
         this.setState({submitted: false});
     }
@@ -66,7 +66,7 @@ class WriteReviewPage extends React.Component {
                 </div>
                 <div>
                     Sool
-                    <button onClick={this.selectAlcohol}>
+                    <button id="select-alcohol-button" onClick={this.selectAlcohol}>
                         {this.state.alcohol_id === null ? 'Select Alcohol' : this.getAlcoholName(this.state.alcohol_id)}
                     </button>
                 </div>

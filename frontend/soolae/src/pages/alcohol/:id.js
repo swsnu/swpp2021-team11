@@ -1,5 +1,4 @@
 import React from 'react';
-import {withRouter} from 'react-router';
 import AlcoholDetailInfo from '../../components/alcohol/alcohol_detail_info';
 
 class AlcoholDetailPage extends React.Component {
@@ -12,4 +11,4 @@ class AlcoholDetailPage extends React.Component {
     }
 }
 
-export default withRouter(AlcoholDetailPage);
+export default AlcoholDetailPage;
