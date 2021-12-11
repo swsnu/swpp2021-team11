@@ -63,4 +63,4 @@ jobs:
         - cd ../..
         - sonar-scanner
         - cd backend/soolae
-        - coveralls --merge=../../frontend/coverage.json
+        - coveralls --merge=../../frontend/soolae/coverage.json
