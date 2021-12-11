@@ -42,6 +42,7 @@ jobs:
           - pip install -r requirements.txt
           - cd ../../frontend/soolae
           - yarn install
+          - cd ../..
           - pip install coveralls
           - yarn global add coveralls
           - gem install coveralls-lcov
