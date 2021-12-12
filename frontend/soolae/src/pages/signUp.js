@@ -22,32 +22,37 @@ class SignUp extends React.Component {
         this.props.signUp(data);
     }
     render() {
-        return (
-            <div className='signup'>
-                <h1>Sign Up</h1>
-                <dir className='form'>
-                    <dir className='form-group'>
-                        <label>Username</label>
-                        <input type='text' value={this.state.username} placeholder='username' onChange={(e) => this.setState({ username: e.target.value })} />
-                    </dir>
-                    <dir className='form-group'>
-                        <label>Email</label>
-                        <input type='text' value={this.state.email} placeholder='email' onChange={(e) => this.setState({ email: e.target.value })} />
-                    </dir>
-                    <dir className='form-group'>
-                        <label>Password</label>
-                        <input type='password' value={this.state.password} placeholder='password' onChange={(e) => this.setState({ password: e.target.value })} />
-                    </dir>
-                </dir>
-                <dir className='footer'>
-                    <button onClick= {() => {this.register();}}>Sign Up</button>
-                </dir>
-                <dir>
-                    <p>
-                        Aleady have an account? <br />
-                        <a href="/signin">Sign in here</a>
-                    </p>
-                </dir>
+        return (            
+            <div className='signup' style={{padding:'30px'}}>
+                <hr/>
+                <div className='row d-flex justify-content-center'>
+                    <div className="col-md-4">
+                        <form className='justify-content-center'>
+                            <h1 style={{margin:'5px'}}>Sign Up</h1>
+                            <div className='form-group'>
+                                <label className='form-label'>Username</label>
+                                <input className='form-control' type='text' value={this.state.username} placeholder='username' onChange={(e) => this.setState({ username: e.target.value })} />
+                            </div>
+                            <div className='form-group'>
+                                <label className='form-label'>Email</label>
+                                <input className='form-control' type='text' value={this.state.email} placeholder='email' onChange={(e) => this.setState({ email: e.target.value })} />
+                            </div>
+                            <div className='form-group'>
+                                <label className='form-label'>Password</label>
+                                <input className='form-control' type='password' value={this.state.password} placeholder='password' onChange={(e) => this.setState({ password: e.target.value })} />
+                            </div>
+                            <div className='footer'>
+                                <button style={{margin:'10px'}} className='btn btn-primary' onClick= {() => {this.register();}}>Sign Up</button>
+                            </div>
+                            <div>
+                                <p>
+                                    Aleady have an account? <br />
+                                    <a href="/signin">Sign in here</a>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         );
     }

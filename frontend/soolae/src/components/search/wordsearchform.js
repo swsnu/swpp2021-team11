@@ -9,13 +9,13 @@ class WordSearchForm extends React.Component {
     render(){
         return (
             <div className="word_search">
-                <input 
+                <input
                     type="text"
                     name="word"
                     value={this.state.word}
                     onChange={(e) => {this.setState({word: e.target.value});}}
                 />
-                <button
+                <button className='btn btn-primary' style={{margin:'3px'}}
                     onClick={() => {this.props.onClick(this.state.word);}}
                 >
                     Search
