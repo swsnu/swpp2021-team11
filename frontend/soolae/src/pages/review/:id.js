@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import * as actionCreators from '../../store/actions/actionCreators';
-import {withRouter} from 'react-router';
 import StarRate from '../../components/common/star';
 import AlcoholDetailInfo from '../../components/alcohol/alcohol_detail_info';
 import UserName from '../../components/common/user_name';
@@ -19,7 +18,12 @@ class ReviewDetailPage extends React.Component {
     render() {
         let review = this.props.review_list.filter((item) => item.id === parseInt(this.props.match.params.id));
         if (review.length === 0) {
-            return <h1>Loading...</h1>;
+            return(
+                <div className="review_detail_page">
+                    <h1>Loading...</h1>;
+                </div>
+            );
+            
         }
         review = review[0];
         return (
@@ -54,4 +58,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ReviewDetailPage));
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewDetailPage);

@@ -24,35 +24,35 @@ describe('<MenuBar />', () => {
     it('When click test, redirect to test. ', () => {
         const component = mount(menuBar);
         const wrapper = component.find('.MenuBar');
-        wrapper.find('.MenuBar button').at(0).simulate('click');
+        wrapper.find('.MenuBar Button').at(0).simulate('click');
         expect(history.location.pathname).toBe('/test');
     });
 
     it('When click review, redirect to review list. ', () => {
         const component = mount(menuBar);
         const wrapper = component.find('.MenuBar');
-        wrapper.find('.MenuBar button').at(1).simulate('click');
+        wrapper.find('.MenuBar Button').at(1).simulate('click');
         expect(history.location.pathname).toBe('/review');
     });
 
     it('When click main, redirect to main. ', () => {
         const component = mount(menuBar);
         const wrapper = component.find('.MenuBar');
-        wrapper.find('.MenuBar button').at(2).simulate('click');
+        wrapper.find('.MenuBar Button').at(2).simulate('click');
         expect(history.location.pathname).toBe('/main');
     });
 
     it('When click back, it should go backpage. ', () => {
         const component = mount(menuBar);
         const wrapper = component.find('.MenuBar');
-        wrapper.find('.MenuBar button').at(3).simulate('click');
+        wrapper.find('.MenuBar Button').at(3).simulate('click');
         expect(history.location.pathname).toBe('/');
     });
 
     it('When click search, redirect to search. ', () => {
         const component = mount(menuBar);
         const wrapper = component.find('.MenuBar');
-        wrapper.find('.MenuBar button').at(4).simulate('click');
+        wrapper.find('.MenuBar Button').at(4).simulate('click');
         expect(history.location.pathname).toBe('/search');
     });
 });

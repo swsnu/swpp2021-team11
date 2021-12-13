@@ -36,29 +36,27 @@ def method_check(methods):
 
 
 @csrf_exempt
+@method_check(["POST"])
 def signup(request):
-    if request.method == "POST":
-        req_data = json.loads(request.body.decode())
-        username = req_data["username"]
-        password = req_data["password"]
-        user = User.objects.create_user(username, password=password)
-        login(request, user)
-        return HttpResponse(status=201)
-    return HttpResponseNotAllowed(["POST"])
+    req_data = json.loads(request.body.decode())
+    username = req_data["username"]
+    password = req_data["password"]
+    user = User.objects.create_user(username, password=password)
+    login(request, user)
+    return HttpResponse(status=201)
 
 
 @csrf_exempt
+@method_check(["POST"])
 def signin(request):
-    if request.method == "POST":
-        req_data = json.loads(request.body.decode())
-        username = req_data["username"]
-        password = req_data["password"]
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return HttpResponse(status=204)
-        return HttpResponse(status=401)
-    return HttpResponseNotAllowed(["POST"])
+    req_data = json.loads(request.body.decode())
+    username = req_data["username"]
+    password = req_data["password"]
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return HttpResponse(status=204)
+    return HttpResponse(status=401)
 
 
 @method_check(["GET"])
@@ -79,8 +77,11 @@ def user_profile(request, user_id=0):
 
     # Modify user object.
     if request.method == "PUT":
+        if not request.user.is_authenticated or user.id != user_id:
+            return HttpResponse(status=401)
         try:
             req_data = json.loads(request.body.decode())
+            user.username = req_data["username"]
             user.email = req_data["email"]
             user.save()
         except (KeyError, json.JSONDecodeError):
@@ -90,6 +91,7 @@ def user_profile(request, user_id=0):
         "id": user.id,
         "username": user.username,
         "email": user.email,
+        "reviews": list(Review.objects.filter(author=user.id).values()),
     }
 
     if request.method == "GET":
@@ -143,7 +145,7 @@ def test(request):
     ######
     # Generate some recommendations
     ######
-    sool = Sool.objects.get(id=random.randrange(128, 254))
+    sool = Sool.objects.first()
     result = {"id": sool.id}
     return JsonResponse(result, status=200)
 
@@ -163,16 +165,18 @@ def recommend(request):
 
 @method_check(["GET", "POST"])
 def review_list(request):
+    if not request.user.is_authenticated:
+        return HttpResponse(status=401)
     if request.method == "GET":
         result = list(
-            Review.objects.all().values("id", "title", "star_rating", "author_id")
+            Review.objects.all().values("id", "title", "content", "star_rating", "author_id")
         )
         return JsonResponse(result, status=200, safe=False)
 
     if request.method == "POST":
         try:
             req_data = json.loads(request.body.decode())
-            alcohol_review = Sool.objects.get(id=req_data["id"])
+            alcohol_review = Sool.objects.get(id=req_data["sool_id"])
             new_review = Review(
                 title=req_data["title"],
                 content=req_data["content"],

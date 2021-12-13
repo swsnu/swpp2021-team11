@@ -4,6 +4,8 @@ import { withRouter } from 'react-router';
 
 import * as actionCreators from '../../store/actions/index';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 const mapStateToProps = (state) => {
     return {
         alcohol_list: state.alcohol.alcohol_list,

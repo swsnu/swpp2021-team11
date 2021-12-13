@@ -1,80 +1,65 @@
 import React from 'react';
 import {mount} from 'enzyme';
-import {Router} from 'react-router';
+import {Provider} from 'react-redux';
+import {ConnectedRouter} from 'connected-react-router';
 import {createMemoryHistory} from 'history';
+import {getMockStore} from '../test-utils/mocks';
+import * as actionCreators from '../store/actions/actionCreators';
 import SignIn from './signIn';
 
+const stubInitialState = {
+    alcohol: {},
+    review: {},
+    category: {},
+    user: {}
+};
+
+const mockStore = getMockStore(stubInitialState);
 describe('<SignIn />', () => {
     const spyAlert = jest.spyOn(window, 'alert').mockImplementation(() => {});
     let history;
     let signIn;
-
     beforeEach(() => {
         spyAlert.mockClear();
         history = createMemoryHistory();
         signIn = (
-            <Router history={history}>
-                <SignIn />
-            </Router>
+            <Provider store={mockStore}>
+                <ConnectedRouter history={history}>
+                    <SignIn />
+                </ConnectedRouter>
+            </Provider>
         );
     });
 
     it('should render without errors', () => {
         const component = mount(signIn);
-        const wrapper = component.find('.Login');
+        const wrapper = component.find('.SignIn');
         expect(wrapper.length).toBe(1);
     });
 
-    it('handle for empty input', () => {
+    it('should set state properly on username and password input', () => {
+        const component = mount(signIn);
+        const instance = component.find(SignIn.WrappedComponent).instance();
+        component.find('#username-input').simulate('change', {target: {value: 'swpp'}});
+        component.find('#pw-input').simulate('change', {target: {value: 'swppteam11'}});
+        expect(instance.state.username).toEqual('swpp');
+        expect(instance.state.password).toEqual('swppteam11');
+    });
+    /*
+    it('should call alert() with blank input', (done) => {
         const component = mount(signIn);
         component.find('#login-button').simulate('click');
-        expect(spyAlert).toBeCalledWith('Enter email and password');
+        expect(spyAlert).toBeCalledWith('Enter username and password');
+        done();
     });
-
-    it('user can sign in', (done) => {
+    */
+    it('should call signIn() on clicking sign in button', (done) => {
+        const spySignIn = jest.spyOn(actionCreators, 'signIn');
         const component = mount(signIn);
-        const fetchSpy204 = jest.spyOn(global, 'fetch').mockResolvedValue({status: 204});
-        
-        component.find('#email-input').simulate('change', {target: {value: 'swpp'}});
+        component.find('#username-input').simulate('change', {target: {value: 'swpp'}});
         component.find('#pw-input').simulate('change', {target: {value: 'swppteam11'}});
         component.find('#login-button').simulate('click');
-
-        setImmediate(() => {
-            expect(fetchSpy204).toBeCalledTimes(1);
-            expect(history.location.pathname).toBe('/main');
-            done();
-        });
-    });
-
-    it('case 401', (done) => {
-        const component = mount(signIn);
-        const fetchSpy401 = jest.spyOn(global, 'fetch').mockResolvedValue({status: 401});
-        
-        component.find('#email-input').simulate('change', {target: {value: 'swpp'}});
-        component.find('#pw-input').simulate('change', {target: {value: 'swppteam11'}});
-
-        component.find('#login-button').simulate('click');
-
-        setImmediate(() => {
-            expect(fetchSpy401).toBeCalled();
-            expect(spyAlert).toBeCalledWith('Email or Password is wrong');
-            done(); 
-        });
-    });
-
-    it('case different error', (done) => {
-        const component = mount(signIn);
-        const fetchSpy401 = jest.spyOn(global, 'fetch').mockResolvedValue({status: 404});
-        
-        component.find('#email-input').simulate('change', {target: {value: 'swpp'}});
-        component.find('#pw-input').simulate('change', {target: {value: 'swppteam11'}});
-
-        component.find('#login-button').simulate('click');
-        
-        setImmediate(() => {
-            expect(fetchSpy401).toBeCalled();
-            expect(spyAlert).toBeCalledWith('try again');
-            done(); 
-        });
+        expect(spySignIn).toHaveBeenCalledTimes(1);
+        done();
     });
 });

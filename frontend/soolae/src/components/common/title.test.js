@@ -24,14 +24,14 @@ describe('<TitleBar />', () => {
     it('When click logo, redirect to main. ', () => {
         const component = mount(titleBar);
         const wrapper = component.find('.TitleBar');
-        wrapper.find('.TitleBar button').at(0).simulate('click');
+        wrapper.find('.TitleBar Button').at(0).simulate('click');
         expect(history.location.pathname).toBe('/');
     });
 
     it('When click profile, redirect to profile page. ', () => {
         const component = mount(titleBar);
         const wrapper = component.find('.TitleBar');
-        wrapper.find('.TitleBar button').at(1).simulate('click');
+        wrapper.find('.TitleBar Button').at(1).simulate('click');
         expect(history.location.pathname).toBe('/profile');
     });
 });

@@ -1,29 +1,66 @@
 #CI environment
 dist: bionic
 
+# jobs:
+#   include:
+#     - language: python
+#       python: "3.7.9"
+#       install:
+#           - cd backend/soolae
+#           - pip install -r requirements.txt
+#       script:
+#         - pylint **/*.py --load-plugins=pylint_django --django-settings-module=soolae.settings
+#         - coverage run --source='.' manage.py test
+#         - coverage xml
+
+#     - language: node_js
+#       node_js: 14
+#       addons:
+#         sonarcloud:
+#           organization: "swsnu"
+#           token:
+#             secure: "Sl+tzRalbfsX5rd5AQ2Nj65EqhrfL899PQVia8/JBogDCRFGG8MQsDtIQhtv+YF5KkisLwkYVxUFm/RY+lD7uoaZefQP27IPzkbxr123MLekADpS0aoLgDATZFlGpQJsSHRGG80R4YbKJ9HrzD1cm7+9NBVz1dnI00/h3ui44Q6ub7F3BbefkLIxlpa+BbQlAYm2ksd16/gvHEsIdOdSXbu/Ifrrxv3koNKasR9AQjT8vTzFRvI4nQsJPlevxS2qWKPC5oCTFjU3JMyK+q5Nk1eS7zCR+ZMgCwg+X3AWfYEJe4j17sHICgatZkv9/nRLtAn5s9YCS+rsc8oArskDt32t4lb8rUGI/G28UTaX0JWkLkEG8rEDxDuHUuYof3Rh07ax55tNtSPyksq1qCXvg83Cucv/tFut57L0c3MkpHSdMdlJpJQPz0Y5PoEx7Un8TBc6XRA9GIpAk1qxcDt98dkw7LQglwZpZb6nBsFhsIsgjdEHWmuJzMRJqO9wub2WK9lRtfIN7FpVnF53efbbx+aMjLS6J3CaThQlXSRS0AnowCdFNjU9hsRSdjTciXpOHQMbIHdymZMPu3qpfcCBDsoVdjeABcDjdnYkrM0T1yW6KZTt9Mqrpdn5/E6n8oZj/VLGgfHNtjiRFZ8yulFhJB1JSdhieNJJJpsFhE7mTN8="
+#       install: 
+#         - cd frontend/soolae
+#         - yarn install
+#       script:
+#         - ./node_modules/.bin/eslint src
+#         - yarn test --coverage --watchAll=false
+#         - cd ../.. && sonar-scanner
+
 jobs:
   include:
-    - language: python
-      python: "3.7.9"
-      install:
-          - cd backend/soolae
-          - pip install -r requirements.txt
-      script:
-        - pylint **/*.py --load-plugins=pylint_django --django-settings-module=soolae.settings
-        - coverage run --source='.' manage.py test
-        - coverage xml
-
     - language: node_js
       node_js: 14
+      python: "3.7.9"
+      cache:
+          - yarn: true
+          - pip: true
       addons:
         sonarcloud:
           organization: "swsnu"
           token:
             secure: "Sl+tzRalbfsX5rd5AQ2Nj65EqhrfL899PQVia8/JBogDCRFGG8MQsDtIQhtv+YF5KkisLwkYVxUFm/RY+lD7uoaZefQP27IPzkbxr123MLekADpS0aoLgDATZFlGpQJsSHRGG80R4YbKJ9HrzD1cm7+9NBVz1dnI00/h3ui44Q6ub7F3BbefkLIxlpa+BbQlAYm2ksd16/gvHEsIdOdSXbu/Ifrrxv3koNKasR9AQjT8vTzFRvI4nQsJPlevxS2qWKPC5oCTFjU3JMyK+q5Nk1eS7zCR+ZMgCwg+X3AWfYEJe4j17sHICgatZkv9/nRLtAn5s9YCS+rsc8oArskDt32t4lb8rUGI/G28UTaX0JWkLkEG8rEDxDuHUuYof3Rh07ax55tNtSPyksq1qCXvg83Cucv/tFut57L0c3MkpHSdMdlJpJQPz0Y5PoEx7Un8TBc6XRA9GIpAk1qxcDt98dkw7LQglwZpZb6nBsFhsIsgjdEHWmuJzMRJqO9wub2WK9lRtfIN7FpVnF53efbbx+aMjLS6J3CaThQlXSRS0AnowCdFNjU9hsRSdjTciXpOHQMbIHdymZMPu3qpfcCBDsoVdjeABcDjdnYkrM0T1yW6KZTt9Mqrpdn5/E6n8oZj/VLGgfHNtjiRFZ8yulFhJB1JSdhieNJJJpsFhE7mTN8="
-      install: 
-        - cd frontend/soolae
-        - yarn install
+      install:
+          - source ~/virtualenv/python3.7/bin/activate
+          - cd backend/soolae
+          - pip install -r requirements.txt
+          - cd ../../frontend/soolae
+          - yarn install
+          - cd ../..
+          - pip install coveralls
+          - yarn global add coveralls
+          - gem install coveralls-lcov
       script:
+        - cd frontend/soolae
         - ./node_modules/.bin/eslint src
         - yarn test --coverage --watchAll=false
-        - cd ../.. && sonar-scanner
+        - coveralls-lcov -v -n coverage/lcov.info > coverage.json
+        - cd ../../backend/soolae
+        - pylint **/*.py --load-plugins pylint_django
+        - coverage run --source='.' manage.py test
+        - coverage xml
+        - cd ../..
+        - sonar-scanner
+        - cd backend/soolae
+        - coveralls --merge=../../frontend/soolae/coverage.json

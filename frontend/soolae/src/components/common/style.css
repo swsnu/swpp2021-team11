@@ -1,21 +1,23 @@
-.TitleBar {
+/* .TitleBar {
     display: flex;
     justify-content: space-between;
     background-color: rgb(118, 145, 45);
     padding: 10px;
+}*/
+
+.btn:focus , .btn:active, .btn:hover , .btn {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
 }
 
-.TitleBar button {
-    background-color: rgba(0, 0, 0, 0);
-    border: 0px solid black;
-}
 
-.TitleBar img {
+/* .TitleBar img {
     height: 50px;
     margin: 10px;
-}
+} */
 
-.MenuBar {
+/* .MenuBar {
     display: flex;
     justify-content: space-between;
     background-color: rgb(190, 190, 190);
@@ -24,4 +26,4 @@
 .MenuBar button {
     height: 40px;
     font-size: larger;
-}
+} */
