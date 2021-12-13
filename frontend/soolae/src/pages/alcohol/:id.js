@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import AlcoholDetailInfo from '../../components/alcohol/alcohol_detail_info';
 
 class AlcoholDetailPage extends React.Component {
@@ -7,8 +8,10 @@ class AlcoholDetailPage extends React.Component {
     }
 
     render() {
-        return <AlcoholDetailInfo id={parseInt(this.props.match.params.id)} />;
+        return (
+            <AlcoholDetailInfo id={parseInt(this.props.match.params.id)} />
+        );
     }
 }
 
-export default AlcoholDetailPage;
+export default withRouter(AlcoholDetailPage);

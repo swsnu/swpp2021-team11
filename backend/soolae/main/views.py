@@ -8,7 +8,6 @@ from django.http import (
     HttpResponseBadRequest,
 )
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import get_user_model
 from .models import Sool, SoolCategory, Review
@@ -66,16 +65,32 @@ def signout(request):
         return HttpResponse(status=204)
     return HttpResponse(status=401)
 
+@method_check(["GET"])
+def check_login(request):
+    if request.user.is_authenticated:
+        return HttpResponse(status=200)
+    return HttpResponse(status=401)
 
-@method_check(["GET", "PUT"])
-def user_profile(request, user_id=0):
+@method_check(["GET"])
+def user_info(request, user_id=0):
     # Check user exists.
     try:
         user = User.objects.get(id=user_id)
     except User.DoesNotExist:
         return HttpResponse(status=404)
 
-    # Modify user object.
+    result = {
+        "id": user.id,
+        "username": user.username,
+        "email": user.email,
+        "reviews": list(Review.objects.filter(author=user.id).values()),
+    }
+    return JsonResponse(result, status=200, safe=False)
+
+@method_check(["GET", "PUT"])
+def profile(request):
+    user = User.objects.get(id=request.user.id)
+
     if request.method == "PUT":
         if not request.user.is_authenticated or user.id != user_id:
             return HttpResponse(status=401)

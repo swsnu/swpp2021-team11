@@ -28,12 +28,14 @@ const AlcoholDetailInfo = (props) => {
     alcohol = alcohol[0];
     return (
         <div className="AlcoholDetailInfo">
-            <h1>Name: {alcohol.name}</h1>
-            <img src={'/media/' + alcohol.sool_image} alt="Alcohol Image" />
-            <div>Alcohol Content: {alcohol.alcohol_content}</div>
-            <div>Price: KRW {alcohol.price}</div>
-            <div>
-                Rate: <StarRate rate={alcohol.rating} />
+            <h1 style={{marginLeft:'20px'}}>{alcohol.name}</h1>
+            <img style={{width:'50%', margin: '10px'}}src={'/media/' + alcohol.sool_image} alt="Alcohol Image" />
+            <div style={{margin:'10px', float:'right', textAlign:'center'}}>
+                <div>Alcohol Content: {alcohol.alcohol_content}</div>
+                <div>Price: KRW {alcohol.price}</div>
+                <div>
+                    Rate: <StarRate rate={alcohol.rating} />
+                </div>
             </div>
         </div>
     );

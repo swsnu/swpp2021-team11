@@ -13,10 +13,15 @@ class ProfilePage extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getUserInfo(1);
+        this.props.getProfile();
     }
     
+    async checkLogin(){
+        await this.props.checkLogin();
+    }
+
     render() {
+        this.checkLogin();
         if(!this.props.userInfo){
             return <h1>Loading...</h1>;
         }
@@ -81,9 +86,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getUserInfo: (id) => {
-            return dispatch(actionCreators.getUserInfo(id));
+        getProfile: () => {
+            return dispatch(actionCreators.getProfile());
         },
+        checkLogin: () => dispatch(actionCreators.checkLogin()),
     };
 };
 

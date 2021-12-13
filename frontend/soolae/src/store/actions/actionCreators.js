@@ -31,6 +31,20 @@ export const signOut = () => {
     };
 };
 
+export const checkLogin = () => {
+    return dispatch => {
+        return axios.get('/api/auth/')
+            .then(() => {
+                console.log('auth ok');
+            }, err => {
+                if(err.response.status == 401){
+                    alert('User not authorized. Please log in.');
+                    dispatch(push('/signIn/'));
+                }
+            });
+    };
+};
+
 export const getRecommendationList = () => {
     return dispatch => {
         return axios.get('/api/recommend/')
@@ -126,5 +140,12 @@ export const getUserInfo_ = (data) => {
 export const getUserInfo = (id) => {
     return dispatch => {
         return axios.get('/api/user/' + id).then(res=> dispatch(getUserInfo_(res.data)));
+    };
+};
+
+export const getProfile = () => {
+    return dispatch => {
+        return axios.get('/api/profile/')
+            .then(res => {dispatch({type: actionTypes.GET_USER_INFO, user: res.data});});
     };
 };
