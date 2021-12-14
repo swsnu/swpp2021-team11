@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const MenuBar = (props) => {
     return (
-        <div className="MenuBar" style={{margin:'10px'}}>
+        <div className="MenuBar" style={{ backgroundColor:'#6c757d'}}>
             <div className="btn-group" role="group" aria-label="Basic example">
                 <Button  variant="secondary btn-lg"
                     onClick={() => {
@@ -30,14 +30,6 @@ const MenuBar = (props) => {
                 >
                     Main
                 </Button>
-                <Button variant="secondary btn-lg"
-                    onClick={() => {
-                        props.history.goBack();
-                    }}
-                >
-                    Back
-                </Button>
-
             </div>
             <Button variant="secondary btn-lg" style={{float: 'right'}}
                 onClick={() => {

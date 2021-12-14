@@ -21,13 +21,16 @@ import WriteReviewPage from './pages/write-review';
 import ReviewListPage from './pages/review/reviewList';
 import ReviewDetailPage from './pages/review/:id';
 
+import { Card } from 'react-bootstrap';
+
 function App(props) {
     return (
         <ConnectedRouter history={props.history}>
             <div style={{display: 'flex', justifyContent: 'center'}}>
                 <div className="App">
-                    <TitleBar />
-                    <MenuBar />
+                    <div style={{position:'sticky', top:'0', zIndex:'1'}}><TitleBar/></div>
+                    <Card.Img style={{objectFit:'cover', objectPosition:'0% 20%', height:'300px'}} src="http://www.koreanheritage.kr/resource/issue/47/article/122/header_122.jpg?v=18" />
+                    <div style={{position:'sticky', top:'90px', zIndex:'1'}}><MenuBar/></div>
                     <Switch>
                         <Route path="/test" exact render={() => <TestPage />} />
                         <Route path="/rec" exact render={() => <TestResultPage />} />

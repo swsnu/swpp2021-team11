@@ -30,7 +30,6 @@ const TitleBar = (props) => {
                             <img src="/img/profileButton.svg" alt="Profile" style={{height: '50px'}} />
                         </Button>
                     </Card.Body>
-                    <Card.Img style={{objectFit:'cover', objectPosition:'0% 20%', height:'300px'}} src="http://www.koreanheritage.kr/resource/issue/47/article/122/header_122.jpg?v=18" />
                 </Card>
             </header>
         </div>
