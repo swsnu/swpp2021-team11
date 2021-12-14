@@ -26,10 +26,8 @@ class SignOut extends Component {
     
     render() {
         this.props.checkLogin();
-        //alert(this.props.logged_in);
         return (
-            <div>
-                { this.props.logged_in && <h1>Username</h1>}
+            <div style={{position:'relatvie'}}>
                 { !this.props.logged_in && <Link to= '/signin'><Button variant='secondary' style={{position:'relative', float:'right', margin:'3px'}}>Sign in</Button></Link> }
                 { this.props.logged_in && <Button variant='secondary' id='signout-button' style={{position:'relative', float:'right', margin:'3px'}} onClick= {() => {this.logout();}}>Sign Out</Button>}
             </div>

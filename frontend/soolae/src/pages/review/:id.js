@@ -42,7 +42,7 @@ class ReviewDetailPage extends React.Component {
                 <h2 className="review_detail_rating">
                     Rating: <StarRate rate={review.star_rating} />
                 </h2>
-                <img src={'/media/' + review.image} style={{width:'50%'}}></img>
+                {!!review.image && <img src={'/media/' + review.image} style={{width:'50%'}}/>}
                 <h2 className="review_detail_content">{review.content}</h2>
                 {this.props.auth && <button onClick={() => this.deleteReview()}>Delete Review</button>}
             </div>

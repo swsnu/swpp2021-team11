@@ -90,7 +90,7 @@ class WriteReviewPage extends React.Component {
                             <label className='form-label'>Image</label>
                             <input className='form-control'
                                 type='file'
-                                accept='image/jpg,impge/png,image/jpeg,image/gif'
+                                accept='image/*'
                                 name='review_image'
                                 onChange={(event) => this.setState({image: event.target.files[0]})}
                             />

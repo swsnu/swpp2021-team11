@@ -134,3 +134,7 @@ class Review(models.Model):
 
     def __str__(self):
         return f"Review of {self.sool}, id:{self.id}"
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=CASCADE)
+    profile_image = models.ImageField(upload_to="review_image", blank=True, null=True)

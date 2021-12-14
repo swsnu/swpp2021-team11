@@ -12,7 +12,6 @@ import TestResultPage from './pages/rec';
 
 import SignInPage from './pages/signIn';
 import SignUpPage from './pages/signUp';
-import SignOut from './components/common/signOut';
 
 import MainPage from './pages/main';
 import SearchPage from './pages/search';
@@ -27,7 +26,6 @@ function App(props) {
         <ConnectedRouter history={props.history}>
             <div style={{display: 'flex', justifyContent: 'center'}}>
                 <div className="App">
-                    <SignOut />
                     <TitleBar />
                     <MenuBar />
                     <Switch>

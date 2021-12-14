@@ -2,13 +2,14 @@ import React from 'react';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import * as actionCreators from '../store/actions/actionCreators';
+//import AlcoholDetailInfo from '../components/alcohol/alcohol_detail_info';
 import StarRate from '../components/common/star';
 import {Col, Row} from 'react-bootstrap';
 import './profile.css';
 
 class ProfilePage extends React.Component {
     state = {
-        tabState: 0,
+        tabState: 1,
         edit: false,
         username: null,
         email: null,
@@ -17,6 +18,66 @@ class ProfilePage extends React.Component {
     componentDidMount() {
         //this.props.requireLogin();
         this.props.getProfile();
+    }
+
+    putOnShelf(alcoholList){
+        const length = alcoholList.length;
+        let grid = [];
+        for(var i = 0; i < parseInt(length / 3); i++){
+            const first = 3 * i;
+            const second = 3 * i + 1;
+            const third = 3 * i + 2;
+            grid.push(
+                <Row>
+                    <Col>
+                        <img 
+                            onClick={() => {
+                                console.log(first);
+                                this.props.history.push('/alcohol/' + alcoholList[first].id);
+                            }}
+                            style={{width:'150px', margin: '30px'}}
+                            src={'/media/' + alcoholList[3 * i].sool_image}
+                            alt="Alcohol Image" 
+                        />
+                    </Col>
+                    <Col>
+                        <img 
+                            onClick={() => this.props.history.push('/alcohol/' + alcoholList[second].id)}
+                            style={{width:'150px', margin: '30px'}}
+                            src={'/media/' + alcoholList[second].sool_image}
+                            alt="Alcohol Image" 
+                        />
+                    </Col>
+                    <Col>
+                        <img
+                            onClick={() => this.props.history.push('/alcohol/' + alcoholList[third].id)}
+                            style={{width:'150px', margin: '30px'}}
+                            src={'/media/' + alcoholList[third].sool_image}
+                            alt="Alcohol Image" 
+                        />
+                    </Col>
+                </Row>
+            );
+        }
+        let row = [];
+        for(i = length - length % 3; i < length; i++){
+            const j = i;
+            row.push(
+                <Col>
+                    <img
+                        onClick={() => this.props.history.push('/alcohol/' + alcoholList[j].id)}
+                        style={{width:'150px', margin: '30px'}}
+                        src={'/media/' + alcoholList[j].sool_image}
+                        alt="Alcohol Image" 
+                    />
+                </Col>
+            );
+        }
+        grid.push(<Row style={{textAlign:'center'}}>{row}</Row>);
+        return <div className='alcohol grid' style={{position:'relative'}}>
+            <img src='/img/shelf.jpg' alt="Shelf Image" />
+            <div className='alcohol grid' style={{position:'absolute', top:'90px', left:'70px'}}>{grid}</div>
+        </div>;
     }
 
     editInfo(){
@@ -52,6 +113,13 @@ class ProfilePage extends React.Component {
                 <button className='btn-confirm' onClick = {() => {this.editInfo();}}>Confirm</button>
             </div>
         );
+        let sool = {id:175, name:'test_name', sool_image: 'info_image/475.jpg', alcohol_content: 'test_content', price: 10101, rating: 2};
+        const myAlcoholTab = (
+            <div className = 'alcoholTab'>
+                
+                {this.putOnShelf([sool, sool, sool, sool, sool, sool, sool, sool])}
+            </div>
+        );
         const myReviewsTab = (
             <div className = 'reviewsTab'>
                 <h2>Reviews</h2>
@@ -63,7 +131,7 @@ class ProfilePage extends React.Component {
                                 Rating: <StarRate rate={review.star_rating} />
                             </h2>
                             <h3>
-                                Author: {review.author_id}
+                                Author: {review.author_name}
                             </h3>
                         </li>
                     );
@@ -75,22 +143,25 @@ class ProfilePage extends React.Component {
                 <h2>Friends</h2>
             </div>
         );
+        
         return (
             <div className='profile' style={{padding:'30px'}}>
                 <hr/>
                 <Row className='col'>
                     <Col>
-                        <img src="/img/profileButton.svg" alt="Profile" style={{height: '100px'}} /><br/>
+                        {<img src="/img/profileButton.svg" alt="Profile" style={{height: '100px'}} />}
                         <button className='btn btn-info' style={{margin:'10px'}} onClick = {() => this.setState({tabState: 0, edit: false})}>Profile Info</button><br/>
-                        <button className='btn btn-info' style={{margin:'10px'}} onClick = {() => this.setState({tabState: 1, edit: false})}>My Reviews</button><br/>
-                        <button className='btn btn-info' style={{margin:'10px'}} onClick = {() => this.setState({tabState: 2, edit: false})}>Friends</button>
+                        <button className='btn btn-info' style={{margin:'10px'}} onClick = {() => this.setState({tabState: 1, edit: false})}>My Sool</button>
+                        <button className='btn btn-info' style={{margin:'10px'}} onClick = {() => this.setState({tabState: 2, edit: false})}>My Reviews</button><br/>
+                        <button className='btn btn-info' style={{margin:'10px'}} onClick = {() => this.setState({tabState: 3, edit: false})}>Friends</button>
                         
                     </Col>
                     <Col xs={10}>
                         {this.state.tabState == 0 && !this.state.edit && infoTab}
                         {this.state.tabState == 0 && this.state.edit && editTab}
-                        {this.state.tabState == 1 && myReviewsTab}
-                        {this.state.tabState == 2 && friendsTab}
+                        {this.state.tabState == 1 && myAlcoholTab}
+                        {this.state.tabState == 2 && myReviewsTab}
+                        {this.state.tabState == 3 && friendsTab}
                     </Col>
                 </Row>
             </div>

@@ -209,13 +209,17 @@ def review_list(request):
         try:
             req_data = request.POST
             alcohol_review = Sool.objects.get(id=req_data["sool_id"])
+            if 'image' in request.FILES.keys():
+                image = request.FILES['image']
+            else:
+                image = None
             new_review = Review(
                 title=req_data["title"],
                 content=req_data["content"],
                 author=request.user,
                 star_rating=req_data["rating"],
                 sool=alcohol_review,
-                image=request.FILES['image'],
+                image=image,
             )
         except (Sool.DoesNotExist, KeyError, json.JSONDecodeError):
             return HttpResponseBadRequest()
