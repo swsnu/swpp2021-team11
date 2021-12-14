@@ -17,12 +17,12 @@ class MainPage extends React.Component {
         this.props.getRecommendationList();
     }
 
-    async checkLogin(){
-        await this.props.checkLogin();
+    async requireLogin(){
+        await this.props.requireLogin();
     }
 
     render() {
-        this.checkLogin();
+        this.requireLogin();
         let list = this.props.storedRecommendations;
         return (
             <div className="MainPage">
@@ -42,7 +42,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getRecommendationList: () => dispatch(actionCreators.getRecommendationList()),
-        checkLogin: () => dispatch(actionCreators.checkLogin()),
+        requireLogin: () => dispatch(actionCreators.requireLogin()),
     };
 };
 

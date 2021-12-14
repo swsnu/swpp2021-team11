@@ -17,6 +17,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const UserName = (props) => {
+    console.log(props);
     let [user] = props.user_info.filter((item) => item.id === props.id);
     if (user === undefined) {
         props.getUserInfo(props.id);

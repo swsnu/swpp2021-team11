@@ -33,16 +33,27 @@ def method_check(methods):
 
     return return_check_method
 
+def add_author_name(reviews):
+    for r in reviews:
+        r["author_name"] = User.objects.get(id=r["author_id"]).username
+    return reviews
 
 @csrf_exempt
 @method_check(["POST"])
 def signup(request):
     req_data = json.loads(request.body.decode())
     username = req_data["username"]
+    email = req_data["email"]
     password = req_data["password"]
     user = User.objects.create_user(username, password=password)
     login(request, user)
-    return HttpResponse(status=201)
+    result = {
+        "id": user.id,
+        "username": user.username,
+        "email": user.email,
+        "reviews": add_author_name(list(Review.objects.filter(author=user.id).values())),
+    }
+    return JsonResponse(result, status=201)
 
 
 @csrf_exempt
@@ -54,7 +65,13 @@ def signin(request):
     user = authenticate(request, username=username, password=password)
     if user is not None:
         login(request, user)
-        return HttpResponse(status=204)
+        result = {
+            "id": user.id,
+            "username": user.username,
+            "email": user.email,
+            "reviews": add_author_name(list(Review.objects.filter(author=user.id).values())),
+        }
+        return JsonResponse(result, status=200)
     return HttpResponse(status=401)
 
 
@@ -68,8 +85,8 @@ def signout(request):
 @method_check(["GET"])
 def check_login(request):
     if request.user.is_authenticated:
-        return HttpResponse(status=200)
-    return HttpResponse(status=401)
+        return HttpResponse(True, status=200)
+    return HttpResponse(False, status=200)
 
 @method_check(["GET"])
 def user_info(request, user_id=0):
@@ -83,17 +100,17 @@ def user_info(request, user_id=0):
         "id": user.id,
         "username": user.username,
         "email": user.email,
-        "reviews": list(Review.objects.filter(author=user.id).values()),
+        "reviews": add_author_name(list(Review.objects.filter(author=user.id).values())),
     }
     return JsonResponse(result, status=200, safe=False)
 
 @method_check(["GET", "PUT"])
 def profile(request):
+    if not request.user.is_authenticated:
+        return HttpResponse(status=401)
     user = User.objects.get(id=request.user.id)
 
     if request.method == "PUT":
-        if not request.user.is_authenticated or user.id != user_id:
-            return HttpResponse(status=401)
         try:
             req_data = json.loads(request.body.decode())
             user.username = req_data["username"]
@@ -106,7 +123,7 @@ def profile(request):
         "id": user.id,
         "username": user.username,
         "email": user.email,
-        "reviews": list(Review.objects.filter(author=user.id).values()),
+        "reviews": add_author_name(list(Review.objects.filter(author=user.id).values())),
     }
 
     if request.method == "GET":
@@ -183,14 +200,14 @@ def review_list(request):
     if not request.user.is_authenticated:
         return HttpResponse(status=401)
     if request.method == "GET":
-        result = list(
+        result = add_author_name(list(
             Review.objects.all().values("id", "title", "content", "star_rating", "author_id")
-        )
+        ))
         return JsonResponse(result, status=200, safe=False)
 
     if request.method == "POST":
         try:
-            req_data = json.loads(request.body.decode())
+            req_data = request.POST
             alcohol_review = Sool.objects.get(id=req_data["sool_id"])
             new_review = Review(
                 title=req_data["title"],
@@ -198,26 +215,38 @@ def review_list(request):
                 author=request.user,
                 star_rating=req_data["rating"],
                 sool=alcohol_review,
-                image=req_data["image"],
+                image=request.FILES['image'],
             )
         except (Sool.DoesNotExist, KeyError, json.JSONDecodeError):
             return HttpResponseBadRequest()
 
         new_review.save()
         alcohol_review.update_star_rating()
-        result = Review.objects.filter(id=new_review.id).values()[0]
+        result = add_author_name(Review.objects.filter(id=new_review.id).values())[0]
     return JsonResponse(result, status=201)
 
 
 @method_check(["GET", "DELETE"])
 def review_detail(request, review_id):
+    if not request.user.is_authenticated:
+        return HttpResponse(status=401)
     if request.method == "GET":
         query = Review.objects.filter(id=review_id)
         if not query.exists():
             return HttpResponse(status=404)
-        review = query.values()[0]
+        review = add_author_name(query.values())[0]
 
-        return JsonResponse(review, status=200)
+        is_authorized = False
+        #check request user's authorization
+        if request.user.id == review['author_id']:
+            is_authorized = True
+
+        result = {
+            "review": review,
+            "is_authorized": is_authorized
+        }
+
+        return JsonResponse(result, status=200)
 
     if request.method == "DELETE":
         Review.objects.filter(id=review_id).delete()

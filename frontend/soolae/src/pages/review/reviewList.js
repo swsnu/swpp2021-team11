@@ -5,7 +5,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import * as actionCreators from '../../store/actions/actionCreators';
 import StarRate from '../../components/common/star';
-import UserName from '../../components/common/user_name';
 
 import './style.css';
 
@@ -15,6 +14,9 @@ class ReviewList extends React.Component {
     }
 
     render() {
+        if(!this.props.logged_in || this.props.storedReviews.length == 0){
+            return <div className="review_list"><h2>Loading...</h2></div>;
+        }
         const review_list_item = (review) => {
             return (
                 <li key={review.id} onClick={() => this.props.history.push('/review/' + review.id)}>
@@ -23,7 +25,7 @@ class ReviewList extends React.Component {
                         Rating: <StarRate rate={review.star_rating} />
                     </h2>
                     <h3>
-                        Author: <UserName id={review.author_id} />
+                        Author: <span>{review.author_name}</span>
                     </h3>
                 </li>
             );
@@ -41,6 +43,7 @@ class ReviewList extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
+        logged_in: state.user.logged_in,
         storedReviews: state.review.reviews,
     };
 };
