@@ -61,8 +61,9 @@ function TestPage(props) {
         if (nextQuestion < questions.length) {
             setCurrentQuestion(nextQuestion);
         } else {
-            props.getTestResult(answers);
-            props.history.push('/rec');
+            const userId = Math.floor(Math.random() * 1000) + 3000;
+            props.getTestResult(userId, answers).then(() => {props.history.push('/rec');});
+            
         }
     };
     return (
@@ -100,7 +101,9 @@ function TestPage(props) {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getTestResult: () => dispatch(actionCreators.getTestResult()),
+        getTestResult: (userId, answers) => {
+            return dispatch(actionCreators.getTestResult(userId, answers));
+        },
     };
 };
 
