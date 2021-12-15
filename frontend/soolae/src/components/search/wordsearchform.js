@@ -6,6 +6,12 @@ class WordSearchForm extends React.Component {
         this.state = {word: ''};
     }
 
+    pressEnter(e){
+        if(e.key == 'Enter'){
+            this.props.onClickSearch(this.state.word);
+        }
+    }
+
     render(){
         return (
             <div className="word_search" style={{justifyContent:'center', display:'flex', alignItems:'center'}}>
@@ -15,13 +21,18 @@ class WordSearchForm extends React.Component {
                     style={{width:'500px', height:'30px', borderStyle:'solid', borderWidth:'3px'}}
                     value={this.state.word}
                     onChange={(e) => {this.setState({word: e.target.value});}}
+                    onKeyDown={(e) => this.pressEnter(e)}
                 />
                 <button className='btn btn-primary' style={{margin:'3px'}}
-                    onClick={() => {this.props.onClick(this.state.word);}}
+                    onClick={() => {this.props.onClickSearch(this.state.word);}}
                 >
                     Search
                 </button>
-
+                <button className='btn btn-primary' style={{margin:'3px'}}
+                    onClick={() => {this.props.onClickReset();}}
+                >
+                    Reset
+                </button>
             </div>
         );
     }

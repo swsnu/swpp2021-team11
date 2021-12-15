@@ -136,5 +136,6 @@ class Review(models.Model):
         return f"Review of {self.sool}, id:{self.id}"
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=CASCADE)
+    user = models.OneToOneField(User, related_name='profile', on_delete=CASCADE)
+    favorite_sool = models.ManyToManyField(Sool, null=True)
     profile_image = models.ImageField(upload_to="review_image", blank=True, null=True)

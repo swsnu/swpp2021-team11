@@ -124,14 +124,14 @@ export const getAlcoholInfo_ = (data) => {
 
 export const getAlcoholInfo = (id) => {
     return dispatch => {
-        console.log('alcohol!!');
         return axios.get('/api/alcohol/' + id).then(res=> dispatch(getAlcoholInfo_(res.data)));
     };
 };
 
-export const getTestResult = () => {
+export const getTestResult = (result) => {
     return dispatch => {
-        return axios.get('/api/test/')
+        console.log(result);
+        return axios.post('/api/test/', {'test_result': result})
             .then(res => {dispatch({type: actionTypes.GET_TEST_RESULT, recommended: res.data});});
     };
 };
