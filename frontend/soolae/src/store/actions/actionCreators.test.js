@@ -73,15 +73,8 @@ describe('actionCreators.js', () => {
     });
 
     it('getReview should get review correctly', (done) => {
-        store.dispatch(actionCreators.getReview()).then(() => {
+        store.dispatch(actionCreators.getReview(0)).then(() => {
             expect(spyGet).toHaveBeenCalledTimes(1);
-            done();
-        });
-    });
-
-    it('postReview should post review correctly', (done) => {
-        store.dispatch(actionCreators.postReview()).then(() => {
-            expect(spyPost).toHaveBeenCalledTimes(1);
             done();
         });
     });

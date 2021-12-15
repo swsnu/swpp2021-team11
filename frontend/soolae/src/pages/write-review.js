@@ -19,7 +19,7 @@ class WriteReviewPage extends React.Component {
             alcohol_id: null,
             content: '',
             rating: 1,
-            image: '',
+            image: null,
             alcohol_select: false,
         };
         this.selectAlcohol = this.selectAlcohol.bind(this);
@@ -44,13 +44,13 @@ class WriteReviewPage extends React.Component {
     }
 
     submitReview() {
-        this.props.postReview({
-            title: this.state.title,
-            content: this.state.content,
-            rating: this.state.rating,
-            image: this.state.image,
-            sool_id: this.state.alcohol_id,
-        });
+        const formData = new FormData();
+        formData.append('title', this.state.title);
+        formData.append('content', this.state.content);
+        formData.append('rating', this.state.rating);
+        formData.append('image', this.state.image);
+        formData.append('sool_id', this.state.alcohol_id);
+        this.props.postReview(formData);
         this.setState({submitted: false});
     }
 
@@ -89,9 +89,10 @@ class WriteReviewPage extends React.Component {
                         <div className='form-group'>
                             <label className='form-label'>Image</label>
                             <input className='form-control'
-                                type="text"
-                                value={this.state.image}
-                                onChange={(event) => this.setState({image: event.target.value})}
+                                type='file'
+                                accept='image/*'
+                                name='review_image'
+                                onChange={(event) => this.setState({image: event.target.files[0]})}
                             />
                         </div>
                         <div>

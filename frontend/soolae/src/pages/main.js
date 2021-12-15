@@ -18,9 +18,13 @@ class MainPage extends React.Component {
     }
 
     render() {
+        if(!this.props.logged_in || this.props.storedRecommendations.length == 0){
+            return <div className="MainPage">Loading...</div>;
+        }
         let list = this.props.storedRecommendations;
         return (
             <div className="MainPage">
+                <h1 style={{marginLeft: 65}}>Today&apos;s Recommendation</h1>
                 <ul style={{listStyleType:'none'}}>{list.map((item) => RecommendationItem(item.id))}</ul>
             </div>
         );
@@ -30,12 +34,14 @@ class MainPage extends React.Component {
 const mapStateToProps = (state) => {
     return {
         storedRecommendations: state.alcohol.recommended,
+        logged_in: state.user.logged_in,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         getRecommendationList: () => dispatch(actionCreators.getRecommendationList()),
+        requireLogin: () => dispatch(actionCreators.requireLogin()),
     };
 };
 

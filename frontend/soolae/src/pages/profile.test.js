@@ -28,7 +28,7 @@ const mockStore = getMockStore(stubInitialState);
 
 describe('<Profile />', () => {
     const spyAlert = jest.spyOn(window, 'alert').mockImplementation(() => {});
-    const spyGetUserInfo = jest.spyOn(actionCreators, 'getUserInfo');
+    const spyRequireLogin = jest.spyOn(actionCreators, 'requireLogin');
     let history;
     let profile;
     beforeEach(() => {
@@ -37,7 +37,7 @@ describe('<Profile />', () => {
         profile = (
             <Provider store={mockStore}>
                 <ConnectedRouter history={history}>
-                    <Profile getUserInfo={spyGetUserInfo}/>
+                    <Profile requireLogin={spyRequireLogin}/>
                 </ConnectedRouter>
             </Provider>
         );
@@ -47,6 +47,6 @@ describe('<Profile />', () => {
         const component = mount(profile);
         const wrapper = component.find('.profile');
         expect(wrapper.length).toBe(1);
-        expect(spyGetUserInfo).toBeCalledTimes(1);
+        expect(spyRequireLogin).toBeCalledTimes(1);
     });
 });

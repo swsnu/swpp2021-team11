@@ -40,6 +40,28 @@ export const signOut = () => {
     };
 };
 
+export const requireLogin = () => {
+    return dispatch => {
+        return axios.get('/api/auth/')
+            .then((res) => {
+                dispatch({type: actionTypes.CHECK_LOGIN, logged_in: res.data});
+                if(res.data == 'False'){
+                    alert('User not authorized. Please log in.');
+                    dispatch(push('/signIn/'));
+                }
+            });
+    };
+};
+
+export const checkLogin = () => {
+    return dispatch => {
+        return axios.get('/api/auth/')
+            .then((res) => {
+                dispatch({type: actionTypes.CHECK_LOGIN, logged_in: res.data});
+            });
+    };
+};
+
 export const getRecommendationList = () => {
     return (dispatch) => {
         return axios
@@ -55,24 +77,49 @@ export const getRecommendationList = () => {
 };
 
 export const getReviewList = () => {
-    return (dispatch) => {
-        return axios.get('/api/review/').then((res) => {
-            dispatch({type: actionTypes.GET_REVIEW_LIST, reviews: res.data});
-        });
+    return dispatch => {
+        return axios.get('/api/review/')
+            .then(res => {
+                dispatch({type: actionTypes.GET_REVIEW_LIST, reviews: res.data});
+            }, err => {
+                if(err.response.status == 401){
+                    alert('User not authorized. Please log in.');
+                    dispatch(push('/signIn/'));
+                }
+            });
     };
 };
 
 export const getReview = (review_id) => {
-    return (dispatch) => {
-        return axios.get('/api/review/' + review_id + '/').then((res) => {
-            dispatch({type: actionTypes.GET_REVIEW, review: res.data});
-        });
+    return dispatch => {
+        return axios.get('/api/review/' + review_id + '/')
+            .then(res => {
+                if(res.data != null)
+                    dispatch({type: actionTypes.GET_REVIEW, review: res.data.review, is_authorized: res.data.is_authorized});
+            }, err => {
+                if(err.response.status == 401){
+                    alert('User not authorized. Please log in.');
+                    dispatch(push('/signIn/'));
+                }
+            });
+    };
+};
+
+export const deleteReview = (review_id) => {
+    return dispatch => {
+        return axios.delete('/api/review/' + review_id + '/')
+            .then(res => {dispatch({type: actionTypes.DELETE_REVIEW, review: res.data});});
     };
 };
 
 export const postReview = (new_review) => {
-    return (dispatch) => {
-        return axios.post('/api/review/', new_review).then((res) => {
+    return dispatch => {
+        return axios({
+            method: 'post',
+            url: '/api/review/',
+            data: new_review,
+            headers: {'content-type': 'multipart/form-data'}
+        }).then(res => {
             dispatch({type: actionTypes.POST_REVIEW, review: res.data});
             dispatch(push('/review/' + res.data.id));
         });
@@ -84,8 +131,9 @@ export const getAlcoholInfo_ = (data) => {
 };
 
 export const getAlcoholInfo = (id) => {
-    return (dispatch) => {
-        return axios.get('/api/alcohol/' + id).then((res) => dispatch(getAlcoholInfo_(res.data)));
+    return dispatch => {
+        console.log('alcohol!!');
+        return axios.get('/api/alcohol/' + id).then(res=> dispatch(getAlcoholInfo_(res.data)));
     };
 };
 
@@ -150,5 +198,26 @@ export const getUserInfo_ = (data) => {
 export const getUserInfo = (id) => {
     return (dispatch) => {
         return axios.get('/api/user/' + id).then((res) => dispatch(getUserInfo_(res.data)));
+    };
+};
+
+export const getProfile = () => {
+    return dispatch => {
+        return axios.get('/api/profile/')
+            .then(res => {
+                dispatch({type: actionTypes.GET_USER_INFO, user: res.data});
+            }, err => {
+                if(err.response.status == 401){
+                    alert('User not authorized. Please log in.');
+                    dispatch(push('/signIn/'));
+                }
+            });
+    };
+};
+
+export const editProfile = (data) => {
+    return dispatch => {
+        return axios.put('/api/profile/', data)
+            .then(res => {dispatch({type: actionTypes.EDIT_PROFILE, user: res.data});});
     };
 };

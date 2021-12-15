@@ -14,7 +14,9 @@ const stubInitialState = {
         review_list: [{id:0}]
     },
     category: {},
-    user: {}
+    user: {
+        logged_in: true
+    }
 };
 
 const mockStore = getMockStore(stubInitialState);

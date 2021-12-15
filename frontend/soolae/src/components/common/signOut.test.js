@@ -11,7 +11,9 @@ const stubInitialState = {
     alcohol: {},
     review: {},
     category: {},
-    user: {}
+    user: {
+        logged_in: true
+    }
 };
 
 const mockStore = getMockStore(stubInitialState);

@@ -30,6 +30,6 @@ describe('<AlcoholDetailInfo />', () => {
         );
         const component = mount(alcoholDetailInfo);
         const wrapper = component.find('.AlcoholDetailInfo');
-        expect(wrapper.find('h1').text()).toBe('Name: mockName');
+        expect(wrapper.find('h1').text()).toBe('mockName');
     });
 });

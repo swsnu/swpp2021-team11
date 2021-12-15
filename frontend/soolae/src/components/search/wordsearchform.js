@@ -8,10 +8,11 @@ class WordSearchForm extends React.Component {
 
     render(){
         return (
-            <div className="word_search">
+            <div className="word_search" style={{justifyContent:'center', display:'flex', alignItems:'center'}}>
                 <input
                     type="text"
                     name="word"
+                    style={{width:'500px', height:'30px', borderStyle:'solid', borderWidth:'3px'}}
                     value={this.state.word}
                     onChange={(e) => {this.setState({word: e.target.value});}}
                 />
