@@ -165,8 +165,6 @@ def recommend(request):
 
 @method_check(["GET", "POST"])
 def review_list(request):
-    if not request.user.is_authenticated:
-        return HttpResponse(status=401)
     if request.method == "GET":
         result = list(
             Review.objects.all().values("id", "title", "content", "star_rating", "author_id")
