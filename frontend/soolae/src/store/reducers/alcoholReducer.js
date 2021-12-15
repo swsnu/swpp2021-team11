@@ -8,10 +8,12 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
+    console.log(action);
     switch (action.type) {
     case actionTypes.GET_RECOMMENDATION_LIST:
         return {...state, recommended: action.recommended};
     case actionTypes.GET_ALCOHOL_INFO:
+        console.log(action.alcohol_info);
         return {...state, alcohol_info: [...state.alcohol_info, action.alcohol_info]};
     case actionTypes.GET_ALCOHOL_LIST:
         return {...state, alcohol_list: action.alcohol_list};

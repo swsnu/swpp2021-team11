@@ -3,8 +3,6 @@ import {withRouter} from 'react-router-dom';
 import {Button} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-//import './style.css';
-
 const MenuBar = (props) => {
     return (
         <div className="MenuBar" style={{ backgroundColor:'#6c757d'}}>

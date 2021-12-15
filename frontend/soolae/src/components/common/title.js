@@ -10,7 +10,7 @@ const TitleBar = (props) => {
     return (
         <div className="TitleBar">
             <header className="App-header">
-                <Card style={{backgroundColor: '#6c757d'}}>
+                <div style={{backgroundColor: '#6c757d'}}>
                     <Card.Body>
                         <Button variant="link" id="btn"
                             onClick={() => {
@@ -30,7 +30,7 @@ const TitleBar = (props) => {
                             <img src="/img/profileButton.svg" alt="Profile" style={{height: '50px'}} />
                         </Button>
                     </Card.Body>
-                </Card>
+                </div>
             </header>
         </div>
     );

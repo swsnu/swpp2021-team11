@@ -24,7 +24,6 @@ const reducer = (state = initialState, action) => {
             logged_in: action.logged_in
         };
     case actionTypes.SIGNOUT:
-        console.log('sign out');
         return {...state, selected: null, logged_in: false};
     default:
         return state;

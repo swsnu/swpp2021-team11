@@ -36,7 +36,7 @@ export const requireLogin = () => {
         return axios.get('/api/auth/')
             .then((res) => {
                 dispatch({type: actionTypes.CHECK_LOGIN, logged_in: res.data});
-                if(!res.data){
+                if(res.data == 'False'){
                     alert('User not authorized. Please log in.');
                     dispatch(push('/signIn/'));
                 }
@@ -56,7 +56,15 @@ export const checkLogin = () => {
 export const getRecommendationList = () => {
     return dispatch => {
         return axios.get('/api/recommend/')
-            .then(res => {dispatch({type: actionTypes.GET_RECOMMENDATION_LIST, recommended: res.data});});
+            .then(res => {
+                console.log(res);
+                dispatch({type: actionTypes.GET_RECOMMENDATION_LIST, recommended: res.data});
+            }, err => {
+                if(err.response.status == 401){
+                    alert('User not authorized. Please log in.');
+                    dispatch(push('/signIn/'));
+                }
+            });
     };
 };
 
@@ -116,6 +124,7 @@ export const getAlcoholInfo_ = (data) => {
 
 export const getAlcoholInfo = (id) => {
     return dispatch => {
+        console.log('alcohol!!');
         return axios.get('/api/alcohol/' + id).then(res=> dispatch(getAlcoholInfo_(res.data)));
     };
 };

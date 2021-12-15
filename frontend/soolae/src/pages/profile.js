@@ -3,9 +3,9 @@ import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import * as actionCreators from '../store/actions/actionCreators';
 //import AlcoholDetailInfo from '../components/alcohol/alcohol_detail_info';
-import StarRate from '../components/common/star';
 import {Col, Row} from 'react-bootstrap';
 import './profile.css';
+import SimpleReview from '../components/simpleReview';
 
 class ProfilePage extends React.Component {
     state = {
@@ -90,8 +90,7 @@ class ProfilePage extends React.Component {
 
     render() {
         if(!this.props.logged_in || !this.props.userInfo){
-            this.props.requireLogin();
-            return <div className='profile'><h1>Loading...</h1></div>;
+            return <div className='profile'>Loading...</div>;
         }
         const infoTab = (
             <div className='infoTab'>
@@ -125,15 +124,7 @@ class ProfilePage extends React.Component {
                 <h2>Reviews</h2>
                 {this.props.userInfo.reviews.map((review) => {
                     return (
-                        <li key={review.id} onClick={() => this.props.history.push('/review/' + review.id)}>
-                            <h1>{review.title}</h1>
-                            <h2>
-                                Rating: <StarRate rate={review.star_rating} />
-                            </h2>
-                            <h3>
-                                Author: {review.author_name}
-                            </h3>
-                        </li>
+                        <SimpleReview key={0} review={review} />
                     );
                 })}
             </div>

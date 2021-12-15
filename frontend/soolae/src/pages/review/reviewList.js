@@ -1,11 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+import SimpleReview from '../../components/simpleReview';
 import * as actionCreators from '../../store/actions/actionCreators';
-import StarRate from '../../components/common/star';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
 
 class ReviewList extends React.Component {
@@ -15,19 +14,11 @@ class ReviewList extends React.Component {
 
     render() {
         if(!this.props.logged_in || this.props.storedReviews.length == 0){
-            return <div className="review_list"><h2>Loading...</h2></div>;
+            return <div className="review_list">Loading...</div>;
         }
         const review_list_item = (review) => {
             return (
-                <li key={review.id} onClick={() => this.props.history.push('/review/' + review.id)}>
-                    <h1>{review.title}</h1>
-                    <h2>
-                        Rating: <StarRate rate={review.star_rating} />
-                    </h2>
-                    <h3>
-                        Author: <span>{review.author_name}</span>
-                    </h3>
-                </li>
+                <SimpleReview review={review} />
             );
         };
         return (

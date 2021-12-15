@@ -17,12 +17,10 @@ class MainPage extends React.Component {
         this.props.getRecommendationList();
     }
 
-    async requireLogin(){
-        await this.props.requireLogin();
-    }
-
     render() {
-        this.requireLogin();
+        if(!this.props.logged_in || this.props.storedRecommendations.length == 0){
+            return <div className="MainPage">Loading...</div>;
+        }
         let list = this.props.storedRecommendations;
         return (
             <div className="MainPage">
@@ -36,6 +34,7 @@ class MainPage extends React.Component {
 const mapStateToProps = (state) => {
     return {
         storedRecommendations: state.alcohol.recommended,
+        logged_in: state.user.logged_in,
     };
 };
 

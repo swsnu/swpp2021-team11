@@ -21,7 +21,7 @@ import WriteReviewPage from './pages/write-review';
 import ReviewListPage from './pages/review/reviewList';
 import ReviewDetailPage from './pages/review/:id';
 
-import { Card } from 'react-bootstrap';
+import Footer from './components/common/footer';
 
 function App(props) {
     return (
@@ -29,7 +29,7 @@ function App(props) {
             <div style={{display: 'flex', justifyContent: 'center'}}>
                 <div className="App">
                     <div style={{position:'sticky', top:'0', zIndex:'1'}}><TitleBar/></div>
-                    <Card.Img style={{objectFit:'cover', objectPosition:'0% 20%', height:'300px'}} src="http://www.koreanheritage.kr/resource/issue/47/article/122/header_122.jpg?v=18" />
+                    <img style={{objectFit:'cover', objectPosition:'0% 20%', height:'300px'}} src="http://www.koreanheritage.kr/resource/issue/47/article/122/header_122.jpg?v=18" />
                     <div style={{position:'sticky', top:'90px', zIndex:'1'}}><MenuBar/></div>
                     <Switch>
                         <Route path="/test" exact render={() => <TestPage />} />
@@ -46,6 +46,7 @@ function App(props) {
                         <Redirect exact from="/" to="test" />
                         <Route render={() => <h1>Not Found</h1>} />
                     </Switch>
+                    <Footer/>
                 </div>
             </div>
         </ConnectedRouter>

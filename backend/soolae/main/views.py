@@ -141,13 +141,12 @@ def alcohol(request):
 
 @method_check(["GET"])
 def alcohol_info(request, alcohol_id):
-    try:
-        result = Sool.objects.filter(id=alcohol_id).values()
-    except Sool.DoesNotExist:
-        return HttpResponse(status=404)
+    result = list(Sool.objects.filter(id=alcohol_id).values())[0]
+    sool = Sool.objects.get(id=alcohol_id)
+    result['sool_review'] = add_author_name(list(Review.objects.filter(sool=sool).values()))
 
     return JsonResponse(
-        result[0], status=200, safe=False, json_dumps_params={"ensure_ascii": False}
+        result, status=200, json_dumps_params={"ensure_ascii": False}
     )
 
 
