@@ -14,4 +14,5 @@ urlpatterns = (
     path("recommend/", views.recommend, name="recommend"),
     path("review/", views.review_list, name="review_list"),
     path("review/<int:review_id>/", views.review_detail, name="review_detail"),
+    path("getid/", views.getid, name='getid')
 )

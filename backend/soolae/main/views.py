@@ -205,3 +205,12 @@ def review_detail(request, review_id):
     if request.method == "DELETE":
         Review.objects.filter(id=review_id).delete()
     return HttpResponse(status=200)
+
+
+@method_check(["GET"])
+def getid(request):
+    if request.user.is_authenticated:
+        x = request.user.id
+    else:
+        x = -1
+    return JsonResponse({'id': x}, status=200, safe=False)

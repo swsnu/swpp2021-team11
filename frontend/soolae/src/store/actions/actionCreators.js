@@ -12,8 +12,18 @@ export const signUp = (data) => {
         });
     };
 };
-export const signIn = (data) => {
+export const signIn = (data, uid) => {
     return (dispatch) => {
+        if (uid !== undefined) {
+            return axios
+                .post('/api/signin/', data)
+                .then(() => axios.get('/api/getid/'))
+                .then((res) => axios.get(recommendServer + '/copy/' + uid + '/' + res.data.id))
+                .then(() => {
+                    dispatch({type: actionTypes.SIGNIN});
+                    dispatch(push('/main/'));
+                });
+        }
         return axios.post('/api/signin/', data).then(() => {
             dispatch({type: actionTypes.SIGNIN});
             dispatch(push('/main/'));
@@ -32,9 +42,15 @@ export const signOut = () => {
 
 export const getRecommendationList = () => {
     return (dispatch) => {
-        return axios.get('/api/recommend/').then((res) => {
-            dispatch({type: actionTypes.GET_RECOMMENDATION_LIST, recommended: res.data});
-        });
+        return axios
+            .get('/api/getid/')
+            .then((res) => {
+                let uid = res.data.id;
+                return axios.get(recommendServer + '/recommend/' + uid);
+            })
+            .then((res) => {
+                dispatch({type: actionTypes.GET_RECOMMENDATION_LIST, recommended: res.data.index});
+            });
     };
 };
 
@@ -78,7 +94,7 @@ export const getTestResult = (userId, answers) => {
         console.log(answers);
         return axios
             .post(recommendServer + '/test/' + userId, {
-                answer: answers
+                answer: answers,
             })
             .then(() => axios.get(recommendServer + '/recommend/' + userId))
             .then((res) => {

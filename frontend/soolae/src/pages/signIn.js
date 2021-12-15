@@ -21,8 +21,8 @@ class SignIn extends Component {
     }
 
     login() {
-        const data = {'username': this.state.username,'password': this.state.password};
-        this.props.signIn(data);
+        const data = {'username': this.state.username, 'password': this.state.password};
+        this.props.signIn(data, this.props.uid);
     }
 
     render() {
@@ -62,8 +62,14 @@ class SignIn extends Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        signIn: (data) => dispatch(actionCreators.signIn(data)),
+        signIn: (data, uid) => dispatch(actionCreators.signIn(data, uid)),
     };
 };
 
-export default connect(null, mapDispatchToProps)(SignIn);
+const mapStateToProps = state => {
+    return {
+        uid: state.alcohol.recUserId
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

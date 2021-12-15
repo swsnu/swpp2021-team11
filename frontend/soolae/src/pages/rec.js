@@ -16,7 +16,8 @@ class TestResultPage extends React.Component {
                 </div>
             );
         }
-        return <AlcoholDetailInfo id={recommendation[0]} />;
+        console.log(recommendation);
+        return <AlcoholDetailInfo id={recommendation[0].id} />;
     }
 }
 
