@@ -116,7 +116,8 @@ class Sool(models.Model):
         )
         if len(rating_list) == 0:
             self.rating = 0
-        self.rating = sum(rating_list) / len(rating_list)
+        else:
+            self.rating = sum(rating_list) / len(rating_list)
 
     def __str__(self):
         return self.name
@@ -136,5 +137,6 @@ class Review(models.Model):
         return f"Review of {self.sool}, id:{self.id}"
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=CASCADE)
+    user = models.OneToOneField(User, related_name='profile', on_delete=CASCADE)
+    favorite_sool = models.ManyToManyField(Sool, null=True)
     profile_image = models.ImageField(upload_to="review_image", blank=True, null=True)

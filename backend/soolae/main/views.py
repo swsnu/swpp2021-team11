@@ -1,5 +1,6 @@
 import json
-import random  # Temporary
+import requests
+import random
 from functools import wraps
 from django.http import (
     HttpResponse,
@@ -10,7 +11,7 @@ from django.http import (
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import get_user_model
-from .models import Sool, SoolCategory, Review
+from .models import Sool, SoolCategory, Review, UserProfile
 
 
 User = get_user_model()
@@ -96,11 +97,14 @@ def user_info(request, user_id=0):
     except User.DoesNotExist:
         return HttpResponse(status=404)
 
+    profile, created = Profile.objects.get_or_create(user=user)
+
     result = {
         "id": user.id,
         "username": user.username,
         "email": user.email,
         "reviews": add_author_name(list(Review.objects.filter(author=user.id).values())),
+        "favorite_sool": list(user.profile.favorite_sool.all().values("id", "name", "sool_image"))
     }
     return JsonResponse(result, status=200, safe=False)
 
@@ -109,21 +113,31 @@ def profile(request):
     if not request.user.is_authenticated:
         return HttpResponse(status=401)
     user = User.objects.get(id=request.user.id)
-
+    profile, created = UserProfile.objects.get_or_create(user = user)
     if request.method == "PUT":
         try:
             req_data = json.loads(request.body.decode())
-            user.username = req_data["username"]
-            user.email = req_data["email"]
+            if "username" in req_data.keys():
+                user.username = req_data["username"]
+            if "email" in req_data.keys():
+                user.email = req_data["email"]
+            if "favorite_sool" in req_data.keys():
+                id = req_data["favorite_sool"]
+                favorites = list(user.profile.favorite_sool.all().values("id"))
+                print(list(map((lambda sool: sool["id"]), favorites)))
+                if id in list(map((lambda sool: sool["id"]), favorites)):
+                    user.profile.favorite_sool.remove(Sool.objects.get(id=id))
+                else:
+                    user.profile.favorite_sool.add(Sool.objects.get(id=id))
             user.save()
         except (KeyError, json.JSONDecodeError):
             return HttpResponseBadRequest()
-
     result = {
         "id": user.id,
         "username": user.username,
         "email": user.email,
         "reviews": add_author_name(list(Review.objects.filter(author=user.id).values())),
+        "favorite_sool": list(user.profile.favorite_sool.all().values("id", "name", "sool_image"))
     }
 
     if request.method == "GET":
@@ -133,7 +147,7 @@ def profile(request):
 
 @method_check(["GET"])
 def alcohol(request):
-    alcohol_list = list(Sool.objects.all().values("id", "name", "rating"))
+    alcohol_list = list(Sool.objects.all().values("id", "name", "rating", "sool_image"))
     return JsonResponse(
         alcohol_list, safe=False, json_dumps_params={"ensure_ascii": False}
     )
@@ -141,6 +155,9 @@ def alcohol(request):
 
 @method_check(["GET"])
 def alcohol_info(request, alcohol_id):
+    sool = Sool.objects.get(id=alcohol_id)
+    sool.update_star_rating()
+    sool.save()
     result = list(Sool.objects.filter(id=alcohol_id).values())[0]
     sool = Sool.objects.get(id=alcohol_id)
     result['sool_review'] = add_author_name(list(Review.objects.filter(sool=sool).values()))
@@ -164,34 +181,38 @@ def category(request, category_id):
     responses = {
         "id": finded_category.id,
         "name": finded_category.name,
-        "alcohol_list": list(finded_category.sool.values("id", "name")),
+        "alcohol_list": list(finded_category.sool.values("id", "name", "sool_image")),
     }
     return JsonResponse(
         responses, safe=False, json_dumps_params={"ensure_ascii": False}
     )
 
 
-@method_check(["GET"])
-def test(request):
-    ######
-    # Generate some recommendations
-    ######
-    sool = Sool.objects.first()
-    result = {"id": sool.id}
-    return JsonResponse(result, status=200)
+# @method_check(["POST"])
+# def test(request):
+#     try:
+#         req_data = json.loads(request.body.decode())
+#         test_result = req_data['test_result']
+#     except (KeyError, json.JSONDecodeError):
+#         return HttpResponseBadRequest()
+#     url = "http://api.fkr.kr:8001/language"
+#     result = requests.get(url, data = {"string": test_result}, timeout=5)
+#     return JsonResponse(result["index"], safe=False, status=200)
 
 
-@method_check(["GET"])
-def recommend(request):
-    ######
-    # Generate some recommendations
-    ######
-    result = [
-        {"id": random.randrange(128, 254)},
-        {"id": random.randrange(128, 254)},
-        {"id": random.randrange(128, 254)},
-    ]
-    return JsonResponse(result, status=200, safe=False)
+# @method_check(["GET"])
+# def recommend(request):
+#     if not request.user.is_authenticated:
+#         return HttpResponse(status=401)
+#     ######
+#     # Generate some recommendations
+#     ######
+#     result = [
+#         {"id": random.randrange(128, 254)},
+#         {"id": random.randrange(128, 254)},
+#         {"id": random.randrange(128, 254)},
+#     ]
+#     return JsonResponse(result, status=200, safe=False)
 
 
 @method_check(["GET", "POST"])

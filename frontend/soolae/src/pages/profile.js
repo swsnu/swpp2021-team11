@@ -2,7 +2,7 @@ import React from 'react';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import * as actionCreators from '../store/actions/actionCreators';
-//import AlcoholDetailInfo from '../components/alcohol/alcohol_detail_info';
+import AlcoholSimpleInfo from '../components/alcohol/alcohol_simple_info';
 import {Col, Row} from 'react-bootstrap';
 import './profile.css';
 import SimpleReview from '../components/simpleReview';
@@ -29,33 +29,9 @@ class ProfilePage extends React.Component {
             const third = 3 * i + 2;
             grid.push(
                 <Row>
-                    <Col>
-                        <img 
-                            onClick={() => {
-                                console.log(first);
-                                this.props.history.push('/alcohol/' + alcoholList[first].id);
-                            }}
-                            style={{width:'150px', margin: '30px'}}
-                            src={'/media/' + alcoholList[3 * i].sool_image}
-                            alt="Alcohol Image" 
-                        />
-                    </Col>
-                    <Col>
-                        <img 
-                            onClick={() => this.props.history.push('/alcohol/' + alcoholList[second].id)}
-                            style={{width:'150px', margin: '30px'}}
-                            src={'/media/' + alcoholList[second].sool_image}
-                            alt="Alcohol Image" 
-                        />
-                    </Col>
-                    <Col>
-                        <img
-                            onClick={() => this.props.history.push('/alcohol/' + alcoholList[third].id)}
-                            style={{width:'150px', margin: '30px'}}
-                            src={'/media/' + alcoholList[third].sool_image}
-                            alt="Alcohol Image" 
-                        />
-                    </Col>
+                    <Col><AlcoholSimpleInfo alcohol={alcoholList[first]} /></Col>
+                    <Col><AlcoholSimpleInfo alcohol={alcoholList[second]} /></Col>
+                    <Col><AlcoholSimpleInfo alcohol={alcoholList[third]} /></Col>
                 </Row>
             );
         }
@@ -63,19 +39,12 @@ class ProfilePage extends React.Component {
         for(i = length - length % 3; i < length; i++){
             const j = i;
             row.push(
-                <Col>
-                    <img
-                        onClick={() => this.props.history.push('/alcohol/' + alcoholList[j].id)}
-                        style={{width:'150px', margin: '30px'}}
-                        src={'/media/' + alcoholList[j].sool_image}
-                        alt="Alcohol Image" 
-                    />
-                </Col>
+                <Col><AlcoholSimpleInfo alcohol={alcoholList[j]} /></Col>
             );
         }
         grid.push(<Row style={{textAlign:'center'}}>{row}</Row>);
         return <div className='alcohol grid' style={{position:'relative'}}>
-            <img src='/img/shelf.jpg' alt="Shelf Image" />
+            <img src='/img/shelf.jpg' alt="Shelf Image" style={{width:'100%'}}/>
             <div className='alcohol grid' style={{position:'absolute', top:'90px', left:'70px'}}>{grid}</div>
         </div>;
     }
@@ -112,11 +81,9 @@ class ProfilePage extends React.Component {
                 <button className='btn-confirm' onClick = {() => {this.editInfo();}}>Confirm</button>
             </div>
         );
-        let sool = {id:175, name:'test_name', sool_image: 'info_image/475.jpg', alcohol_content: 'test_content', price: 10101, rating: 2};
         const myAlcoholTab = (
             <div className = 'alcoholTab'>
-                
-                {this.putOnShelf([sool, sool, sool, sool, sool, sool, sool, sool])}
+                {this.putOnShelf(this.props.userInfo.favorite_sool)}
             </div>
         );
         const myReviewsTab = (

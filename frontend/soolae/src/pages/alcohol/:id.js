@@ -10,7 +10,6 @@ class AlcoholDetailPage extends React.Component {
         //this.props.getAlcoholInfo(this.props.match.params.id);
     }
     render() {
-        console.log(this.props);
         if(!this.props.alcohol_info || this.props.alcohol_info.length == 0){
             this.props.getAlcoholInfo(this.props.match.params.id);
             return <div className="AlcoholDetailPage">loading...</div>;
@@ -26,18 +25,28 @@ class AlcoholDetailPage extends React.Component {
                 <SimpleReview review={review} />
             );
         };
-        console.log(alcohol);
+        let reviewNum = 2;
+        if(this.props.logged_in){
+            reviewNum = alcohol.sool_review.length;
+        }
         return (
             <div>
                 <AlcoholDetailInfo id={parseInt(this.props.match.params.id)} />
-                {alcohol.sool_review.map(review_list_item)}
+                <div style={{textAlign:'center'}}>
+                    <button style={{margin:'20px', height:'50px', backgroundColor:'#79cbd1', borderRadius:'10%'}} 
+                        onClick={() => this.props.history.push('/write-review/' + alcohol.id)}>
+                        Write a review For this Sool!
+                    </button>
+                </div>
+                {alcohol.sool_review.map(review_list_item).slice(0, reviewNum)}
             </div>
         );
     }
 }
 const mapStateToProps = (state) => {
     return {
-        alcohol_info: state.alcohol.alcohol_info
+        alcohol_info: state.alcohol.alcohol_info,
+        logged_in: state.user.logged_in
     };
 };
 
