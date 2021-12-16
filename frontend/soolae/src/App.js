@@ -22,6 +22,7 @@ import ReviewListPage from './pages/review/reviewList';
 import ReviewDetailPage from './pages/review/:id';
 
 import Footer from './components/common/footer';
+import ChatPage from './pages/chat';
 
 function App(props) {
     return (
@@ -44,6 +45,7 @@ function App(props) {
                         <Route path="/write-review/:id" exact render={() => <WriteReviewPage />} />
                         <Route path="/review" exact render={() => <ReviewListPage />} />
                         <Route path="/review/:id" exact render={(props) => <ReviewDetailPage {...props}/>} />
+                        <Route path="/chat" exact render={() => <ChatPage />} />
                         <Redirect exact from="/" to="test" />
                         <Route render={() => <h1>Not Found</h1>} />
                     </Switch>
