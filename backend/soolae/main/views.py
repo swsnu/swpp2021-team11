@@ -97,6 +97,8 @@ def user_info(request, user_id=0):
     except User.DoesNotExist:
         return HttpResponse(status=404)
 
+    profile, created = Profile.objects.get_or_create(user=user)
+
     result = {
         "id": user.id,
         "username": user.username,
@@ -111,7 +113,7 @@ def profile(request):
     if not request.user.is_authenticated:
         return HttpResponse(status=401)
     user = User.objects.get(id=request.user.id)
-    #profile, created = UserProfile.objects.get_or_create(user = user)
+    profile, created = UserProfile.objects.get_or_create(user = user)
     if request.method == "PUT":
         try:
             req_data = json.loads(request.body.decode())
