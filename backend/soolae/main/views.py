@@ -49,7 +49,7 @@ def signup(request):
         password = req_data["password"]
     except (KeyError, json.JSONDecodeError):
         return HttpResponseBadRequest()
-    if User.objects.exists(username=username):
+    if User.objects.filter(username=username).exists():
         return HttpResponse(status=403)
     user = User.objects.create_user(username, password=password)
     login(request, user)
