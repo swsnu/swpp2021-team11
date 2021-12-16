@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import {withRouter} from 'react-router';
 import * as actionCreators from '../../store/actions/actionCreators';
 import {Button} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -21,6 +22,7 @@ class SignOut extends Component {
     }
     
     logout() {
+        this.props.history.push('/test');
         this.props.signOut();
     }
     
@@ -49,4 +51,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignOut);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SignOut));

@@ -10,12 +10,16 @@ import './style.css';
 const mapStateToProps = (state) => {
     return {
         alcohol_info: state.alcohol.alcohol_info,
+        user_info: state.user.selected,
+        logged_in: state.user.logged_in
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         getAlcoholInfo: (id) => dispatch(actionCreators.getAlcoholInfo(id)),
+        getProfile: () => dispatch(actionCreators.getProfile()),
+        editProfile: (data) => dispatch(actionCreators.editProfile(data)),
     };
 };
 
@@ -24,6 +28,7 @@ const AlcoholDetailInfo = (props) => {
     let alcohol = props.alcohol_info.filter((item) => item.id === props.id);
     if (alcohol.length === 0) {
         props.getAlcoholInfo(props.id);
+        //props.getProfile();
         return <div className="AlcoholDetailInfo">loading...</div>;
     }
     alcohol = alcohol[0];
@@ -42,17 +47,47 @@ const AlcoholDetailInfo = (props) => {
             props.history.push('/alcohol/' + props.id);
         }
     };
+
+    let starButton = '☆';
+    let changeStar;
+    if(!props.logged_in){
+        starButton = '';
+    }
+    else if(!props.user_info){
+        props.getProfile();
+    }
+    else{
+        let favorites = props.user_info.favorite_sool;
+
+        if(favorites){
+            starButton = favorites.map(idx => idx.id).includes(alcohol.id) ? '★' : '☆';
+        }
+        else{
+            return <div>Loading...</div>;
+        }
+        changeStar = () => {
+            const data = {
+                'favorite_sool': alcohol.id
+            };
+            props.editProfile(data);
+        };
+    }
+
     return (
         <div className="AlcoholDetailInfo" onClick={() => onClickInfo()}>
-            <h2 style={{marginLeft:'20px'}}>{alcohol.name}</h2>
+            <div>
+                <span style={{fontSize:'30px', marginLeft:'20px'}}>{alcohol.name}</span>
+                <span style={{float:'right', fontSize:'30px', color:'#fae452'}} onClick={() => changeStar()}>{starButton}</span>
+            </div>
             <img style={{width:'35%', margin: '10px'}}src={'/media/' + alcohol.sool_image} alt="Alcohol Image" />
             <div style={{margin:'10px', width:'60%', float:'right'}}>
                 <div style={{height:'250px'}}>
-                    <div>Alcohol Content: {alcohol.alcohol_content}</div>
+                    <div>Alcohol Content: {alcohol.alcohol_content}	℃</div>
                     <div>Price: {alcohol.price}&#8361;</div>
                     <div>
                         Rate: <StarRate rate={alcohol.rating} />
                     </div>
+                    <div>Buy: <a href={alcohol.link}>{alcohol.link}</a></div>
                     <ResponsiveBar
                         data={data}
                         keys={['num']}

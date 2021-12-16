@@ -132,7 +132,6 @@ export const getAlcoholInfo_ = (data) => {
 
 export const getAlcoholInfo = (id) => {
     return dispatch => {
-        console.log('alcohol!!');
         return axios.get('/api/alcohol/' + id).then(res=> dispatch(getAlcoholInfo_(res.data)));
     };
 };

@@ -16,7 +16,7 @@ class WriteReviewPage extends React.Component {
         this.state = {
             submitted: false,
             title: '',
-            alcohol_id: null,
+            alcohol_id: this.props.match.params.id,
             content: '',
             rating: 1,
             image: null,
@@ -28,7 +28,10 @@ class WriteReviewPage extends React.Component {
     }
 
     getAlcoholName(id) {
-        let [alcohol] = this.props.alcohol_info.filter((item) => item.id === id);
+        if(!id){
+            id = this.props.match.params.id;
+        }
+        let [alcohol] = this.props.alcohol_info.filter((item) => item.id == id);
         if (alcohol === undefined) {
             this.props.getAlcoholInfo(id);
             return 'loading';
@@ -40,7 +43,7 @@ class WriteReviewPage extends React.Component {
     }
 
     selectAlcohol() {
-        this.setState({alcohol_select: true});
+        this.setState({alcohol_select: !this.state.alcohol_select});
     }
 
     submitReview() {
@@ -55,12 +58,18 @@ class WriteReviewPage extends React.Component {
     }
 
     render() {
+        if(!this.props.alcohol_info || this.props.alcohol_info.length == 0){
+            this.props.getAlcoholInfo(172);
+            return <div>Loading...</div>;
+        }
+        else{
+            this.getAlcoholName(this.props.match.params.id);
+        }
         return (
             <div className="write_review_page" style={{padding:'30px'}}>
                 <div className='row d-flex'>
                     <hr/>
-                    <div className="col-md-6">
-                        
+                    <div className="col-md-0">
                         <h1> Write Review </h1>
                         <div className='form-group'>
                             <label className='form-label'>Title</label>
@@ -73,7 +82,7 @@ class WriteReviewPage extends React.Component {
                         <div className='form-group'>
                             <label className='form-label' style={{margin:'3px'}}>Sool</label>
                             <button className='btn btn-dark' style={{margin:'3px'}} onClick={this.selectAlcohol}>
-                                {this.state.alcohol_id === null ? 'Select Alcohol' : this.getAlcoholName(this.state.alcohol_id)}
+                                {!this.state.alcohol_id ? 'Select Alcohol' : this.getAlcoholName(this.state.alcohol_id)}
                             </button>
                         </div>
                         {this.state.alcohol_select ? <SearchAlcohol onClick={this.selectAlcoholEnd} /> : null}
