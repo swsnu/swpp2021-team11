@@ -6,10 +6,7 @@ const recommendServer = 'http://api.fkr.kr:8081';
 
 export const signUp = (data) => {
     return (dispatch) => {
-        return axios.post('/api/signup/', data).then(() => {
-            dispatch({type: actionTypes.SIGNUP});
-            dispatch(push('/main/'));
-        });
+        return axios.post('/api/signup/', data).then(() => dispatch(signIn(data)));
     };
 };
 export const signIn = (data, uid) => {

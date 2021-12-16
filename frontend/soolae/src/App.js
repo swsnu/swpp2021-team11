@@ -35,7 +35,7 @@ function App(props) {
                     <Switch>
                         <Route path="/test" exact render={() => <TestPage />} />
                         <Route path="/rec" exact render={() => <TestResultPage />} />
-                        <Route path="/signUp" exact render={() => <SignUpPage />} />
+                        <Route path="/signUp" exact render={(props) => <SignUpPage {...props}/>} />
                         <Route path="/signIn" exact render={() => <SignInPage />} />
                         <Route path="/main" exact render={() => <MainPage />} />
                         <Route path="/search" exact render={() => <SearchPage />} />
