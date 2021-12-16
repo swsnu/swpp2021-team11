@@ -16,6 +16,12 @@ const reducer = (state = initialState, action) => {
             return {state};
     case actionTypes.SIGNIN:
     case actionTypes.SIGNUP:
+        console.log(action);
+        return {
+            ...state,
+            selected: action.user,
+            logged_in: true,
+        };
     case actionTypes.GET_USER_INFO:
     case actionTypes.EDIT_PROFILE: 
         return {

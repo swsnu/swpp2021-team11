@@ -55,7 +55,7 @@ class ReviewDetailPage extends React.Component {
 const mapStateToProps = (state) => {
     return {
         review: state.review.selected,
-        auth: state.review.auth,
+        auth: state.review.is_authorized,
     };
 };
 

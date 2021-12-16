@@ -19,6 +19,7 @@ class MainPage extends React.Component {
 
     render() {
         if(!this.props.logged_in || this.props.storedRecommendations.length == 0){
+            this.props.requireLogin();
             return <div className="MainPage">Loading...</div>;
         }
         let list = this.props.storedRecommendations;

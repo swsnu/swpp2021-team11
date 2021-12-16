@@ -14,6 +14,7 @@ class ReviewList extends React.Component {
 
     render() {
         if(!this.props.logged_in || this.props.storedReviews.length == 0){
+            this.props.requireLogin();
             return <div className="review_list">Loading...</div>;
         }
         const review_list_item = (review) => {
@@ -42,6 +43,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getReviewList: () => dispatch(actionCreators.getReviewList()),
+        requireLogin: () => dispatch(actionCreators.requireLogin()),
     };
 };
 
