@@ -58,6 +58,10 @@ class WriteReviewPage extends React.Component {
     }
 
     render() {
+        if(!this.props.logged_in){
+            this.props.requireLogin();
+            return <div>Loading...</div>;
+        }
         if(!this.props.alcohol_info || this.props.alcohol_info.length == 0){
             this.props.getAlcoholInfo(172);
             return <div>Loading...</div>;
@@ -125,6 +129,7 @@ class WriteReviewPage extends React.Component {
 const mapStateToProps = (state) => {
     return {
         alcohol_info: state.alcohol.alcohol_info,
+        logged_in: state.user.logged_in,
     };
 };
 
@@ -132,6 +137,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         postReview: (new_reivew) => dispatch(actionCreators.postReview(new_reivew)),
         getAlcoholInfo: (id) => dispatch(actionCreators.getAlcoholInfo(id)),
+        requireLogin: () => dispatch(actionCreators.requireLogin()),
     };
 };
 

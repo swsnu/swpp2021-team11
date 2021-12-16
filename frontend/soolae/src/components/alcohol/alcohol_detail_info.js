@@ -11,7 +11,8 @@ const mapStateToProps = (state) => {
     return {
         alcohol_info: state.alcohol.alcohol_info,
         user_info: state.user.selected,
-        logged_in: state.user.logged_in
+        logged_in: state.user.logged_in,
+        uid: state.alcohol.recUserId,
     };
 };
 

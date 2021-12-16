@@ -137,7 +137,6 @@ export const getAlcoholInfo = (id) => {
 
 export const getTestResult = (userId, answers) => {
     return (dispatch) => {
-        console.log(answers);
         return axios
             .post(recommendServer + '/test/' + userId, {
                 answer: answers,
@@ -217,5 +216,14 @@ export const editProfile = (data) => {
     return dispatch => {
         return axios.put('/api/profile/', data)
             .then(res => {dispatch({type: actionTypes.EDIT_PROFILE, user: res.data});});
+        // if (uid !== undefined) {
+        //     return axios
+        //         .put('/api/profile/', data)
+        //         .then(res => {dispatch({type: actionTypes.EDIT_PROFILE, user: res.data});})
+        //         .then(() => axios.get('/api/getid/'))
+        //         .then((res) => axios.get(recommendServer + '/update/' + uid + '/' + res.data.favorite_sool));
+        // }
+        // return axios.put('/api/profile/', data)
+        //     .then(res => {dispatch({type: actionTypes.EDIT_PROFILE, user: res.data});});
     };
 };

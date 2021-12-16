@@ -39,13 +39,21 @@ class ChatPage extends React.Component {
         }
     }
 
+    pressEnter(e){
+        if(e.key == 'Enter'){
+            this.sendHandler();
+        }
+    }
+
     render() {
         return (
             <div className="MainPage">
                 <h1 style={{marginLeft: 65}}>Chat with your personal Sommelier</h1>
                 <ul style={{listStyleType: 'none'}}>{this.state.history.map((item, index) => itemFunction(item, index))}</ul>
                 <h2>
-                    <input type='text' value={this.state.value} onChange={(event) => {this.setState({value: event.target.value});}} />
+                    <input type='text' value={this.state.value}
+                        onChange={(event) => {this.setState({value: event.target.value});}}
+                        onKeyDown={(e) => this.pressEnter(e)} />
                     <button onClick={this.sendHandler}>Send</button>
                 </h2>
             </div>
