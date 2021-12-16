@@ -42,10 +42,15 @@ def add_author_name(reviews):
 @csrf_exempt
 @method_check(["POST"])
 def signup(request):
-    req_data = json.loads(request.body.decode())
-    username = req_data["username"]
-    email = req_data["email"]
-    password = req_data["password"]
+    try:
+        req_data = json.loads(request.body.decode())
+        username = req_data["username"]
+        email = req_data["email"]
+        password = req_data["password"]
+    except (KeyError, json.JSONDecodeError):
+        return HttpResponseBadRequest()
+    if User.objects.filter(username=username).exists():
+        return HttpResponse(status=403)
     user = User.objects.create_user(username, password=password)
     login(request, user)
     result = {
