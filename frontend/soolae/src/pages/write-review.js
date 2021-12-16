@@ -3,10 +3,10 @@ import {connect} from 'react-redux';
 import * as actionCreators from '../store/actions/actionCreators';
 import {withRouter} from 'react-router';
 import axios from 'axios';
-axios.defaults.xsrfCookieName = 'csrftoken';
-axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 import SearchAlcohol from '../components/search/search_alcohol';
 import StarRateSelect from '../components/common/starSelect';
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 class WriteReviewPage extends React.Component {
     constructor(props) {
