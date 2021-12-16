@@ -9,10 +9,10 @@ class TestResultPage extends React.Component {
     render() {
         let recommendation = this.props.recommended;
         if (recommendation === undefined || recommendation.length === 0) {
-            this.props.getTestResult();
+            //this.props.getTestResult();
             return (
                 <div>
-                    <h1>Loading...</h1>;
+                    <h1>Loading...</h1>
                 </div>
             );
         }

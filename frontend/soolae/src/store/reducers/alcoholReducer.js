@@ -5,6 +5,7 @@ const initialState = {
     alcohol_info: [],
     category_alcohols: [],
     alcohol_list: [],
+    test_result: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -12,7 +13,10 @@ const reducer = (state = initialState, action) => {
     case actionTypes.GET_RECOMMENDATION_LIST:
         return {...state, recommended: action.recommended};
     case actionTypes.GET_ALCOHOL_INFO:
-        return {...state, alcohol_info: [...state.alcohol_info, action.alcohol_info]};
+        if(!state.alcohol_info.map(alcohol => alcohol.id).includes(action.alcohol_info.id))
+            return {...state, alcohol_info: [...state.alcohol_info, action.alcohol_info]};
+        else
+            return state;
     case actionTypes.GET_ALCOHOL_LIST:
         return {...state, alcohol_list: action.alcohol_list};
     case actionTypes.GET_TEST_RESULT:

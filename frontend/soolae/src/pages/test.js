@@ -11,28 +11,28 @@ function TestPage(props) {
     const questions = [
         {
             questionText: 'How do you feel today?',
-            answerOptions: [{answerText: 'Happy'}, {answerText: 'Fine'}, {answerText: 'Chill'}, {answerText: 'Upset'}],
+            answerOptions: [{answerText: '기쁘다'}, {answerText: '괜찮다'}, {answerText: '편안하다'}, {answerText: '화가 난다'}],
         },
         {
             questionText: 'What kind of taste do you prefer?',
             answerOptions: [
-                {answerText: 'Sweet'},
-                {answerText: 'Moderate'},
-                {answerText: 'Soft'},
-                {answerText: 'Bitter'},
+                {answerText: '달다'},
+                {answerText: '보통'},
+                {answerText: '부드럽다'},
+                {answerText: '쓰다'},
             ],
         },
         {
             questionText: 'What percentage of alchohol do you prefer?',
-            answerOptions: [{answerText: '5%'}, {answerText: '15%'}, {answerText: '30%'}, {answerText: '70%'}],
+            answerOptions: [{answerText: '약함'}, {answerText: '보통'}, {answerText: '쎔'}, {answerText: '아주 쎔'}],
         },
         {
             questionText: 'What is the occasion of drinking?',
             answerOptions: [
-                {answerText: 'For a Formal meeting'},
-                {answerText: 'With Friends'},
-                {answerText: 'With Family'},
-                {answerText: 'Alone'},
+                {answerText: '공식적인 자리'},
+                {answerText: '친구들과'},
+                {answerText: '가족과'},
+                {answerText: '혼자서'},
             ],
         },
     ];
@@ -46,7 +46,11 @@ function TestPage(props) {
         if (nextQuestion < questions.length) {
             setCurrentQuestion(nextQuestion);
         } else {
-            props.getTestResult(answers);
+            console.log(answers);
+            let result = '';
+            answers.map((answer) => result += answer + ' ');
+            console.log(result);
+            props.getTestResult(result);
             props.history.push('/rec');
         }
     };
@@ -67,7 +71,7 @@ function TestPage(props) {
                     </div>
                     <div className="row justify-content-center" id='answer-section'>
                         {questions[currentQuestion].answerOptions.map((answerOption, index) => (
-                            <button className='d-flex justify-content-center' id="button" key={index} onClick={() => handleAnswerOptionClick(index)}>
+                            <button className='d-flex justify-content-center' id="button" key={index} onClick={() => handleAnswerOptionClick(answerOption.answerText)}>
                                 {answerOption.answerText}
                             </button>
                         ))}
@@ -80,7 +84,7 @@ function TestPage(props) {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getTestResult: () => dispatch(actionCreators.getTestResult()),
+        getTestResult: (answers) => dispatch(actionCreators.getTestResult(answers)),
     };
 };
 

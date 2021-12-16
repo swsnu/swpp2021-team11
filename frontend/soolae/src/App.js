@@ -12,7 +12,6 @@ import TestResultPage from './pages/rec';
 
 import SignInPage from './pages/signIn';
 import SignUpPage from './pages/signUp';
-import SignOut from './components/common/signOut';
 
 import MainPage from './pages/main';
 import SearchPage from './pages/search';
@@ -22,14 +21,16 @@ import WriteReviewPage from './pages/write-review';
 import ReviewListPage from './pages/review/reviewList';
 import ReviewDetailPage from './pages/review/:id';
 
+import Footer from './components/common/footer';
+
 function App(props) {
     return (
         <ConnectedRouter history={props.history}>
             <div style={{display: 'flex', justifyContent: 'center'}}>
                 <div className="App">
-                    <SignOut />
-                    <TitleBar />
-                    <MenuBar />
+                    <div style={{position:'sticky', top:'0', zIndex:'1'}}><TitleBar/></div>
+                    <img style={{objectFit:'cover', objectPosition:'0% 20%', height:'300px'}} src="http://www.koreanheritage.kr/resource/issue/47/article/122/header_122.jpg?v=18" />
+                    <div style={{position:'sticky', top:'90px', zIndex:'1'}}><MenuBar/></div>
                     <Switch>
                         <Route path="/test" exact render={() => <TestPage />} />
                         <Route path="/rec" exact render={() => <TestResultPage />} />
@@ -40,11 +41,13 @@ function App(props) {
                         <Route path="/profile" exact render={() => <ProfilePage />} />
                         <Route path="/alcohol/:id" exact render={() => <AlcoholDetailPage />} />
                         <Route path="/write-review" exact render={() => <WriteReviewPage />} />
+                        <Route path="/write-review/:id" exact render={() => <WriteReviewPage />} />
                         <Route path="/review" exact render={() => <ReviewListPage />} />
                         <Route path="/review/:id" exact render={() => <ReviewDetailPage />} />
                         <Redirect exact from="/" to="test" />
                         <Route render={() => <h1>Not Found</h1>} />
                     </Switch>
+                    <Footer/>
                 </div>
             </div>
         </ConnectedRouter>

@@ -1,4 +1,4 @@
-.profile li {
+.profile li:not(.AlcoholSimpleInfo){
     list-style: none;
     margin: 30px;
     background-color: cornflowerblue;
@@ -13,4 +13,10 @@
 .profile button {
     padding: 5px;
     font-size: larger;
+    width: 120px;
+}
+
+.AlcoholSimpleInfo {
+    list-style: none;
+    margin: 20px;
 }

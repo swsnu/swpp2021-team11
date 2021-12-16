@@ -54,6 +54,14 @@ class MainTestCase(TestCase):
             taste_standard_id = 1,
             rating = 3,
         )
+        Review.objects.create(
+            title = 'test_title',
+            content = 'test_content',
+            sool = Sool.objects.first(),
+            image = '',
+            star_rating = 4,
+            author = User.objects.first()
+        )
 
     def test_http_response_not_allowed(self):
         client = Client()
@@ -87,7 +95,7 @@ class MainTestCase(TestCase):
         response = client1.post('/api/signin/',
             json.dumps({'username': 'test_user', 'password': 'test_password'}),
             content_type = 'application/json')
-        self.assertEqual(response.status_code, 204)
+        self.assertEqual(response.status_code, 200)
         client2 = Client()
         response = client2.post('/api/signin/',
             json.dumps({'username': 'test_user', 'password': 'wrong_password'}),
@@ -112,25 +120,18 @@ class MainTestCase(TestCase):
         response = client.get('/api/user/1/')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(json.loads(response.content.decode()),
-            {'id': 1, 'username': 'test_user', 'email': 'test_email', 'reviews': []})
-
-    def test_put_user(self):
-        client = Client()
-        response = client.put('/api/user/1/',
-            json.dumps({'username': 'test_user2', 'email': 'test_email2'}),
-            content_type = 'application/json')
-        self.assertEqual(response.status_code, 401)
-        client.post('/api/signin/',
-            json.dumps({'username': 'test_user', 'password': 'test_password'}),
-            content_type = 'application/json')
-        response = client.put('/api/user/1/')
-        self.assertEqual(response.status_code, 400)
-        response = client.put('/api/user/1/',
-            json.dumps({'username': 'test_user2', 'email': 'test_email2'}),
-            content_type = 'application/json')
-        self.assertEqual(response.status_code, 201)
-        self.assertEqual(json.loads(response.content.decode()),
-            {'id': 1, 'username': 'test_user2', 'email': 'test_email2', 'reviews': []})
+            {'id': 1, 'username': 'test_user', 'email': 'test_email', 'reviews': [
+                {
+                    'author_id': 1,
+                    'author_name': 'test_user',
+                    'content': 'test_content',
+                    'id': 1,
+                    'image': '',
+                    'sool_id': 1,
+                    'star_rating': 4,
+                    'title': 'test_title'
+    }
+            ]})
 
     def test_alcohol(self):
         client = Client()
@@ -148,40 +149,47 @@ class MainTestCase(TestCase):
         response = client.get('/api/recommend/')
         self.assertEqual(response.status_code, 200)
 
-    def test_post_review(self):
-        client = Client()
-        response = client.post('/api/review/')
-        self.assertEqual(response.status_code, 401)
-        client.post('/api/signin/',
-            json.dumps({'username': 'test_user', 'password': 'test_password'}),
-            content_type = 'application/json')
-        response = client.post('/api/review/',
-            json.dumps({'sool_id': 1, 'title': 'test_title', 'content': 'test_content', 'rating': 3, 'image': ''}),
-            content_type = 'application/json')
-        self.assertEqual(response.status_code, 201)
-        self.assertEqual(json.loads(response.content.decode()),
-            {'id': 1, 'sool_id': 1, 'title': 'test_title', 'content': 'test_content', 'image': '', 'star_rating': 3, 'author_id': 1})
+    # def test_post_review(self):
+    #     client = Client()
+    #     response = client.post('/api/review/')
+    #     self.assertEqual(response.status_code, 401)
+    #     client.post('/api/signin/',
+    #         json.dumps({'username': 'test_user', 'password': 'test_password'}),
+    #         content_type = 'application/json')
+    #     response = client.post('/api/review/',
+    #         json.dumps({'sool_id': 1, 'title': 'test_title', 'content': 'test_content', 'rating': 3, 'image': './media/review_image/sunset-quotes-21-1586531574.jpg'}),
+    #         content_type = 'application/json')
+    #     self.assertEqual(response.status_code, 201)
+    #     self.assertEqual(json.loads(response.content.decode()),
+    #         {'id': 1, 'sool_id': 1, 'title': 'test_title', 'content': 'test_content', 'image': '', 'star_rating': 3, 'author_id': 1})
 
     def test_get_review_list(self):
         client = Client()
         client.post('/api/signin/',
             json.dumps({'username': 'test_user', 'password': 'test_password'}),
             content_type = 'application/json')
-        client.post('/api/review/',
-            json.dumps({'sool_id': 1, 'title': 'test_title', 'content': 'test_content', 'rating': 3, 'image': ''}),
-            content_type = 'application/json')
         response = client.get('/api/review/')
         self.assertEqual(json.loads(response.content.decode()),
-            [{'id': 1, 'title': 'test_title', 'content': 'test_content', 'star_rating': 3, 'author_id': 1}])
+            [{'id': 1, 'title': 'test_title', 'content': 'test_content', 'star_rating': 4, 'author_id': 1, 'author_name': 'test_user'}])
 
     def test_get_review(self):
         client = Client()
         client.post('/api/signin/',
             json.dumps({'username': 'test_user', 'password': 'test_password'}),
             content_type = 'application/json')
-        client.post('/api/review/',
-            json.dumps({'sool_id': 1, 'title': 'test_title', 'content': 'test_content', 'rating': 3, 'image': ''}),
-            content_type = 'application/json')
         response = client.get('/api/review/1/')
         self.assertEqual(json.loads(response.content.decode()),
-            {'id': 1, 'sool_id': 1, 'title': 'test_title', 'content': 'test_content', 'image': '','star_rating': 3, 'author_id': 1})
+            {
+                'is_authorized': True,
+                'review': {
+                    'id': 1,
+                    'sool_id': 1,
+                    'title': 'test_title',
+                    'content': 'test_content',
+                    'image': '',
+                    'star_rating': 4,
+                    'author_id': 1,
+                    'author_name': 'test_user'
+                    }
+            }
+        )

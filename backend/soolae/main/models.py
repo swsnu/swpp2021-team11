@@ -126,7 +126,7 @@ class Review(models.Model):
     star_rating = models.IntegerField()
     sool = models.ForeignKey(Sool, on_delete=CASCADE, related_name="sool_review")
     title = models.CharField(max_length=50, default="title")
-    image = models.ImageField(upload_to="review_image", blank=True)
+    image = models.ImageField(upload_to="review_image", blank=True, null=True)
     content = models.TextField()
     author = models.ForeignKey(
         User, on_delete=CASCADE, related_name="review", default=1
@@ -134,3 +134,8 @@ class Review(models.Model):
 
     def __str__(self):
         return f"Review of {self.sool}, id:{self.id}"
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, related_name='profile', on_delete=CASCADE)
+    favorite_sool = models.ManyToManyField(Sool, null=True)
+    profile_image = models.ImageField(upload_to="review_image", blank=True, null=True)
