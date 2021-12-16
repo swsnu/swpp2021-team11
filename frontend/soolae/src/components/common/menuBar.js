@@ -14,6 +14,13 @@ const MenuBar = (props) => {
                 >
                     Test
                 </Button>
+                <Button  variant="secondary btn-lg"
+                    onClick={() => {
+                        props.history.push('/chat');
+                    }}
+                >
+                    Chat
+                </Button>
                 <Button variant="secondary btn-lg"
                     onClick={() => {
                         props.history.push('/review');

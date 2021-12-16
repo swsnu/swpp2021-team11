@@ -29,9 +29,9 @@ class ProfilePage extends React.Component {
             const third = 3 * i + 2;
             grid.push(
                 <Row>
-                    <Col><AlcoholSimpleInfo alcohol={alcoholList[first]} /></Col>
-                    <Col><AlcoholSimpleInfo alcohol={alcoholList[second]} /></Col>
-                    <Col><AlcoholSimpleInfo alcohol={alcoholList[third]} /></Col>
+                    <Col><AlcoholSimpleInfo alcohol={alcoholList[first]} onClick={() => this.props.history.push('/alcohol/' + alcoholList[first].id)}/></Col>
+                    <Col><AlcoholSimpleInfo alcohol={alcoholList[second]} onClick={() => this.props.history.push('/alcohol/' + alcoholList[second].id)}/></Col>
+                    <Col><AlcoholSimpleInfo alcohol={alcoholList[third]} onClick={() => this.props.history.push('/alcohol/' + alcoholList[third].id)}/></Col>
                 </Row>
             );
         }
@@ -39,7 +39,7 @@ class ProfilePage extends React.Component {
         for(i = length - length % 3; i < length; i++){
             const j = i;
             row.push(
-                <Col><AlcoholSimpleInfo alcohol={alcoholList[j]} /></Col>
+                <Col><AlcoholSimpleInfo alcohol={alcoholList[j]} onClick={() => this.props.history.push('/alcohol/' + alcoholList[j].id)}/></Col>
             );
         }
         grid.push(<Row style={{textAlign:'center'}}>{row}</Row>);
