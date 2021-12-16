@@ -18,6 +18,8 @@ const reducer = (state = initialState, action) => {
             return {...state, alcohol_info: [...state.alcohol_info, action.alcohol_info]};
         else
             return state;
+    case 'setUid':
+        return {...state, recUserId: action.uid};
     case actionTypes.GET_ALCOHOL_LIST:
         return {...state, alcohol_list: action.alcohol_list};
     case actionTypes.GET_TEST_RESULT:

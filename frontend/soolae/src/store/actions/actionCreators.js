@@ -13,17 +13,17 @@ export const signUp = (data) => {
 };
 export const signIn = (data, uid) => {
     return (dispatch) => {
-        if (uid !== undefined) {
+        if (uid !== -1) {
             return axios
                 .post('/api/signin/', data)
                 .then(() => axios.get('/api/getid/'))
-                .then((res) => axios.get(recommendServer + '/copy/' + uid + '/' + res.data.id))
+                .then((res) => axios.get(recommendServer + '/copy/' + uid + '/' + res.data.id).then(() => {dispatch({type: 'setUid', uid: res.data.id});}))
                 .then(() => {
                     dispatch({type: actionTypes.SIGNIN});
                     dispatch(push('/main/'));
                 });
         }
-        return axios.post('/api/signin/', data).then(() => {
+        return axios.post('/api/signin/', data).then(() => axios.get('/api/getid/')).then((res) => {dispatch({type: 'setUid', uid: res.data.id});}).then(() => {
             dispatch({type: actionTypes.SIGNIN});
             dispatch(push('/main/'));
         });
@@ -137,6 +137,7 @@ export const getAlcoholInfo = (id) => {
 
 export const getTestResult = (userId, answers) => {
     return (dispatch) => {
+        console.log('testUserid: ' + userId);
         return axios
             .post(recommendServer + '/test/' + userId, {
                 answer: answers,
