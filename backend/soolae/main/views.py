@@ -155,6 +155,9 @@ def alcohol(request):
 
 @method_check(["GET"])
 def alcohol_info(request, alcohol_id):
+    sool = Sool.objects.get(id=alcohol_id)
+    sool.update_star_rating()
+    sool.save()
     result = list(Sool.objects.filter(id=alcohol_id).values())[0]
     sool = Sool.objects.get(id=alcohol_id)
     result['sool_review'] = add_author_name(list(Review.objects.filter(sool=sool).values()))
