@@ -116,7 +116,8 @@ class Sool(models.Model):
         )
         if len(rating_list) == 0:
             self.rating = 0
-        self.rating = sum(rating_list) / len(rating_list)
+        else:
+            self.rating = sum(rating_list) / len(rating_list)
 
     def __str__(self):
         return self.name
