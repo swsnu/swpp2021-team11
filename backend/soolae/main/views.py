@@ -217,8 +217,6 @@ def recommend(request):
 
 @method_check(["GET", "POST"])
 def review_list(request):
-    if not request.user.is_authenticated:
-        return HttpResponse(status=401)
     if request.method == "GET":
         result = add_author_name(list(
             Review.objects.all().values("id", "title", "content", "star_rating", "author_id")
@@ -275,3 +273,12 @@ def review_detail(request, review_id):
     if request.method == "DELETE":
         Review.objects.filter(id=review_id).delete()
     return HttpResponse(status=200)
+
+
+@method_check(["GET"])
+def getid(request):
+    if request.user.is_authenticated:
+        x = request.user.id
+    else:
+        x = -1
+    return JsonResponse({'id': x}, status=200, safe=False)

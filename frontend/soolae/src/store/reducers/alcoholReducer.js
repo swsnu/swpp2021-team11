@@ -20,7 +20,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.GET_ALCOHOL_LIST:
         return {...state, alcohol_list: action.alcohol_list};
     case actionTypes.GET_TEST_RESULT:
-        return {...state, test_result: action.recommended};
+        return {...state, test_result: action.recommended, recUserId: action.recUserId};
     case actionTypes.GET_CATEGORY_ALCOHOLS:
         return {...state, category_alcohols: [...state.category_alcohols, action.category_alcohols]};
     default:

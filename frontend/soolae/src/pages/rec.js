@@ -1,5 +1,5 @@
 import React from 'react';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import * as actionCreators from '../store/actions/actionCreators';
@@ -9,14 +9,15 @@ class TestResultPage extends React.Component {
     render() {
         let recommendation = this.props.recommended;
         if (recommendation === undefined || recommendation.length === 0) {
-            //this.props.getTestResult();
+            console.log('Error!!!');
             return (
                 <div>
-                    <h1>Loading...</h1>
+                    <h1><Redirect to="test" /></h1>
                 </div>
             );
         }
-        return <AlcoholDetailInfo id={recommendation.id} />;
+        console.log(recommendation);
+        return <AlcoholDetailInfo id={recommendation[0].id} />;
     }
 }
 

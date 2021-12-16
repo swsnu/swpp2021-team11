@@ -9,6 +9,7 @@ import './style.css';
 class ReviewDetailPage extends React.Component {
     constructor(props) {
         super(props);
+        this.componentDidMount = this.componentDidMount.bind(this);
     }
 
     componentDidMount() {

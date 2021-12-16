@@ -43,7 +43,7 @@ function App(props) {
                         <Route path="/write-review" exact render={() => <WriteReviewPage />} />
                         <Route path="/write-review/:id" exact render={() => <WriteReviewPage />} />
                         <Route path="/review" exact render={() => <ReviewListPage />} />
-                        <Route path="/review/:id" exact render={() => <ReviewDetailPage />} />
+                        <Route path="/review/:id" exact render={(props) => <ReviewDetailPage {...props}/>} />
                         <Redirect exact from="/" to="test" />
                         <Route render={() => <h1>Not Found</h1>} />
                     </Switch>
