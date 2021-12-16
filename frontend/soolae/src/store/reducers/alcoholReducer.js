@@ -5,7 +5,8 @@ const initialState = {
     alcohol_info: [],
     category_alcohols: [],
     alcohol_list: [],
-    test_result: []
+    test_result: [], 
+    recUserId: -1
 };
 
 const reducer = (state = initialState, action) => {

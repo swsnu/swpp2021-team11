@@ -140,7 +140,7 @@ export const getTestResult = (userId, answers) => {
             .post(recommendServer + '/test/' + userId, {
                 answer: answers,
             })
-            .then(() => axios.get(recommendServer + '/recommend/' + userId))
+            .then(() => axios.get(recommendServer + '/gettest/' + userId))
             .then((res) => {
                 return dispatch({type: actionTypes.GET_TEST_RESULT, recommended: res.data.index, recUserId: userId});
             });

@@ -50,20 +50,38 @@ function TestPage(props) {
                 {answerText: '신비롭고 우아한 파란색'},
             ],
         },
+        {
+            questionText: '알코올 도수는?',
+            answerOptions: [
+                {answerText: '맥주 정도 ( ~10)'},
+                {answerText: '와인 정도 (10~15)'},
+                {answerText: '소주 정도 (15~25)'},
+                {answerText: '위스키 정도 (25~)'},
+                {answerText: '상관 없다'},
+            ],
+        },
+        {
+            questionText: '가격',
+            answerOptions: [
+                {answerText: '싼 것만( <= 6000)'},
+                {answerText: '적당히 ( <= 15000)'},
+                {answerText: '상관 없다'}
+            ],
+        },
     ];
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [answers, setAnswers] = useState([]); //saved and sent to backend server
 
     const handleAnswerOptionClick = (answer) => {
-        setAnswers(answers.concat(answer));
+        setAnswers([...answers, answer]);
         const nextQuestion = currentQuestion + 1;
         if (nextQuestion < questions.length) {
             setCurrentQuestion(nextQuestion);
         } else {
-            const userId = Math.floor(Math.random() * 1000) + 3000;
-            props.getTestResult(userId, answers).then(() => {props.history.push('/rec');});
-            
+            console.log(answers);
+            const userId = props.uid === -1 ? Math.floor(Math.random() * 1000) + 3000 : props.uid;
+            props.getTestResult(userId, [...answers, answer]).then(() => {props.history.push('/rec');});
         }
     };
     return (
@@ -102,4 +120,10 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default withRouter(connect(null, mapDispatchToProps)(TestPage));
+const mapStateToProps = (state) => {
+    return {
+        uid: state.alcohol.recUserId
+    };
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TestPage));
