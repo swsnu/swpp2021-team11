@@ -31,12 +31,12 @@ class SignIn extends Component {
                 <hr/>
                 <div className='row d-flex justify-content-center'>
                     <div className="col-md-4">
-                        <form className='justify-content-center'>
+                        <div className='justify-content-center'>
                             
                             <h1 style={{margin:'5px'}}>Sign in</h1>
                             <div className='form-group'>
                                 <label className='form-label'>Username</label>
-                                <input id="username-input" type='email' className="form-control" value={this.state.username}
+                                <input id="username-input" type='text' className="form-control" value={this.state.username}
                                     onChange={(event) => this.setState({ username: event.target.value })}>
                                 </input>
                             </div>
@@ -51,7 +51,7 @@ class SignIn extends Component {
                                 Not a member? <br />
                                 <a href="/signup">Sign up here!</a>
                             </p>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
