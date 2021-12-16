@@ -1,9 +1,39 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useRef, useCallback} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
 import * as actionCreators from '../store/actions/actionCreators';
 import './taste-test.css';
+
+const useStateWithPromise = (initialState) => {
+    const [state, setState] = useState(initialState);
+    const resolverRef = useRef(null);
+
+    useEffect(() => {
+        if (resolverRef.current) {
+            resolverRef.current(state);
+            resolverRef.current = null;
+        }
+        /**
+         * Since a state update could be triggered with the exact same state again,
+         * it's not enough to specify state as the only dependency of this useEffect.
+         * That's why resolverRef.current is also a dependency, because it will guarantee,
+         * that handleSetState was called in previous render
+         */
+    }, [resolverRef.current, state]);
+
+    const handleSetState = useCallback(
+        (stateAction) => {
+            setState(stateAction);
+            return new Promise((resolve) => {
+                resolverRef.current = resolve;
+            });
+        },
+        [setState]
+    );
+
+    return [state, handleSetState];
+};
 
 function TestPage(props) {
     //This part may get changed after we discuss more
@@ -65,24 +95,27 @@ function TestPage(props) {
             answerOptions: [
                 {answerText: '싼 것만( <= 6000)'},
                 {answerText: '적당히 ( <= 15000)'},
-                {answerText: '상관 없다'}
+                {answerText: '상관 없다'},
             ],
         },
     ];
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
-    const [answers, setAnswers] = useState([]); //saved and sent to backend server
+    const [answers, setAnswers] = useStateWithPromise([]); //saved and sent to backend server
 
     const handleAnswerOptionClick = (answer) => {
-        setAnswers([...answers, answer]);
-        const nextQuestion = currentQuestion + 1;
-        if (nextQuestion < questions.length) {
-            setCurrentQuestion(nextQuestion);
-        } else {
-            console.log(answers);
-            const userId = props.uid === -1 ? Math.floor(Math.random() * 1000) + 3000 : props.uid;
-            props.getTestResult(userId, [...answers, answer]).then(() => {props.history.push('/rec');});
-        }
+        setAnswers([...answers, answer]).then(() => {
+            const nextQuestion = currentQuestion + 1;
+            if (nextQuestion < questions.length) {
+                setCurrentQuestion(nextQuestion);
+            } else {
+                console.log(answers);
+                const userId = props.uid === -1 ? Math.floor(Math.random() * 1000) + 3000 : props.uid;
+                props.getTestResult(userId, [...answers, answer]).then(() => {
+                    props.history.push('/rec');
+                });
+            }
+        });
     };
     return (
         <div className="taste-test" id="padding">
@@ -101,7 +134,12 @@ function TestPage(props) {
                     </div>
                     <div className="row justify-content-center" id="answer-section">
                         {questions[currentQuestion].answerOptions.map((answerOption, index) => (
-                            <button className='d-flex justify-content-center' id="button" key={index} onClick={() => handleAnswerOptionClick(index)}>
+                            <button
+                                className="d-flex justify-content-center"
+                                id="button"
+                                key={index}
+                                onClick={() => handleAnswerOptionClick(index)}
+                            >
                                 {answerOption.answerText}
                             </button>
                         ))}
@@ -122,7 +160,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
     return {
-        uid: state.alcohol.recUserId
+        uid: state.alcohol.recUserId,
     };
 };
 
