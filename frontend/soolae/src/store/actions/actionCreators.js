@@ -13,7 +13,7 @@ export const signUp = (data) => {
 };
 export const signIn = (data, uid) => {
     return (dispatch) => {
-        if (uid !== -1) {
+        if (uid !==undefined && uid !== -1) {
             return axios
                 .post('/api/signin/', data)
                 .then(() => axios.get('/api/getid/'))
