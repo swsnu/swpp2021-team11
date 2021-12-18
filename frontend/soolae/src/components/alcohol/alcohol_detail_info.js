@@ -83,7 +83,7 @@ const AlcoholDetailInfo = (props) => {
             <img style={{width:'35%', margin: '10px'}}src={'/media/' + alcohol.sool_image} alt="Alcohol Image" />
             <div style={{margin:'10px', width:'60%', float:'right'}}>
                 <div style={{height:'250px'}}>
-                    <div>Alcohol Content: {alcohol.alcohol_content}	℃</div>
+                    <div>Alcohol Content: {alcohol.alcohol_content}	%</div>
                     <div>Price: {alcohol.price}&#8361;</div>
                     <div>
                         Rate: <StarRate rate={alcohol.rating} />
