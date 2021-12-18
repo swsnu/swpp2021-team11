@@ -18,6 +18,7 @@ class SignUp extends React.Component {
         };
     }
     register() {
+        console.log(this.state.email);
         const data = {'username': this.state.username, 'email': this.state.email, 'password': this.state.password};
         this.props.signUp(data);
     }
@@ -27,7 +28,7 @@ class SignUp extends React.Component {
                 <hr/>
                 <div className='row d-flex justify-content-center'>
                     <div className="col-md-4">
-                        <form className='justify-content-center'>
+                        <div className='justify-content-center'>
                             <h1 style={{margin:'5px'}}>Sign Up</h1>
                             <div className='form-group'>
                                 <label className='form-label'>Username</label>
@@ -35,14 +36,14 @@ class SignUp extends React.Component {
                             </div>
                             <div className='form-group'>
                                 <label className='form-label'>Email</label>
-                                <input className='form-control' type='text' value={this.state.email} placeholder='email' onChange={(e) => this.setState({ email: e.target.value })} />
+                                <input className='form-control' type='email' value={this.state.email} placeholder='email' onChange={(e) => this.setState({ email: e.target.value })} />
                             </div>
                             <div className='form-group'>
                                 <label className='form-label'>Password</label>
                                 <input className='form-control' type='password' value={this.state.password} placeholder='password' onChange={(e) => this.setState({ password: e.target.value })} />
                             </div>
                             <div className='footer'>
-                                <button style={{margin:'10px'}} className='btn btn-primary' onClick= {() => {this.register();}}>Sign Up</button>
+                                <button style={{margin:'10px'}} className='btn btn-primary' onClick= {() => {console.log('log'); this.register();}}>Sign Up</button>
                             </div>
                             <div>
                                 <p>
@@ -50,7 +51,7 @@ class SignUp extends React.Component {
                                     <a href="/signin">Sign in here</a>
                                 </p>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>

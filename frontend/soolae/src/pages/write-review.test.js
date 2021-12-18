@@ -51,10 +51,8 @@ describe('<WriteReviewPage />', () => {
         const wrapper = component.find('.write_review_page');
         const instance = component.find(WriteReviewPage.WrappedComponent).instance();
         wrapper.find('input').at(0).simulate('change', {target: {value: 'test_title'}});
-        wrapper.find('input').at(1).simulate('change', {target: {value: 'test_image'}});
         wrapper.find('input').at(2).simulate('change', {target: {value: 'test_content'}});
         expect(instance.state.title).toEqual('test_title');
-        expect(instance.state.image).toEqual('test_image');
         expect(instance.state.content).toEqual('test_content');
     });
 
